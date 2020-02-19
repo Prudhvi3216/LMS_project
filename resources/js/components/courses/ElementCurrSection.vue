@@ -4,7 +4,7 @@
              <!--If Section title edit-->
              <table v-if="editing" class="table table-borderless">
                 <tr>
-                    <td><input type="text" class="form-control" required :value="section.lecture_title" @change="inputpass"></td>
+                    <td><input type="text" class="form-control" required :value="section.section_title" @change="inputpass"></td>
                     <td>
                         <button class="btn btn-outline-success btn-sm" @click="updateSection(section.id)">update</button>
                         <button class="btn btn-outline-danger btn-sm" @click="editing = false">Cancel</button>
@@ -15,7 +15,7 @@
             <!--Default sections display--> 
             <div v-if="!editing">
                 <div class="row p-2 section_title_bg">
-                    <h5 class="col-md-8">{{ section.title }}</h5><button class="btn btn-link col-md-2" @click="editing = true">Edit</button>
+                    <h5 class="col-md-8">{{ section.section_title }}</h5><button class="btn btn-link col-md-2" @click="editing = true">Edit</button>
                 </div>
             </div>
 

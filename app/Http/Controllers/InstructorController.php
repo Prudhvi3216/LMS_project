@@ -2,60 +2,86 @@
 
 namespace App\Http\Controllers;
 
-use App\CurriculumSection;
+//Models
 use App\Course;
+use App\CurriculumSection;
+use App\CourseFiles;
+use App\CurriculumLecturesQuiz;
+
 use Validator;
 
 use Illuminate\Http\Request;
 
 class InstructorController extends Controller
 {
-    public function create_curriculum(Request $request, $id){
-        $payLoad = json_decode(request()->getContent(), true);
 
-        $section_title = $payLoad['section_title'];
-        $lectures_count = $payLoad['lectures_count'];
-        $each_lecture = [];
-        foreach($payLoad['lectures_data'] as $lecture_data_array){
-            for($i=0;$i<=$lectures_count;$i++)
-            {
-                $each_lecture[$i] = $lecture_data_array[$i];
+    public function add_sectiondata(Request $request){
+
+        $validate = $request->validate([
+            'section_title' => 'required|string|min:3|max:40',
+            'course_id' => 'required|numeric'    
+        ]);
+
+        if($validate){
+            //Inserting Section data
+            $curriculum_section = new CurriculumSection;
+            $curriculum_section->course_id = $request->course_id;
+            $curriculum_section->title = $request->section_title;
+            $curriculum_section->save();
+            
+            if($curriculum_section){
+                $inserted_id = $curriculum_section->section_id;
+                $alert_type = 'success';
+                $alert_message = 'Section Added Successfully';
+                return response()->json(['section_inserted_id'=>$inserted_id,'alert_type'=>$alert_type, 'alert_message'=>$alert_message],200);
+            }
+            else{
+                $alert_type = 'error';
+                $alert_message = 'Section data not inserted';
+                return response()->json(['alert_type'=>$alert_type, 'alert_message'=>$alert_message],200);
             }
         }
-        foreach($each_lecture as $category => $lecture_content){
+    }
+
+    public function create_curriculum(Request $request){
+        
+        $validate = $request->validate([
+            'section_id' => 'required|numeric',
+            'lecture_title' => 'required|string|min:3|max:50',
+            'lecture_description' => 'nullable|string',
+            'lecture_contenttext' => 'nullable|string',
+            'sort_order' => 'required|numeric',
+        ]);
+
+        if($validate){
+            $curriculum_lectures_quiz = CurriculumSection::find($request->section_id)->curriculum_lectures;
+            if($curriculum_lectures_quiz->count()){
+                dd('Lectures exist in the given section - '.$request->section_id);
+            }
+            else{
+                $curriculum_lectures_quiz = new CurriculumLecturesQuiz;
+                $curriculum_lectures_quiz->title = $request->lecture_title;
+                $curriculum_lectures_quiz->section_id = $request->section_id;
+                $curriculum_lectures_quiz->description = $request->lecture_description;
+                $curriculum_lectures_quiz->contenttext = $request->lecture_contenttext;
+                //$curriculum_lectures_quiz->media = $request->media;
+                //$curriculum_lectures_quiz->media_type = $request->media_type;
+                $curriculum_lectures_quiz->sort_order = $request->sort_order;
+                //$curriculum_lectures_quiz->publish = $request->publish;
+                //$curriculum_lectures_quiz->resources = $request->resources;
+                $curriculum_lectures_quiz->save();
+            }
             
         }
-        foreach($payLoad['lecture_files'] as $lecture_files){
-            dd($lecture_files);
-        }
-
-        /*
-        $rules = [
-            'section_title' => 'required',
-        ];
-        $base_validator = Validator($payLoad, $rules);
-
-        if($validator->passes()){
-            return response()->json('Data Valid');
-        }
         else{
-            return response()->json($validator->errors()->all());
-        }
-
-        /*
-        if($id){
-            $curriculum_section = new CurriculumSection;
-            $curriculum_section->course_id = $id;
-            $curriculum_section->title = $request->title;
-            $curriculum_section->sort_order = $request->sort_order;
-            $curriculum_section->save();
-        }
-        */
+            return response()->json('errors',$validate->errors()->all());
+        }    
     }
 
     public function get_curriculum($id){
-        $curriculum = CurriculumSection::find($id);
-        return response()->json($curriculum);
+        $curriculum = CurriculumSection::where('course_id',$id)->first();
+        $lectures = $curriculum->curriculum_lectures();
+        dd($lectures);        
     }
 
     //From Ulearn

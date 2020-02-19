@@ -24,8 +24,7 @@ class CreateCourseFilesTable extends Migration {
 			$table->text('file_tag');
 			$table->integer('uploader_id');
 			$table->integer('processed')->default(1)->comment('0-not processed,1-processed');
-			$table->integer('created_at');
-			$table->integer('updated_at');
+			$table->timestamps();
 		});
 	}
 

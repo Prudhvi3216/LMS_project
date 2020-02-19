@@ -130,8 +130,30 @@ export default {
                 image_data[i] = {name:files.name,type:files.type,size:files.size};
             }
             this.selected_images = image_data;
+            
+           
         },
 
+        upload_files(){
+            alert('function called');
+         
+            /*           
+           // Check for the various File API support.
+            if (window.File && window.FileReader && window.FileList && window.Blob) {
+                // Great success! All the File APIs are supported.
+                axios.post(`course-uploadfile`, files)
+                .then(response=>{
+                    console.log(response);
+                })
+                .catch(error=>{
+                    console.log(error);
+                });
+            } else {
+                alert('The File APIs are not fully supported in this browser.');
+            }
+            */
+        },
+        
         //Video files select method
         onVideoSelect(event){
             let videos_count = event.target.files.length;

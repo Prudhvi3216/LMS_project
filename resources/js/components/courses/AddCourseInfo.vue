@@ -8,17 +8,21 @@
 
         <div class="tab-content">
             <div id="home" class="tab-pane fade active">
-                <div class="container m-4">
+                <div class="container m-5">
                     <add-course></add-course>
                 </div>
             </div>
             <div id="menu1" class="tab-pane fade">
-                <div>
-                    <h3>Course Image</h3>
+                <div class="container m-5">
+                    <vue-dropzone 
+                        id="drop2" 
+                        refs="dropzone" 
+                        :options="dropOptions" 
+                    ></vue-dropzone>
                 </div>
             </div>
             <div id="menu2" class="tab-pane fade">
-                <div class="container">
+                <div class="container m-5">
                     <curriculum-section></curriculum-section>
                 </div>
             </div>
@@ -28,14 +32,26 @@
 <script>
 import AddCourse from '../../components/courses/AddCourse.vue';
 import CurriculumSection from '../../components/courses/CurriculumSection.vue';
+import vueDropzone from 'vue2-dropzone';
+import 'vue2-dropzone/dist/vue2Dropzone.min.css';
+
 export default {
     components:{
         'add-course':AddCourse,
-        'curriculum-section':CurriculumSection
+        'curriculum-section':CurriculumSection,
+        vueDropzone
     },
     data(){
         return{
-            
+            //Dropzone sends each request for each file
+            dropOptions: {
+                url: "course-uploadimage",
+                headers: {'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),},
+                withCredentials:true,
+                addRemoveLinks: true,
+                duplicateCheck:true,
+                uploadMultiple:false
+            },
         }
     },
 

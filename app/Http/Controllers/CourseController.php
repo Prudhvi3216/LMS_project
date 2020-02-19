@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CourseController extends Controller
 {
@@ -22,7 +23,7 @@ class CourseController extends Controller
     {
       //if(\Auth::user()->can('isInstructor')){
         $courses = Course::Where('is_active',1)->Select('id','course_title','course_slug','category_id','instructor_id')->get();
-        return view('backend/courses/courses')->with('courses',$courses);
+        return view('backend.courses.courses')->with('courses',$courses);
     }
 
     /**
@@ -32,7 +33,7 @@ class CourseController extends Controller
      */
     public function create()
     {
-        return view('backend/courses/CourseAdd');
+        return view('backend.courses.CourseAdd');
     }
 
     /**
@@ -98,7 +99,7 @@ class CourseController extends Controller
     public function edit($id)
     {
         $params = Course::find($id, ['id', 'name', 'slug']);
-        return view('backend/courses/CoursesEdit')->with('params', $params);
+        return view('backend.courses.CoursesEdit')->with('params', $params);
     }
 
     /**

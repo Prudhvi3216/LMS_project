@@ -28,10 +28,11 @@ Route::group(['middleware'=>['auth','can:Admin_or_Inst']], function(){
 
   //Courses
   Route::resource('/courses', 'CourseController');
-  Route::post('/create-curriculum/{id}', 'InstructorController@create_curriculum')->name('create-curriculum');
+  Route::post('/add-section', 'InstructorController@add_sectiondata')->name('add-section');
+  Route::post('/create-curriculum', 'InstructorController@create_curriculum')->name('create-curriculum');
   Route::post('/get-curriculum/{id}', 'InstructorController@get_curriculum')->name('get-curriculum');
   Route::get('/add-curriculum', 'VueController@curriculum')->name('add-curriculum');
-
+  Route::post('/course-uploadfile', 'fileUploadController@upload_file')->name('course_fileupload');
 
   //Dashboard
   Route::get('/dashboard', 'DashboardController@index')->name('dashboard-index');
