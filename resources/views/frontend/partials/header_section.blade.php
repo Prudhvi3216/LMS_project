@@ -110,7 +110,7 @@
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Courses</a>
                   <ul class="dropdown-menu">
-                    @foreach($categories as $category)
+                    @foreach($errors as $category)
                     <li>
                       <a href="courses-list.html">
                         <i class="fa {{ $category->icon_class }} category-menu-icon"></i>

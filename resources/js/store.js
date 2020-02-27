@@ -31,7 +31,6 @@ export default{
             state.section_data = sec_data;
         },
 
-
     },
     actions:{
 

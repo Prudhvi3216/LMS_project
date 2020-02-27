@@ -1,14 +1,9 @@
 <template>
-    <div>
-        <div v-if="message" v-bind:class="[isSuccess ? success_class : error_class]" class="alert">
-            {{ message }}
-        </div>
-        <form method="POST" @submit.prevent="add_course" v-if="show_form">
+    <form method="POST" @submit.prevent="add_course" v-if="!this.$props.course_id">
             <div class="form-row">
                 <div class="col form-group">
                         <label class="label">Course Name</label>
-                        <input class="form-control" required v-model="course_title">
-                        {{ course_title }} 
+                        <input class="form-control" required v-model="course_title"> 
                 </div>   
                 <div class="col form-group">
                         <label for="Category">Category</label>
@@ -43,17 +38,19 @@
                     <input type="text" class="form-control" v-model="tags">
                 </div> 
                 <div class="col-md-6">
-                    <label class="label">Status</label>
-                    <div class="form-row form-group">
-                        <div class="form-check form-check-inline"> 
-                            <input class="form-check-input" type="radio" v-model="is_active" :name="is_active" value="1">
-                            <label class="form-check-label" for="exampleRadios1">Active</label>
+
+                        <label class="label">Status</label>
+                        <div class="form-group">
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" id="customRadio1" value="1" :name="is_active" class="custom-control-input" checked>
+                                <label class="custom-control-label" for="customRadio1">Active</label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" id="customRadio2"  value="0" :name="is_active" class="custom-control-input">
+                                <label class="custom-control-label" for="customRadio2">Inactive</label>
+                            </div>
                         </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" v-model="is_active" :name="is_active" value="0" checked>
-                            <label class="form-check-label" for="exampleRadios2">Inactive</label>
-                        </div>    
-                    </div>   
+                    
                 </div>
             </div>
             <!--Course Description-->
@@ -66,27 +63,13 @@
             </div>               
         </form>
 
-        <div v-if="show_next_sec">
-            <div>
-                <h4>{{ Course_title }}</h4>
-            </div>    
-            <button class="btn btn-sm btn-primary" @click="$emit('next_section',)">Add Curriculum</button>
-        </div>      
-    </div>    
 </template>
+
 <script>
 export default {
+    props:['categories'],
     data(){
         return{
-            show_form:true,
-            show_next_sec:false,
-
-            message:'',
-            msg_type:'',
-            success_class:'alert-success',
-            error_class:'alert-danger',
-
-            categories:null,
             inst_levels:[{'id':'1', 'name':'Beginner'},{'id':'2', 'name':'Intermediate'},{'id':'3', 'name':'Advanced'}],
 
             instructor_id:null,
@@ -99,22 +82,12 @@ export default {
             price:null,
             strike_out_price:null,
             overview:null,
-            is_active:null,
+            is_active:1,
         }
     },
-    mounted(){
-        this.load_categories()
-    },
+
     methods:{
-        load_categories(){
-            const url = '/dashboard/categories_list';
-            axios.get(url)
-            .then(response=>(
-                this.categories = response.data.categories
-            ))
-            .catch(error=>(console.log(error)));
-        },
-        add_course(){
+         add_course(){
             const url = '/courses';
             axios.post(url,{
                 category_id : this.category_id,
@@ -134,7 +107,7 @@ export default {
                     this.message = response.data.message;
                     this.show_form = false;
                     this.show_next_sec = true;
-                    this.course(response.data.course_id);
+                    this.course_info_show = true;
                 }
             })
             .catch(error=>{
@@ -144,17 +117,6 @@ export default {
                 }
             })
         },
-        isSuccess(){
-            if(this.msg_type != '' && this.msg_type == 'success'){
-                return true; 
-            }
-        },
-        get_course_data(course_id){
-            alert(course_id);
-        },
-        next_section(){
-
-        }
     }
 }
 </script>

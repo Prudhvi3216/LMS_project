@@ -14,4 +14,8 @@ class CurriculumSection extends Model
     {
         return $this->hasMany('App\CurriculumLecturesQuiz', 'section_id');
     }
+
+    public function course(){
+        return $this->belongsTo('App\Course');
+    }
 }

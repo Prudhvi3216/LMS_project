@@ -28,7 +28,6 @@ class CreateCoursesTable extends Migration {
 			$table->string('duration')->nullable();
 			$table->decimal('price', 8, 2)->nullable();
 			$table->decimal('strike_out_price', 8, 2)->nullable();
-
 			$table->boolean('is_active');
 			$table->timestamps();
 		});

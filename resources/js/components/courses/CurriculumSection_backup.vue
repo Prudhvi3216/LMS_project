@@ -5,9 +5,9 @@
 
             <!--Existing sections-->
             <div v-for="section in sections" :key="section.section_id">
-                <edit-curriculum :section="section"></edit-curriculum>
-            </div>    
-            
+                <edit-curriculum></edit-curriculum>
+                <!--<element-section :section="section"></element-section>-->
+            </div>
             
         </div> 
            
@@ -22,10 +22,13 @@
 
                             <div class="form-group" v-for="(section, section_index) in test_sections" :key="section.section_index">
                                  <h6>Section - {{ section_index+1 }} </h6>
-                                <div class="row">                                    
+                                <div class="row">
+                                    
                                     <input type="text" class="form-control col-md-10" v-if="section.editing" v-model="section.section_title" placeholder="Enter Section Title">
                                     <p class="col-md-10" v-else>{{ section.section_title }}</p>
                                     <button class="btn btn-link col-md-2" v-if="section.title_insert_show" type="button" @click="insertSection(section_index)">Insert</button>
+                                    <button class="btn btn-link col-md-2" v-if="section.title_edit_show" type="button">Edit</button>
+                                    <button class="btn btn-link col-md-2" v-if="section.title_update_show" type="button">Update</button>
                                 </div>    
                                 
                                
@@ -42,29 +45,40 @@
                                             <textarea class="form-control" v-model="lectures.lecture_description" v-if="lectures.show_description" cols="30" rows="5" placeholder="Enter Lecture Description"></textarea>
                                             <textarea class="form-control" v-model="lectures.lecture_contenttext" v-if="lectures.show_contenttext" cols="30" rows="5" placeholder="Enter Lecture Content"></textarea>
                                         
-                                                <!--File Upload-->
-                                                <div class="m-2 container upload"  v-if="lectures.show_dropzone">
-                                                     <div v-if="lectures.show_file_details">
-                                                        <table class="table table-bordered">
-                                                            <tr>                                                                
-                                                                <td>{{ lectures.uploaded_file_title }}</td>
-                                                                <td>{{ (lectures.uploaded_file_size)/1000 }}KB</td>
-                                                                <td>{{ lectures.media_type }}</td>
-                                                                <td><button type="button" class="btn btn-sm btn-danger">Delete File</button></td>
-                                                            </tr>
-                                                        </table>
-                                                    </div>    
-                                                    <div v-else>
-                                                        <input type="file" name="file" @change="select_files($event, section_index, lec_index)">
-                                                        <div class="progress m-2" v-if="lectures.show_progress">
-                                                            <div class="progress-bar" role="progressbar" v-bind:style="{ width: lectures.uploadPercentage+'%'}" aria-valuemax="100">{{ lectures.uploadPercentage+'%' }}</div>
+                                                <!--Resourses-->
+                                                <div class="m-2 container"  v-if="lectures.show_dropzone">
+                                                    <!--Files upload -->
+                                                    <vue-dropzone 
+                                                        id="drop1" 
+                                                        refs="lectures.media" 
+                                                        :options="dropOptions"
+                                                        @vdropzone-error="file_error"
+                                                        @vdropzone-success="file_success"
+                                                    ></vue-dropzone>
+
+                                                    <!--Error messages -->
+                                                    <div v-if="form_errors.length" class="m-2">
+                                                        <div v-for="(error,index) in form_errors" :key="index" class="alert alert-danger" role="alert">
+                                                            {{ error }}
+                                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close" @click="clear_errors(index)">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
                                                         </div>
-                                                        <button type="button" class="btn btn-sm btn-success" @click="upload_file(section_index, lec_index)">Upload</button>
                                                     </div>
-                                                   
                                                     
+
+                                                    <!--Success messages -->
+                                                    <div v-if="form_success.length" class="m-2">
+                                                        <div v-for="(info,index) in form_success" :key="index" class="alert alert-success" role="alert">
+                                                            {{ info }}
+                                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close" @click="clear_success(index)">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+
                                                 </div>
-                                                <!--Fileupload end-->
+                                                <!--Resources end-->
                                             
                                         <div class="clearfix p-2 border-top">
                                             <button type="button" v-if="lectures.show_cancel_lecture_button" class="btn btn-danger btn-sm m-2">Cancel</button>
@@ -95,102 +109,50 @@
 </template>
 
 <script>
+import ElementCurrSection from '../../components/courses/ElementCurrSection.vue';
+import vueDropzone from 'vue2-dropzone';
+import 'vue2-dropzone/dist/vue2Dropzone.min.css';
+
+import { mapGetters } from 'vuex';
 export default {
+    components:{
+        'element-section':ElementCurrSection,
+        vueDropzone
+    },
     props:['course_id'],
     data(){
         return{
-            form:new FormData,
+            form: new FormData,
+            //Dropzone sends each request for each file
+            dropOptions: {
+                url: "course-uploadfile",
+                headers: {'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),},
+                withCredentials:true,
+                addRemoveLinks: true,
+                maxFiles:1,
+            },
             course_name:'',
             test_sections:[],
+            form_errors:[],
+            form_success:[],
             sections:[],
         }    
     },
     mounted(){
-        if(this.$props.course_id){
-            this.get_sections();
-        }
-        else{
-            alert('Course ID missing');
-        }
+        this.get_sections();
     },
     methods:{
 
-        //On files select
-        select_files(event, section_index, lec_index){
-            this.test_sections[section_index].test_lecturedata[lec_index].file = event.target.files[0];
-        },
-
-        //Fileupload
-        upload_file(section_index, lec_index){
-            const current_lecture = this.test_sections[section_index].test_lecturedata[lec_index];
-            const file = current_lecture.file;
-            current_lecture.show_progress = true;
-            if(file){
-                var form_data = new FormData();
-                form_data.append('file', file);
-                const config = {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    },
-                    onUploadProgress: function( progressEvent) {
-                        this.test_sections[section_index].test_lecturedata[lec_index].uploadPercentage = parseInt( Math.round( ( progressEvent.loaded / progressEvent.total ) * 100 ));
-                    }.bind(this)
-                };
-                const url = '/course-uploadfile';
-                axios.post(url,form_data,config)
-                    .then(response=>{
-                        const success_message = response.data.success;
-                        const file_data = response.data.file_data;                       
-                        if(file_data.id){
-                            current_lecture.media = file_data.id;
-                            current_lecture.uploaded_file_title = file_data.file_title;
-                            current_lecture.uploaded_file_size = file_data.file_size;
-                            current_lecture.media_type = file_data.file_type;
-                            current_lecture.show_file_details = true;
-                            current_lecture.show_progress = false;
-                            //Success alert message
-                            Vue.toasted.success(success_message,{
-                                icon: {
-                                    name: 'fa-check',
-                                }
-                            });
-
-                        }
-                        else{
-                            Vue.toasted.error('Something went wrong!',{
-                                icon: {
-                                    name: 'fa-check',
-                                }
-                            });
-                        }
-                        
-
-                    })
-                    .catch(fault=>{
-                         //Error alert message
-                        this.test_sections[section_index].test_lecturedata[lec_index].uploadPercentage = 0;
-                        Vue.toasted.error(fault.response.data.error,{
-                            icon: {
-                                name: 'fa-check',
-                            }
-                        });
-                    });
-            }
-            else{
-                alert('Files not selected');
-            }
-            
-        },
-
         get_sections(){
             const id = this.$props.course_id;
+            console.log(id);
             axios.post(`/get-curriculum/${id}`)
             .then(response=>{
                 this.sections = response.data.sections,
                 this.course_name = response.data.course_name
             })
             .catch(error=>(console.log(error)))
-        },    
+        },
 
         add_section(){
             const new_section = {
@@ -222,14 +184,7 @@ export default {
                     media_type:'',
                     sort_order:'',
                     publish:1,
-                    file:'',
 
-                    uploadPercentage:0,
-                    uploaded_file_title:'',
-                    uploaded_file_size:'',
-                    
-                    show_file_details:false,
-                    show_progress:false,
                     show_description:false,
                     show_contenttext:false,
                     show_dropzone:false,
@@ -250,38 +205,33 @@ export default {
                this.lectures.splice(lecture_index, 1);
         },
 
+        //On file upload
+        on_fileupload(file, xhr, formData){
+            console.log(formData);
+        },
+        
         //Insert section
         insertSection(section_index){
-            if(this.$props.course_id){
-                this.form.append('course_id', this.$props.course_id);
-                this.form.append('section_title',this.test_sections[section_index].section_title);
 
-                const url = '/add-section';
-                axios.post(url,this.form)
-                    .then(response=>{
-                        if(response.status == 200){
-                            this.test_sections[section_index].title_insert_show = false;
-                            this.test_sections[section_index].title_edit_show = true;
-                            this.test_sections[section_index].editing = false;
-                            this.test_sections[section_index].section_id = response.data.section_inserted_id;
-                            //Success Alert
-                            Vue.toasted.success(response.data.success,{
-                                icon: {
-                                    name: 'fa-check',
-                                }
-                            });
+            this.form.append('course_id', this.$store.getters.curriculum_course_id);
+            this.form.append('section_title',this.test_sections[section_index].section_title);
 
-                            this.get_sections();
-                        } 
-                    })
-                    .catch(error=>{
-                        console.log(error);
-                    });
-            }
-            else{
-                alert('Course ID doesnot exist!');
-            }
-            
+            const url = '/add-section';
+            axios.post(url,this.form)
+                .then(response=>{
+                    const data = response.data;
+                    this.test_sections[section_index].alert_type = response.data.alert_type;
+                    if(response.status == 200){
+                        this.test_sections[section_index].title_insert_show = false;
+                        this.test_sections[section_index].title_edit_show = true;
+                        this.test_sections[section_index].editing = false;
+                        this.test_sections[section_index].section_id = response.data.section_inserted_id;
+                        this.get_sections();
+                    } 
+                })
+                .catch(error=>{
+                    console.log(error);
+                });
         },
 
         //Insert Lecture content
@@ -292,8 +242,6 @@ export default {
             const lecture_contenttext = this.test_sections[section_index].test_lecturedata[lec_index].lecture_contenttext;
             const section_id = this.test_sections[section_index].section_id;
             const sort_order = lec_index;
-            const media = this.test_sections[section_index].test_lecturedata[lec_index].media;
-            const media_type = this.test_sections[section_index].test_lecturedata[lec_index].media_type;
 
             if(section_id !== '')
             {
@@ -313,19 +261,14 @@ export default {
                 else{
                     this.form.append('lecture_description', '');
                 }
-
                 if(lecture_contenttext.length > 0){
                     this.form.append('lecture_contenttext', lecture_contenttext);
                 }
                 else{
                     this.form.append('lecture_contenttext', '');
                 }
-
-                if(media && media_type){
-                    this.form.append('media', media);
-                    this.form.append('media_type', media_type);
-                }
                 this.form.append('sort_order',sort_order);
+                alert(section_id);
 
                 //Request
                 const config = {headers: {'Content-Type': 'multipart/form-data'}};
@@ -344,6 +287,29 @@ export default {
             else{
                 alert('Please Insert Section to insert Lecture');
             }
+
+
+            //const sec_sort_order = this.sec_sort_order;
+            //const media = this.media[new_lecture];
+            //const media_type = this.media_type[new_lecture];
+            //const resourses_array = [this.resourses[new_lecture]];
+        },
+
+        //File fails
+        file_error(file, message, xhr){
+            this.form_errors.push(message.errors);
+        },
+        clear_errors(index){
+            this.form_errors.splice(index, 1);
+        },
+
+        //File Success
+        file_success(file, response){
+            console.log(file);
+            this.form_success.push(response);
+        },
+        clear_success(index){
+            this.form_success.splice(index, 1);
         },
 
         //File remove file
@@ -362,6 +328,15 @@ export default {
         },
 
 
+        strore_lecture_title({type,target}){
+            console.log(target.name);
+            /*
+            this.$store.commit({
+                type:'store_lecture_title', 
+                lecture_title:this.title[new_lecture]
+            });
+            */ 
+        },
     }
 }
 </script>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Course;
 use App\Category;
 use App\Instructor;
+use App\InstructionLevel;
 
 use Illuminate\Support\Str;
 
@@ -33,7 +34,7 @@ class CourseController extends Controller
      */
     public function create()
     {
-        return view('backend.courses.CourseAdd');
+        return view('backend.courses.curriculum');
     }
 
     /**
@@ -98,8 +99,7 @@ class CourseController extends Controller
      */
     public function edit($id)
     {
-        $params = Course::find($id, ['id', 'name', 'slug']);
-        return view('backend.courses.CoursesEdit')->with('params', $params);
+        return view('backend/courses/curriculum')->with('course_id',$id);
     }
 
     /**
@@ -111,7 +111,67 @@ class CourseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        /*
+        $validate = $request->validate([
+            'course_title' => 'required|string|min:3',
+            'category'=>'required|string',
+            'instruction_level'=>'required|string',
+            'duration'=> 'numeric',
+            'price'=> 'numeric',
+            'strike_out_price'=> 'numeric',
+            'overview'=> 'required|string|min:6',
+            'is_active'=> 'required',
+            'keywords'=>'string'
+        ]);
+        if($validate){
+            
+            return response()->json(['message'=>'Course Updated Successfully'],200);
+        }
+        else{
+            return response()->json($validate->errors(),422);
+        }
+        */
+        
+        $rules = [
+            'course_title' => 'required|string|min:3',
+            'category'=>'required|string',
+            'instruction_level'=>'required|string',
+            'duration'=> 'numeric',
+            'price'=> 'numeric',
+            'strike_out_price'=> 'numeric',
+            'overview'=> 'required|string|min:6',
+            'is_active'=> 'required',
+            'keywords'=>'string'
+        ];
+
+        $validate = Validator::make($request->all(), $rules);
+
+        if($validate->fails()){
+            return response()->json([$validate->errors()->all()],422);
+        }
+        else{
+            $category_id = Category::where('name', $request->category)->value('id');
+            $instruction_level_id = InstructionLevel::where('level', $request->instruction_level)->value('id');
+
+            $course = Course::find($id);
+            $instructor_id = \Auth::user()->instructor->id;
+            $course->category_id = $category_id;
+            $course->instruction_level_id = $instruction_level_id;
+            $course->course_title = $request->course_title;
+            $course->course_slug = Str::slug($request->course_title,'-');
+            $course->keywords = $request->keywords;
+            $course->duration = $request->duration;
+            $course->price = $request->price;
+            $course->strike_out_price = $request->strike_out_price;
+            $course->overview = $request->overview;
+            $course->is_active = $request->is_active;
+            $course->timestamps = false;
+            $course->save();
+            return response()->json('Course Updated Successfully',200);
+        }
+        
+        
+       
     }
 
     /**

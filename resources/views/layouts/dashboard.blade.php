@@ -8,6 +8,7 @@
   <meta name="author" content="">
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
+
   <title>MaxproLearn - Dashboard</title>
 
 
@@ -16,9 +17,9 @@
 
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-  <!-- Custom fonts for this template
+  <!-- Custom fonts for this template -->
   <link href="{{ asset('backend/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
-  -->
+ 
   <!-- Custom styles for this template-->
   <link href="{{ asset('backend/css/sb-admin.css') }} " rel="stylesheet">
   <link href="{{ url('//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css') }}" rel="stylesheet">
@@ -60,6 +61,7 @@
   </a>
 
   <!-- Bootstrap core JavaScript-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
   <script src="{{ asset('backend/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 

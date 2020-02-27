@@ -12,10 +12,15 @@ import StoreData from './store'
 import Vuex from 'vuex'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import Toasted from 'vue-toasted'
+import VueRouter from 'vue-router'
 
-
+Vue.use(VueRouter)
 Vue.use(VueAxios, axios)
 Vue.use(Vuex)
+Vue.use(Toasted, {
+    iconPack:'fontawesome'
+})
 
 const store = new Vuex.Store(StoreData)
 
@@ -29,11 +34,24 @@ const store = new Vuex.Store(StoreData)
 
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+
+
 import CategoryEdit from './components/categories/CategoryEdit.vue';
 import CategoryShow from './components/categories/CategoryShow.vue';
 import NewCategory from './components/categories/NewCategory.vue';
-import AddCourseInfo from './components/courses/AddCourseInfo.vue';
+
+//Course Components
+import CourseHandler from './components/courses/CourseHandler.vue';
+import CourseAdd from './components/courses/CourseAdd.vue';
+import CourseInfo from './components/courses/CourseInfo.vue';
+import CourseinfoEdit from './components/courses/CourseinfoEdit.vue';
+
 import InputTag from 'vue-input-tag';
+import CurriculumSection from './components/courses/CurriculumSection.vue';
+import EditCurriculum from './components/courses/EditCurriculum.vue';
+import EditLecture from './components/courses/EditLecture.vue';
+import vueDropzone from 'vue2-dropzone';
+import 'vue2-dropzone/dist/vue2Dropzone.min.css';
 
 //Frontend Components
 import MenuCategories from './components/frontend/MenuCategories.vue';
@@ -42,11 +60,24 @@ import CourseCard from './components/frontend/CourseCard.vue';
 
 
 
+const VueUploadComponent = require('vue-upload-component')
+Vue.component('file-upload', VueUploadComponent)
+
 //Backend component register
 Vue.component('category-edit', CategoryEdit);
 Vue.component('category-show', CategoryShow);
 Vue.component('new-category', NewCategory);
-Vue.component('add-course-info', AddCourseInfo);
+
+//Courses
+Vue.component('course-handler', CourseHandler);
+Vue.component('course-info', CourseInfo);
+Vue.component('course-add', CourseAdd);
+Vue.component('course-info-edit', CourseinfoEdit);
+Vue.component('curriculum-section', CurriculumSection);
+Vue.component('edit-curriculum', EditCurriculum);
+Vue.component('edit-lecture', EditLecture);
+Vue.component('vue-dropzone', vueDropzone);
+
 
 //Backend component register
 Vue.component('menu-categories', MenuCategories);
@@ -55,6 +86,7 @@ Vue.component('course-card', CourseCard);
 
 //Awesome Vue components
 Vue.component('input-tag', InputTag);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -63,5 +95,5 @@ Vue.component('input-tag', InputTag);
 
 const app = new Vue({
     el: '#app',
-    store
+    store,
 });

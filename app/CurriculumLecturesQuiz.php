@@ -10,4 +10,7 @@ class CurriculumLecturesQuiz extends Model
     protected $primaryKey = 'lecture_quiz_id';
     public $timestamps = false;
 
+    public function sections(){
+        return $this->belongsTo('App\CurriculumSection');
+    }
 }
