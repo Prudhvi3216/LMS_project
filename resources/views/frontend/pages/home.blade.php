@@ -1,11 +1,25 @@
 @extends('frontend.index')
 @section('content')
+
+<home-slider></home-slider>
 <section class="popular-posts-block container">
     <header class="popular-posts-head">
         <h2 class="popular-head-heading">Most Popular Courses</h2>
     </header>
     <div class="row">
-        <!-- popular posts slider -->
+        @foreach($courses as $course)
+            <course-card :course="{{ $course }}" instructor="{{ $course->instructor->first_name }}"></course-card>
+        @endforeach
+    </div>
+</section>
+
+<!--
+<section class="popular-posts-block container">
+    <header class="popular-posts-head">
+        <h2 class="popular-head-heading">Most Popular Courses</h2>
+    </header>
+    <div class="row">
+    
         <div class="slider popular-posts-slider">
             @foreach($courses as $course)
            
@@ -51,9 +65,10 @@
                     </article>
             </div>
             
-                <!--<course-card :course="{{ $course }}" instructor="{{ $course->instructor->first_name }}"></course-card>-->
+        
             @endforeach
         </div>
     </div>
-</section>    
+</section>
+-->    
 @endsection

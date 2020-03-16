@@ -2,25 +2,27 @@
     <div>
         <section class="intro-block">
             <div class="slider fade-slider">
-                <div v-for="slide in slides" v-bind:key="slide.title">
-                    <article class="intro-block-slide overlay bg-cover" style="background-image: url(http://placehold.it/1920x823);">
-                        <div class="align-wrap container">
-                            <div class="align">
-                                <div class="anim">
-                                    <h1 class="intro-block-heading">{{ slide.title }}</h1>
-                                </div>
-                                <div class="anim delay1">
-                                    <p>{{ slide.subtitle }}</p>
-                                </div>
-                                <div class="anim delay2">
-                                    <div class="btns-wrap">
-                                        <a  class="btn btn-warning btn-theme text-uppercase">{{ slide.btn_text1 }}</a>
-                                        <a  class="btn btn-white text-uppercase">{{ slide.btn_text2 }}</a>
+                <div v-for="(slide,index) in slides" :key="index">
+                    <div>
+                        <article class="intro-block-slide overlay bg-cover" style="background-image: url(http://placehold.it/1920x823);">
+                            <div class="align-wrap container">
+                                <div class="align">
+                                    <div class="anim">
+                                        <h1 class="intro-block-heading">{{ title }}</h1>
+                                    </div>
+                                    <div class="anim delay1">
+                                        <p>{{ slide.subtitle }}</p>
+                                    </div>
+                                    <div class="anim delay2">
+                                        <div class="btns-wrap">
+                                            <a  class="btn btn-warning btn-theme text-uppercase">{{ slide.btn_text1 }}</a>
+                                            <a  class="btn btn-white text-uppercase">{{ slide.btn_text2 }}</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </article>
+                        </article>
+                    </div>
                 </div>
             </div>
 
@@ -63,13 +65,14 @@
 <script>
 export default {
     data(){
-        return{
+        return {
             slides:[{
-                'title':'Education  Training Organization',
-                'subtitle':'We offer the most complete course pakage in the country, for the research, design and development of Education.',
-                'btn_text1':'Our Courses',
-                'btn_text2':'Contact us'
-            }]
+                title:'Education  Training Organization',
+                subtitle:'We offer the most complete course pakage in the country, for the research, design and development of Education.',
+                btn_text1:'Our Courses',
+                btn_text2:'Contact us'
+            }],
+            title:'Prudhvi',
         }
     }
 }

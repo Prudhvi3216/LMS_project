@@ -8,7 +8,6 @@ use App\Category as Categories;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Session;
 
 class CategoriesController extends Controller
 {

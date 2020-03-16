@@ -19,6 +19,7 @@ class MainController extends Controller
         return view('frontend/pages/home')->with(['categories'=>$categories, 'courses'=>$courses]);
     }
 
+    //Curriculum
     public function frontend_curriculum($course_slug){
         $course = Course::where('course_slug',$course_slug)->first();
         if($course && $course->is_active){
@@ -30,11 +31,26 @@ class MainController extends Controller
             $data['overview'] = $course->overview;
             $data['instructor'] = $course->instructor->last_name;
             $data['category'] = $course->category->name;
-            $data['sections'] = $course->sections;
-            return view('frontend.pages.course')->with('data',$data);
+            $sections = $course->sections;
+            $lectures = $sections->map->curriculum_lectures;
+            return view('frontend.pages.course')->with(['curriculum'=>$sections,'info'=>$data]);
         }
         else{
             return response()->json('Course not exist',200);
+        }
+    }
+
+    //Courses for a category
+    public function get_courses_of_category($category_slug){
+        $category = Category::where('slug',$category_slug)->first();
+        if($category){
+            //Map method https://stackoverflow.com/questions/38412091/get-only-specific-attributes-with-from-laravel-collection
+            $categories = Category::Select('id', 'name', 'slug')->get();
+            $courses = $category->courses->map->only(['id','course_title','course_slug','price','strike_out_price','overview','category_id','instructor_id']);
+            return view('frontend.pages.courses')->with(['categories'=>$categories,'courses'=>$courses]);
+        }
+        else{
+            return response()->json('Category not exist',200);
         }
     }
 }

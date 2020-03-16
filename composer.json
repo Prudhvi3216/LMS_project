@@ -11,6 +11,7 @@
         "php": "^7.2",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "^6.2",
+        "laravel/socialite": "^4.3",
         "laravel/tinker": "^2.0"
     },
     "require-dev": {
@@ -47,6 +48,7 @@
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
+    
     "scripts": {
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
@@ -57,10 +59,6 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
-        ],
-        "post-install-cmd": [
-            "chmod -R 755 bootstrap\/cache",
-            "php artisan cache:clear"
         ]
     }
 }

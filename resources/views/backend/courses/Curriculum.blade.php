@@ -13,7 +13,7 @@
 @section('content')
 <div class="row">
 
-    <div class="col-md-8">
+    <div class="col-md-8 m-2" style="background-color:#ffffff;">
     <!--Curriculum Section-->
         <ul class="nav nav-pills mb-3 nav-justified" id="pills-tab" role="tablist">
           <li class="nav-item">
@@ -38,19 +38,13 @@
           </div>
           <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
             <div class="container m-2">
-              <!--
-                <vue-dropzone 
-                    id="drop2" 
-                    refs="dropzone" 
-                    :options="dropOptions" 
-                ></vue-dropzone>
-                -->
+              Image upload
             </div>
           </div>
           <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
             <div class="container m-2">
                 @if($course_id ?? '')
-                  <curriculum-section :course_id="{{ $course_id}}"></curriculum-section>
+                  <curriculum-section :course_id="{{ $course_id }}"></curriculum-section>
                 @else
                   <curriculum-section></curriculum-section>
                 @endif

@@ -15,22 +15,51 @@
 Route::get('/', 'MainController@index')->name('home');
 Route::get('/home', 'MainController@index')->name('home');
 Route::get('/course/{course_name}', 'MainController@frontend_curriculum');
+Route::get('/courses/{category_name}', 'MainController@get_courses_of_category');
 
+Route::get('/login/google', 'Auth\LoginController@redirectToProvider')->name('google-auth');
+Route::get('/login/google/callback', 'Auth\LoginController@handleProviderCallback');
 
-Auth::routes();
+//User routes
+Route::group(['prefix'=>'user', 'middleware'=>'auth'],function () {
+  Route::get('my-courses', function () {
+      return dd('My courses');
+  });
 
-Route::get('course', function(){
-  return view('frontend/index');
+  Route::get('edit-profile', function () {
+    return dd('edit-profile');
+  });
+
+  Route::get('change-password', function () {
+    return dd('Change Password');
+  });
+
+  Route::get('view-profile', function () {
+    return dd('View Profile');
+  });
+
 });
 
-//Backend routes
-Route::group(['middleware'=>['auth','can:Admin_or_Inst']], function(){
-  //Categories  
-  Route::resource('/categories', 'Admin\CategoriesController');
+//Instructor routes
+Route::group(['prefix'=>'instructor', 'middleware'=>['auth','can:isInstructor']], function () {
+
+  //Instructor Dashboard
+  Route::get('dashboard', 'InstructorController@index');
+
+  Route::get('my-courses', 'InstructorController@instructor_courses');
+
+  Route::get('profile', 'InstructorController@view_profile');
+
+  //Edit Profile
+  Route::post('update-profile', 'InstructorController@update_profile');
+
+  //Change Password
+  Route::get('change-password', function () {
+    return dd('Change Password');
+  });
 
   //Courses
   Route::resource('/courses', 'CourseController');
-  Route::post('/get-course-info/{id}', 'InstructorController@get_course_data');
 
   //Curriculum routes
   Route::post('/add-section', 'InstructorController@add_sectiondata')->name('add-section');
@@ -43,6 +72,31 @@ Route::group(['middleware'=>['auth','can:Admin_or_Inst']], function(){
 
   Route::get('/add-curriculum', 'VueController@curriculum')->name('add-curriculum');
   Route::post('/course-uploadfile', 'fileUploadController@upload_file')->name('course_fileupload');
+
+});
+
+
+//Admin routes
+Route::group(['prefix'=>'admin', 'middleware'=>['auth','can:isAdmin']], function () {
+  Route::get('/courses', 'CourseController@index');
+});
+
+
+Auth::routes();
+
+Route::get('course', function(){
+  return view('frontend/index');
+});
+
+
+
+//Backend routes
+Route::group(['middleware'=>['auth','can:Admin_or_Inst']], function(){
+  //Categories  
+  Route::resource('/categories', 'Admin\CategoriesController');
+
+  
+  Route::post('/get-course-info/{id}', 'InstructorController@get_course_data');
 
   //Dashboard
   Route::get('/dashboard', 'DashboardController@index')->name('dashboard-index');

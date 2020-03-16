@@ -45,4 +45,9 @@ class User extends Authenticatable
       //if the pivot table name not suitable, pass pivot table name as second aurgement to map.
       return $this->belongsToMany('App\Role');
     }
+
+    //For Socialite
+    public function accounts(){
+        return $this->hasMany('App\LinkedSocialAccount');
+    }
 }

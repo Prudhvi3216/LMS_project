@@ -55,10 +55,26 @@ import 'vue2-dropzone/dist/vue2Dropzone.min.css';
 
 //Frontend Components
 import MenuCategories from './components/frontend/MenuCategories.vue';
+import HeaderHolder from './components/frontend/HeaderHolder.vue';
+import HeaderTopbar from './components/frontend/HeaderTopbar.vue';
 import HomeSlider from './components/frontend/HomeSlider.vue';
 import CourseCard from './components/frontend/CourseCard.vue';
+import CurriculumView from './components/frontend/CurriculumView.vue';
+
+import AdminSidemenu from './components/misc/AdminSidemenu.vue';
+import InstSidemenu from './components/misc/InstSidemenu.vue';
+import InstructorCourses from './components/misc/InstructorCourses.vue';
+import InstructorProfile from './components/misc/InstructorProfile.vue';
+import AdminCoursesView from './components/misc/AdminCoursesView.vue';
 
 
+
+//Frontend Components
+Vue.component('header-holder', HeaderHolder);
+Vue.component('header-topbar', HeaderTopbar);
+Vue.component('home-slider', HomeSlider);
+Vue.component('course-card', CourseCard);
+Vue.component('curriculum-view', CurriculumView);
 
 const VueUploadComponent = require('vue-upload-component')
 Vue.component('file-upload', VueUploadComponent)
@@ -81,8 +97,11 @@ Vue.component('vue-dropzone', vueDropzone);
 
 //Backend component register
 Vue.component('menu-categories', MenuCategories);
-Vue.component('home-slider', HomeSlider);
-Vue.component('course-card', CourseCard);
+Vue.component('admin-sdmenu', AdminSidemenu);
+Vue.component('instructor-sdmenu', InstSidemenu);
+Vue.component('instructor-courses', InstructorCourses);
+Vue.component('instructor-profile', InstructorProfile);
+Vue.component('admin-courses-view', AdminCoursesView);
 
 //Awesome Vue components
 Vue.component('input-tag', InputTag);

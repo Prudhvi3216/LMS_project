@@ -13,7 +13,9 @@ class ChangeCurriculumquizTable extends Migration
      */
     public function up()
     {
-        $table->timestamps();
+        Schema::table('curriculum_lectures_quiz', function (Blueprint $table) {
+            $table->timestamps();
+        });
     }
 
     /**

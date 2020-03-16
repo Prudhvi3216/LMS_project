@@ -7,13 +7,20 @@ use App\Course;
 use App\CurriculumSection;
 use App\CourseFiles;
 use App\CurriculumLecturesQuiz;
+use App\Instructor;
 
 use Validator;
 
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class InstructorController extends Controller
 {
+    public function index(){
+        return view('backend/Instructor');
+    }
 
     public function add_sectiondata(Request $request){
 
@@ -189,5 +196,71 @@ class InstructorController extends Controller
         $course_info['instructor'] =  $course->instructor->first_name;
         return response()->json(['course_info'=>$course_info],200);
     }
+
+    //Instructor Courses
+    public function instructor_courses(){
+        if(Auth::user()->can('isInstructor')){
+            $instructor_id = Instructor::where('user_id',Auth::user()->id)->first()->id;
+            $courses = Course::where('instructor_id',$instructor_id)->get();
+            if(count($courses)){
+                $inst_courses = [];
+                foreach($courses as $course){
+                    $data['id'] = $course->id;
+                    $data['slug'] = $course->course_slug;
+                    $data['course_title'] = $course->course_title;
+                    $data['category'] = $course->category->name;
+                    $data['duration'] = $course->duration; 
+                    $data['inst_level'] = $course->instruction_level->level; 
+                    array_push($inst_courses,$data);
+                }
+                return view('backend/InstructorCourses')->with('courses',$inst_courses);
+            }
+            else{
+                return response()->json('No Courses found');
+            }
+         }
+    }
+
+    public function view_profile(){
+        if(Auth::user()->can('isInstructor')){
+            $instructor = Instructor::where('user_id',Auth::user()->id)->first();
+            $inst['first_name'] = $instructor->first_name;
+            $inst['last_name'] = $instructor->last_name;
+            $inst['contact_email'] = $instructor->contact_email;
+            $inst['telephone'] = $instructor->telphone;
+            $inst['mobile'] = $instructor->mobile;
+            $inst['biography'] = $instructor->biography;
+            $inst['link_facebook'] = $instructor->link_facebook;
+            $inst['link_twitter'] = $instructor->link_twitter;
+            $inst['link_linkendin'] = $instructor->link_linkendin;
+            $inst['link_google'] = $instructor->link_googleplus;
+            return view('backend/InstructorProfile')->with('inst_info',$inst);
+        }
+    }
+
+    public function update_profile(Request $request){
+        if(Auth::user()->can('isInstructor')){
+            $author = Auth::user();
+            $instructor->first_name = $request->first_name;
+            $instructor->last_name = $request->last_name;
+            $instructor->contact_email = $request->email;
+            $instructor->telephone = $request->telephone;
+            $instructor->mobile =  $request->mobile;
+            $instructor->biography =  $request->biography;
+            $instructor->link_facebook =  $request->link_facebook;
+            $instructor->link_googleplus =  $request->link_googleplus;
+            $instructor->link_twitter =  $request->link_twitter;
+            $instructor->link_linkedin =  $request->link_linkedin;
+            dd($instructor);
+        }
+    }
+
+    public function change_password(){
+        if(Auth::user()->can('isInstructor')){
+            $author_name = Auth::user()->first_name;
+            dd($author_name);
+         }
+    }
+
 
 }

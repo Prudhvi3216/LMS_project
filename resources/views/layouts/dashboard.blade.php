@@ -17,8 +17,8 @@
 
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-  <!-- Custom fonts for this template -->
-  <link href="{{ asset('backend/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  
  
   <!-- Custom styles for this template-->
   <link href="{{ asset('backend/css/sb-admin.css') }} " rel="stylesheet">
@@ -27,16 +27,16 @@
 
 <body id="page-top">
 @include('partials/dashb_nav')
-
+<div id="app">
   <div id="wrapper">
-    @include('partials/dashb_sidemenu')
-
-    <div id="content-wrapper">
+    <!--<admin-sdmenu></admin-sdmenu>-->
+    <instructor-sdmenu></instructor-sdmenu>
+    <div id="content-wrapper" style="background-color:#f1f3f6;">
       <div class="container-fluid">
         @yield('breadcrumb')
-        <div id="app">
+        
           @yield('content')
-        </div>
+        
       </div>
       <!-- /container-fluid -->
 
@@ -53,7 +53,7 @@
     <!--#content-wrapper-->
   </div>
   <!--#wrapper-->
-
+</div>
 
   <!-- Scroll to Top Button-->
   <a class="scroll-to-top rounded" href="#page-top">

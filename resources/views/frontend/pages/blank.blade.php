@@ -1,4 +1,4 @@
-@extends('frontend.index')
+@extends('frontend.single_page')
 @section('content')
 
 <!-- heading banner -->
@@ -17,17 +17,11 @@
         <ol class="breadcrumb">
             <li><a href="home.html">Home</a></li>
             <li><a href="contact.html">Course</a></li>
-            <li class="active">Dummy</li>
+            <li class="active">{{ $data['course_title'] }}</li>
         </ol>
     </div>
 </nav>
 
-<!-- two columns -->
-<div id="two-columns" class="container">
-    <div class="row">
-        <!-- content -->
-        <curriculum-view :curriculum="{{ json_encode($curriculum) }}" :info="{{ json_encode($info) }}"></curriculum-view>
-    </div>
-</div>
+	
 
 @endsection

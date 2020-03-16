@@ -6,6 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
+use Socialite;
+use App\User;
+
+//For Custom login
+use Illuminate\Support\Facades\Auth;
+
+
 class LoginController extends Controller
 {
     /*
@@ -26,7 +33,32 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+
+    public function redirectToProvider()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function handleProviderCallback()
+    {
+        $user = Socialite::driver('google')->stateless()->user();
+            $email = $user->email;
+            $name = $user->name;
+            $google_user_id = $user->id;
+
+            $users = User::where('email',$email)->first();
+            if($users){
+                Auth::login($users);
+                return redirect()->intended('home');
+            }
+            else{
+                dd('No Account, create account');
+            }
+        
+        // $user->token;
+    }
+
+    //protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
      * Create a new controller instance.
@@ -37,4 +69,5 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
 }

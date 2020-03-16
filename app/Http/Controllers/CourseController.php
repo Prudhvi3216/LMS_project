@@ -22,9 +22,23 @@ class CourseController extends Controller
      */
     public function index()
     {
-      //if(\Auth::user()->can('isInstructor')){
-        $courses = Course::Where('is_active',1)->Select('id','course_title','course_slug','category_id','instructor_id')->get();
-        return view('backend.courses.courses')->with('courses',$courses);
+        $db_courses = Course::Where('is_active',1)->get();
+        if(count($db_courses)){
+            $all_courses = [];
+            foreach($db_courses as $course){
+                $data['course_id'] = $course->id;
+                $data['course_title'] = $course->course_title;
+                $data['category'] = $course->category->name;
+                $data['instructor'] = $course->instructor->last_name;
+                $data['duration'] = $course->duration; 
+                $data['inst_level'] = $course->instruction_level->level; 
+                array_push($all_courses,$data);
+            }
+            return view('backend.courses.courses')->with('courses',$all_courses);
+        }
+        else{
+            return response()->json('No Courses found');
+        }
     }
 
     /**
@@ -111,26 +125,6 @@ class CourseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        /*
-        $validate = $request->validate([
-            'course_title' => 'required|string|min:3',
-            'category'=>'required|string',
-            'instruction_level'=>'required|string',
-            'duration'=> 'numeric',
-            'price'=> 'numeric',
-            'strike_out_price'=> 'numeric',
-            'overview'=> 'required|string|min:6',
-            'is_active'=> 'required',
-            'keywords'=>'string'
-        ]);
-        if($validate){
-            
-            return response()->json(['message'=>'Course Updated Successfully'],200);
-        }
-        else{
-            return response()->json($validate->errors(),422);
-        }
-        */
         
         $rules = [
             'course_title' => 'required|string|min:3',
@@ -168,9 +162,7 @@ class CourseController extends Controller
             $course->timestamps = false;
             $course->save();
             return response()->json('Course Updated Successfully',200);
-        }
-        
-        
+        }    
        
     }
 
