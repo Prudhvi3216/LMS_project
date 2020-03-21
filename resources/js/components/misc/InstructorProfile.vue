@@ -79,14 +79,13 @@
                 </div>
             </div>
             <div class="mt-2 mb-2" v-html="info.biography"></div>
-            <b>Social Links:</b>
-            <div class="flex-row">
+            <label><b>Social Links:</b></label>
+            <div class="flex-colum">
                 <a :href="info.link_facebook" class="btn text-white" style="background-color:#3B5998;"><i class="fa fa-facebook"></i> Facebook</a>
                 <a :href="info.link_goolge" class="btn text-white" style="background-color:#dd4b39;"><i class="fa fa-google"></i> Google</a>
                 <a :href="info.link_linkedin" class="btn btn-outline-primary" ><i class="fa fa-linkedin"></i> Linkedin</a>
                 <a :href="info.link_twitter" class="btn btn-outline-primary" ><i class="fa fa-twitter"></i> Twitter</a>
             </div>
-
         </div>
     </div>
 </template>

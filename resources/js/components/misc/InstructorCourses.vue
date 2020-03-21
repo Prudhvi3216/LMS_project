@@ -2,7 +2,7 @@
     <div>
         <a href="/instructor/add-curriculum" type="button" class="btn btn-primary mt-2 mb-2"><i class="fa fa-plus"></i> Add Course</a>
         <div v-if="show_courses" class="card">
-            <h4 class="p-2">My Courses</h4>
+            <h4 class="p-2">Manage Courses</h4>
             <table class="table">
                 <thead class="thead-light">
                     <th>S.No</th>
@@ -20,7 +20,7 @@
                         <td>{{ course.inst_level }}</td>
                         <td>{{ course.duration }}</td>
                         <td>
-                            <a href="/instructor/view-course" class="btn btn-link">View</a>
+                            <a href="/instructor/courses/view-course" class="btn btn-link">View</a>
                             <a :href="'/instructor/courses/'+course.id+'/edit'" class="btn btn-link">Edit</a>
                             <a href="/instructor/view-course" class="btn btn-link">Delete</a>
                         </td>

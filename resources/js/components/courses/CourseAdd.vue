@@ -88,7 +88,7 @@ export default {
 
     methods:{
          add_course(){
-            const url = '/courses';
+            const url = 'instructor/courses/';
             axios.post(url,{
                 category_id : this.category_id,
                 instructor_id : this.instructor_id,

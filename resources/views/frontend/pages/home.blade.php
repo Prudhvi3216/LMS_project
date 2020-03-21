@@ -1,6 +1,5 @@
 @extends('frontend.index')
 @section('content')
-
 <home-slider></home-slider>
 <section class="popular-posts-block container">
     <header class="popular-posts-head">

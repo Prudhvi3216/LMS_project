@@ -123,7 +123,7 @@ export default {
         update_course(){
             
             const id = this.$props.course_id;
-            const url = `/courses/${id}`;
+            const url = `/instructor/courses/${id}`;
             axios.put(url,{
                 'course_title': this.course_title,
                 'category':this.category,

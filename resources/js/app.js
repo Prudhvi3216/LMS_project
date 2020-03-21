@@ -14,10 +14,12 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import Toasted from 'vue-toasted'
 import VueRouter from 'vue-router'
+import VueCarousel from 'vue-carousel'
 
 Vue.use(VueRouter)
 Vue.use(VueAxios, axios)
 Vue.use(Vuex)
+Vue.use(VueCarousel)
 Vue.use(Toasted, {
     iconPack:'fontawesome'
 })
@@ -66,6 +68,7 @@ import InstSidemenu from './components/misc/InstSidemenu.vue';
 import InstructorCourses from './components/misc/InstructorCourses.vue';
 import InstructorProfile from './components/misc/InstructorProfile.vue';
 import AdminCoursesView from './components/misc/AdminCoursesView.vue';
+
 
 
 

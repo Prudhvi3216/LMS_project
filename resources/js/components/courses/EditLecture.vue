@@ -83,7 +83,7 @@ export default {
 
         //Update lecture
         update_existing_lecture(lecture_quiz_id){
-            const url = `/update-existing-lecture/${lecture_quiz_id}`;
+            const url = `/instructor/update-existing-lecture/${lecture_quiz_id}`;
             axios.post(url,{
                 lecture_title:this.title,
                 lecture_description:this.description,
@@ -110,7 +110,7 @@ export default {
 
         //Deleting lecture
         delete_existing_lecture(lecture_quiz_id){
-            const url = `delete-lecture/${lecture_quiz_id}`;
+            const url = `/instructor/delete-lecture/${lecture_quiz_id}`;
             axios.post(url)
             .then(response=>{
                 alert('Warning');

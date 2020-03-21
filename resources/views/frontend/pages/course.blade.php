@@ -10,24 +10,17 @@
     </div>
 </header>
 
-<!-- breadcrumb nav -->
-<nav class="breadcrumb-nav">
-    <div class="container">
-        <!-- breadcrumb -->
-        <ol class="breadcrumb">
-            <li><a href="home.html">Home</a></li>
-            <li><a href="contact.html">Course</a></li>
-            <li class="active">Dummy</li>
-        </ol>
-    </div>
+<nav class="container" aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="#">Home</a></li>
+    <li class="breadcrumb-item"><a href="#">Library</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Data</li>
+  </ol>
 </nav>
 
 <!-- two columns -->
 <div id="two-columns" class="container">
-    <div class="row">
-        <!-- content -->
-        <curriculum-view :curriculum="{{ json_encode($curriculum) }}" :info="{{ json_encode($info) }}"></curriculum-view>
-    </div>
+    <curriculum-view :curriculum="{{ json_encode($curriculum) }}" :info="{{ json_encode($info) }}"></curriculum-view>
 </div>
 
 @endsection

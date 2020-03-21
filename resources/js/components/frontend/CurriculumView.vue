@@ -1,6 +1,6 @@
 <template>
-<div>
-    <article id="content" class="col-xs-12 col-md-9">
+<div class="row">
+        <article id="content" class="col-xl-9 col-md-9 col-sm-12">
             <!-- content h1 -->
             <h1 class="content-h1 fw-semi">{{ info.course_title }}</h1>
             <!-- view header -->
@@ -185,7 +185,7 @@
         </article>
 
         <!-- sidebar -->
-        <aside class="col-xs-12 col-md-3" id="sidebar">
+        <aside class="col-xl-3 col-md-3 col-sm-12" id="sidebar">
             <!-- widget course select -->
             <section class="widget widget_box widget_course_select">
                 <header class="widgetHead text-center bg-theme">

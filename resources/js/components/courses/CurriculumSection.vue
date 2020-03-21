@@ -109,9 +109,6 @@ export default {
         if(this.$props.course_id){
             this.get_sections();
         }
-        else{
-            alert('Course ID missing');
-        }
     },
     methods:{
 
@@ -136,7 +133,7 @@ export default {
                         this.test_sections[section_index].test_lecturedata[lec_index].uploadPercentage = parseInt( Math.round( ( progressEvent.loaded / progressEvent.total ) * 100 ));
                     }.bind(this)
                 };
-                const url = '/course-uploadfile';
+                const url = '/instructor/course-uploadfile';
                 axios.post(url,form_data,config)
                     .then(response=>{
                         const success_message = response.data.success;
@@ -184,7 +181,7 @@ export default {
 
         get_sections(){
             const id = this.$props.course_id;
-            axios.post(`/get-curriculum/${id}`)
+            axios.post(`/instructor/get-curriculum/${id}`)
             .then(response=>{
                 this.sections = response.data.sections,
                 this.course_name = response.data.course_name
@@ -253,30 +250,37 @@ export default {
         //Insert section
         insertSection(section_index){
             if(this.$props.course_id){
-                this.form.append('course_id', this.$props.course_id);
-                this.form.append('section_title',this.test_sections[section_index].section_title);
-
-                const url = '/add-section';
-                axios.post(url,this.form)
-                    .then(response=>{
-                        if(response.status == 200){
-                            this.test_sections[section_index].title_insert_show = false;
-                            this.test_sections[section_index].title_edit_show = true;
-                            this.test_sections[section_index].editing = false;
-                            this.test_sections[section_index].section_id = response.data.section_inserted_id;
-                            //Success Alert
-                            Vue.toasted.success(response.data.success,{
-                                icon: {
-                                    name: 'fa-check',
-                                }
-                            });
-
-                            this.get_sections();
-                        } 
-                    })
-                    .catch(error=>{
-                        console.log(error);
+                if(!this.test_sections[section_index].section_title){
+                    Vue.toasted.error('Please Enter Section title',{
+                        icon: {
+                            name: 'fa-check',
+                        }
                     });
+                }
+                else{
+                    this.form.append('course_id', this.$props.course_id);
+                    this.form.append('section_title',this.test_sections[section_index].section_title);
+                    const url = '/instructor/add-section';
+                    axios.post(url,this.form)
+                        .then(response=>{
+                            if(response.status == 200){
+                                this.test_sections[section_index].title_insert_show = false;
+                                this.test_sections[section_index].title_edit_show = true;
+                                this.test_sections[section_index].editing = false;
+                                this.test_sections[section_index].section_id = response.data.section_inserted_id;
+                                //Success Alert
+                                Vue.toasted.success(response.data.success,{
+                                    icon: {
+                                        name: 'fa-check',
+                                    }
+                                });
+                                this.get_sections();
+                            } 
+                        })
+                        .catch(error=>{
+                            console.log(error);
+                        });
+                }
             }
             else{
                 alert('Course ID doesnot exist!');
@@ -329,11 +333,10 @@ export default {
 
                 //Request
                 const config = {headers: {'Content-Type': 'multipart/form-data'}};
-                const url = '/create-curriculum';
+                const url = '/instructor/create-curriculum';
         
                 axios.post(url,this.form,config)
                     .then(response=>{
-                        console.log(response);
                         this.get_sections();
                     })
                     .catch(error=>{
@@ -342,7 +345,11 @@ export default {
 
             }
             else{
-                alert('Please Insert Section to insert Lecture');
+                Vue.toasted.error('Please insert Section title first',{
+                    icon: {
+                        name: 'fa-check',
+                    }
+                });
             }
         },
 
@@ -350,7 +357,7 @@ export default {
         remove_file(file){
 
             const config = {headers: {'Content-Type': 'multipart/form-data'}};
-            const url = '/remove_lecturefile';
+            const url = '/instructor/remove_lecturefile';
             axios.post(url,this.form,config)
                 .then(response=>{
                     console.log(response);
@@ -372,8 +379,5 @@ export default {
 }
 .dotted_bdr{
     border:1px silver dotted;
-}
-.dropzone .dz-preview.dz-error .dz-error-message {
-    display: none !important;
 }
 </style>

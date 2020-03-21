@@ -137,7 +137,7 @@ export default {
 
         //Update Section title
         section_title_update(section_id){
-            const url = `/update-section-title/${section_id}`;
+            const url = `/instructor/update-section-title/${section_id}`;
             axios.post(url,{
                 section_title:this.section_title,
             })

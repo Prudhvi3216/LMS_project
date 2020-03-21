@@ -1,6 +1,5 @@
 <template>
-    <div>
-        <div class="col-xs-12 col-md-3">
+        <div class="col-xs-12 col-md-3 col-sm-12">
             <!-- popular post -->
                 <article class="popular-post">
                     <div class="aligncenter">
@@ -9,7 +8,7 @@
                     <div>
                         <strong class="bg-primary text-white font-lato text-uppercase price-tag">{{ course.price }}</strong>
                     </div>
-                    <h3 class="post-heading"><a :href="'/course/'+course.course_slug">{{ course.course_title }}</a></h3>
+                    <h3 class="post-heading text-overflow"><a :href="'/course/'+course.course_slug">{{ course.course_title }}</a></h3>
                     <div class="post-author">
                         <div class="alignleft rounded-circle no-shrink">
                             <img src="http://placehold.it/35x35" class="rounded-circle" alt="image description">
@@ -41,7 +40,6 @@
                     </footer>
                 </article>
         </div>
-    </div>
 </template>
 <script>
 export default {

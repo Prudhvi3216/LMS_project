@@ -15,29 +15,33 @@
            {{ course_info.overview }}
         </p>
         <table class="table table-bordered">
-            <th class="text-muted">
-               Instruction Level
-            </th>
-            <th class="text-muted">
-                Duration
-            </th>
-            <th class="text-muted">
-                Price
-            </th>
-            <th class="text-muted">
-                Strike-out Price
-            </th>
-            <th class="text-muted">
-                Active
-            </th>
-            <tr>
-                <td>{{ course_info.instruction_level }}</td>
-                <td>{{ course_info.duration }} mins</td>
-                <td>{{ course_info.price }}</td>
-                <td>{{ course_info.strike_out_price }}</td>
-                <td v-if="course_info.is_active==1"> Yes </td>
-                <td v-else> No </td>
-            </tr>
+            <thead class="thead-light">
+                <th class="text-muted">
+                Instruction Level
+                </th>
+                <th class="text-muted">
+                    Duration
+                </th>
+                <th class="text-muted">
+                    Price
+                </th>
+                <th class="text-muted">
+                    Strike-out Price
+                </th>
+                <th class="text-muted">
+                    Active
+                </th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ course_info.instruction_level }}</td>
+                    <td>{{ course_info.duration }} mins</td>
+                    <td>{{ course_info.price }}</td>
+                    <td>{{ course_info.strike_out_price }}</td>
+                    <td v-if="course_info.is_active==1"> Yes </td>
+                    <td v-else> No </td>
+                </tr>
+            </tbody>
         </table>
         <p>
             <span class="text-muted">keywords</span><br>
