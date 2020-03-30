@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+
 use App\Category;
 use App\Course;
 use App\CurriculumSection;
@@ -9,16 +11,28 @@ use App\Instructor;
 use App\CurriculumLecturesQuiz;
 use App\Http\Resources\CourseInfo;
 
-
-use Illuminate\Http\Request;
-
 class MainController extends Controller
 {
     //Home page data
     public function popular_courses(){
         //$categories = Category::Select('id', 'name', 'slug')->get();
-        $courses = Course::Where('is_active',1)->Select('id','course_title','course_slug','price','strike_out_price','overview','category_id','instructor_id')->get();
-        return response()->json(['courses'=>$courses],200);
+        $db_courses = Course::Where('is_active',1)->get();
+        if(count($db_courses)){
+            $all_courses = [];
+            foreach($db_courses as $course){
+                $data['course_id'] = $course->id;
+                $data['course_title'] = $course->course_title;
+                $data['course_slug'] = $course->course_slug;
+                $data['category'] = $course->category->name;
+                $data['slug'] = $course->course_slug;
+                $data['price'] = $course->price;
+                $data['strike_out_price'] = $course->strike_out_price;
+                $data['instructor'] = $course->instructor->last_name;
+                $data['instructor_slug'] = $course->instructor->instructor_slug;
+                array_push($all_courses,$data);
+            }
+        }    
+        return response()->json($all_courses,200);
     }
 
     //Curriculum

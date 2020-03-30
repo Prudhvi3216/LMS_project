@@ -23,6 +23,9 @@ class CourseInfo extends JsonResource
             'strike_out_price' => $this->strike_out_price,
             'overview' => $this->overview,
             'instructor' => $this->instructor->last_name,
+            'instructor_slug' => $this->instructor->instructor_slug,
+            'biography' => $this->instructor->biography,
+            'instructor_image' => $this->instructor->instructor_image,
             'category' => $this->category->name,
             'sections' => SectionInfo::collection($this->sections),
         ];

@@ -26,7 +26,7 @@ export default {
             const url = '/api/get-courses';
             axios.get(url)
             .then(response=>{
-                this.courses = response.data.courses;
+                this.courses = response.data;
             })
             .catch(error=>{
                 console.log(error);

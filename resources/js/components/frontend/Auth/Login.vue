@@ -3,36 +3,36 @@
         <div class="row justify-content-center">
             <div class="col-md-5">
                 <div class="card">
-                    <div class="card-body">
-                        <h3>Login</h3>
-                        <div>
-                            <form method="POST" @submit.prevent="login">
-
-                                <div class="form-group">
-                                    <input id="email" type="email" class="form-control" placeholder="Enter Email Address" name="email" required autocomplete="email" autofocus>
-                                </div>
-
-                                <div class="form-group">
-                                    <input id="password" type="password" placeholder="Enter Password"  class="form-control" name="password" required autocomplete="current-password">
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="remember" id="remember">
-                                        <label class="form-check-label" for="remember">Remember Me</label>
-                                    </div>
-                                </div>
-
-                                <div class="form-group d-flex flex-column">
-                                    <button type="submit" class="btn btn-success">Login</button>
-                                </div>
-                            </form>
-                        </div>
+                    <h4 class="card-header">Login</h4>
+                    <div class="card-body">                        
                         
-                        
-                            <div class="text-center">
-                                <h5>OR</h5>
+                        <form method="POST" @submit.prevent="login">
+
+                            <div class="form-group">
+                                <input id="email" type="email" class="form-control" placeholder="Enter Email Address" v-model="email" required autocomplete="email" autofocus>
                             </div>
+
+                            <div class="form-group">
+                                <input id="password" type="password" placeholder="Enter Password"  class="form-control" v-model="password" required autocomplete="current-password">
+                            </div>
+
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" v-model="remember" id="remember">
+                                    <label class="form-check-label" for="remember">Remember Me</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group d-flex flex-column">
+                                <button type="submit" class="btn btn-success">Login</button>
+                            </div>
+                        </form>
+                        
+                        
+                        
+                        <div class="text-center">
+                            <h5>OR</h5>
+                        </div>
                         
 
                         <!--Social Logins-->
@@ -55,6 +55,24 @@
 </template>
 <script>
 export default {
-    
+    data(){
+        return{
+            email:null,
+            password:null,
+            remember:null,
+        }
+    },
+    methods:{
+        login(){
+            const url = '/api/login';
+            axios.post(url)
+            .then(response=>{
+                console.log(response);
+            })
+            .catch(error=>{
+                console.log(error);
+            });
+        }
+    }
 }
 </script>

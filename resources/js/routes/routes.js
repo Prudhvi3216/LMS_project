@@ -2,6 +2,7 @@ import HomePage from '../components/pages/HomePage.vue'
 import SingleCoursepage from '../components/pages/SingleCoursepage.vue'
 import CoursesPage from '../components/pages/CoursesPage.vue'
 import UserPage from '../components/pages/UserPage.vue'
+import InstructorPage from '../components/pages/InstructorPage.vue'
 import Login from '../components/frontend/Auth/Login.vue'
 import Register from '../components/frontend/Auth/Register.vue'
 
@@ -44,6 +45,11 @@ const routes = [
         path: '/register', 
         component: Register,
         name:'register',
+    },
+    { 
+        path: '/user/instructor/:name', 
+        component: InstructorPage,
+        name:'instructor-page'
     }
 ]
 

@@ -86,7 +86,7 @@
 
             <section>
                 <h2 class="h4">About Instructor</h2>
-                <instructor-info :instructor="curriculum.instructor"></instructor-info>
+                <instructor-info :instructor="curriculum.instructor" :slug="curriculum.instructor_slug" :biography="curriculum.biography" :instructor_image="curriculum.instructor_image"></instructor-info>
             </section>
             
             <section class="mt-4">

@@ -32,7 +32,7 @@
 						<router-link to="/register">Register</router-link>
 						-->
 						<li v-if="signed">
-							<a  class="lightbox cursor">@json(Auth::user()->first_name)</a>
+							<a  class="lightbox cursor"></a>
 							<a @click="logout" class="lightbox cursor">Logout</a>
 						</li>
 						<li v-else>
@@ -48,14 +48,15 @@
 export default {
     data(){
         return{
-			signed:window.auth.signedIn,
+			signed:true,
         }
     },
 	methods:{
 		logout(){
 			axios.post('/logout')
 			.then(response=>{
-				this.signed = window.auth.signedIn;
+				console.log(response);
+				//this.signed = window.auth.signedIn;
 			})
 			.catch(error=>{
 				console.log(error);

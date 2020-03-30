@@ -24,7 +24,7 @@ export default {
             const url = '/api/popular-courses';
             axios.get(url)
             .then(response=>{
-                this.courses = response.data.courses;
+                this.courses = response.data;
             })
             .catch(error=>{
                 console.log(error);

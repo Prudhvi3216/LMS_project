@@ -8,15 +8,16 @@
                     <div>
                         <strong class="bg-primary text-white font-lato text-uppercase price-tag">{{ course.price }}</strong>
                     </div>
-                    <h3 class="post-heading text-overflow">
-                        <!--<a :href="'/course/'+course.course_slug">{{ course.course_title }}</a>-->
+                    <h3 class="post-heading text-overflow">    
                         <router-link :to="{ name: 'single-course-page', params: { slug: course.course_slug }}"> {{ course.course_title }} </router-link>
                     </h3>
                     <div class="post-author">
                         <div class="alignleft rounded-circle no-shrink">
                             <img src="http://placehold.it/35x35" class="rounded-circle" alt="image description">
                         </div>
-                        <h4 class="author-heading"><a href="instructor-single.html"></a>Prudhvi</h4>
+                        <h4 class="author-heading">
+                            <router-link :to="{ name: 'instructor-page', params: { name: course.instructor_slug }}">{{ course.instructor }}</router-link>
+                        </h4>
                     </div>
                     <footer class="post-foot gutter-reset">
                         <ul class="list-unstyled post-statuses-list">
