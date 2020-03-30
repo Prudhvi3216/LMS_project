@@ -7,36 +7,30 @@ use App\Course;
 use App\CurriculumSection;
 use App\Instructor;
 use App\CurriculumLecturesQuiz;
+use App\Http\Resources\CourseInfo;
+
 
 use Illuminate\Http\Request;
 
 class MainController extends Controller
 {
     //Home page data
-    public function index(){
-        $categories = Category::Select('id', 'name', 'slug')->get();
+    public function popular_courses(){
+        //$categories = Category::Select('id', 'name', 'slug')->get();
         $courses = Course::Where('is_active',1)->Select('id','course_title','course_slug','price','strike_out_price','overview','category_id','instructor_id')->get();
-        return view('frontend/pages/home')->with(['categories'=>$categories, 'courses'=>$courses]);
+        return response()->json(['courses'=>$courses],200);
     }
 
     //Curriculum
     public function frontend_curriculum($course_slug){
-        $course = Course::where('course_slug',$course_slug)->first();
-        if($course && $course->is_active){
-            $data['course_title'] = $course->course_title;
-            $data['keywords'] = $course->keywords;
-            $data['duration'] = $course->duration;
-            $data['price'] = $course->price;
-            $data['strike_out_price'] = $course->strike_out_price;
-            $data['overview'] = $course->overview;
-            $data['instructor'] = $course->instructor->last_name;
-            $data['category'] = $course->category->name;
-            $sections = $course->sections;
-            $lectures = $sections->map->curriculum_lectures;
-            return view('frontend.pages.course')->with(['curriculum'=>$sections,'info'=>$data]);
+        //Use get helper while using resourse collections, as get returns array of rows
+        $course = Course::where('course_slug',$course_slug)->get();
+        if($course){
+            $data = CourseInfo::collection($course);
+            return response()->json($data,200);
         }
         else{
-            return response()->json('Course not exist',200);
+            return response()->json('Course not found');
         }
     }
 
@@ -45,9 +39,10 @@ class MainController extends Controller
         $category = Category::where('slug',$category_slug)->first();
         if($category){
             //Map method https://stackoverflow.com/questions/38412091/get-only-specific-attributes-with-from-laravel-collection
-            $categories = Category::Select('id', 'name', 'slug')->get();
+            //$categories = Category::Select('id', 'name', 'slug')->get();
             $courses = $category->courses->map->only(['id','course_title','course_slug','price','strike_out_price','overview','category_id','instructor_id']);
-            return view('frontend.pages.courses')->with(['categories'=>$categories,'courses'=>$courses]);
+            return response()->json($courses,200);
+            //return view('frontend.pages.courses')->with(['categories'=>$categories,'courses'=>$courses]);
         }
         else{
             return response()->json('Category not exist',200);

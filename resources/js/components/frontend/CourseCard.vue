@@ -8,12 +8,15 @@
                     <div>
                         <strong class="bg-primary text-white font-lato text-uppercase price-tag">{{ course.price }}</strong>
                     </div>
-                    <h3 class="post-heading text-overflow"><a :href="'/course/'+course.course_slug">{{ course.course_title }}</a></h3>
+                    <h3 class="post-heading text-overflow">
+                        <!--<a :href="'/course/'+course.course_slug">{{ course.course_title }}</a>-->
+                        <router-link :to="{ name: 'single-course-page', params: { slug: course.course_slug }}"> {{ course.course_title }} </router-link>
+                    </h3>
                     <div class="post-author">
                         <div class="alignleft rounded-circle no-shrink">
                             <img src="http://placehold.it/35x35" class="rounded-circle" alt="image description">
                         </div>
-                        <h4 class="author-heading"><a href="instructor-single.html"></a>{{ instructor }}</h4>
+                        <h4 class="author-heading"><a href="instructor-single.html"></a>Prudhvi</h4>
                     </div>
                     <footer class="post-foot gutter-reset">
                         <ul class="list-unstyled post-statuses-list">
@@ -43,31 +46,11 @@
 </template>
 <script>
 export default {
-    props:['course','instructor'],
+    props:['course'],
     data(){
         return{
-            course_link:'',
-            course_slug:this.$props.course.course_slug,
+            
         }
     },
-    mounted(){
-        const course_slug = this.$props.course.course_slug;
-        const url = 'course/'+course_slug;
-        this.course_link = url;
-    },
-    methods:{
-        
-        load_course_info(){
-            const url = 'course/'+this.course_slug;
-            axios.post(url)
-            .then(response=>{
-                console.log(error);
-            })
-            .catch(error=>{
-                console.log(error);
-            })
-        }
-    }
-
 }
 </script>

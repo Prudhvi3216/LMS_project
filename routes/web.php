@@ -11,34 +11,20 @@
 |
 */
 
+//Auth::routes(['verify'=>true]);
+//SPA View
+Route::view('{any}', 'frontend.spa')->where('any','[\/\w\.-]*');
+
 //Guest Routes
 Route::get('/', 'MainController@index')->name('home');
 Route::get('/home', 'MainController@index')->name('home');
 Route::get('/course/{course_name}', 'MainController@frontend_curriculum');
-Route::get('/courses/{category_name}', 'MainController@get_courses_of_category');
+
 
 Route::get('/login/google', 'Auth\LoginController@redirectToProvider')->name('google-auth');
 Route::get('/login/google/callback', 'Auth\LoginController@handleProviderCallback');
 
-//User routes
-Route::group(['prefix'=>'user', 'middleware'=>'auth'],function () {
-  Route::get('my-courses', function () {
-      return dd('My courses');
-  });
 
-  Route::get('edit-profile', function () {
-    return dd('edit-profile');
-  });
-
-  Route::get('change-password', function () {
-    return dd('Change Password');
-  });
-
-  Route::get('view-profile', function () {
-    return dd('View Profile');
-  });
-
-});
 
 //Instructor routes
 Route::group(['prefix'=>'instructor', 'middleware'=>['auth','can:isInstructor']], function () {
@@ -82,7 +68,7 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth','can:isAdmin']], function
 });
 
 
-Auth::routes();
+//Auth::routes();
 
 Route::get('course', function(){
   return view('frontend/index');

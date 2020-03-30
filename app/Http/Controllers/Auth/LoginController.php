@@ -58,7 +58,7 @@ class LoginController extends Controller
         // $user->token;
     }
 
-    //protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
      * Create a new controller instance.

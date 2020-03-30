@@ -3,14 +3,16 @@
         <div class="container">
             <!-- breadcrumb -->
             <ol class="breadcrumb">
-                <li v-for="(breadcrumb,index) in this.$props.breadcrumbs" :key="index"><a :href="breadcrumb.link">{{ breadcrumb.title }}</a></li>
+               <li v-for="(breadcrumb,index) in this.$props.breadcrumbs" :class="breadcrumb.active" :key="index">
+                   <router-link :to="breadcrumb.link">{{ breadcrumb.text }}</router-link>
+                </li>
             </ol>
         </div>
     </nav>
 </template>
 <script>
 export default {
-    props:'breadcrumbs',
+    props:['breadcrumbs'],
     data(){
         return{
             

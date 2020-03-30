@@ -32,17 +32,21 @@
 	<link rel="stylesheet" href="{{ asset('frontend/css/responsive.css') }}">
 </head>
 <body>
-	<div id="app">
-		<div id="wrapper">		
-			
+	<div id="app">	
+		<div id="wrapper">	
 			<header id="page-header" class="page-header-stick">
 				<header-topbar></header-topbar>
 				<header-holder></header-holder>
+				<nav>
+					<router-link to="/">Home</router-link>
+					<router-link to="/courses">Courses</router-link>
+					<router-link to="/login">Login</router-link>
+					<router-link to="/register">Register</router-link>
+					<router-link to="/courses">My Account</router-link>
+					<router-link to="/courses">Dashboard</router-link>
+				</nav>
 			</header>
-
-			<main id="main">
-				@yield('content')
-			</main>
+			<router-view class="mt-5"></router-view>
 		</div>
 	</div>
 
@@ -64,7 +68,6 @@
 	<!-- include jQuery 
 	<script type="text/javascript" src="{{ asset('frontend/js/init.js') }}"></script>
 	-->
-
 	<script src="{{ asset('js/app.js') }}" defer></script>
 </body>
 </html>

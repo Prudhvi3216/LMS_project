@@ -25,11 +25,18 @@
 				<div class="col-xs-3 col justify-end">
 					<!-- user links -->
 					<ul class="list-unstyled user-links fw-bold font-lato">
-						<li v-if="show_login_links">
-							<a href="/login" class="lightbox cursor">Login</a> <span class="sep">|</span> <a href="/register" class="lightbox cursor">Register</a>
+						<!--
+						<router-link to="/home">Home</router-link>
+						<router-link to="/courses">Courses</router-link>
+						<router-link to="/login">Login</router-link>
+						<router-link to="/register">Register</router-link>
+						-->
+						<li v-if="signed">
+							<a  class="lightbox cursor">@json(Auth::user()->first_name)</a>
+							<a @click="logout" class="lightbox cursor">Logout</a>
 						</li>
 						<li v-else>
-							<a @click="logout" class="lightbox cursor">Logout</a>
+							<a href="/login" class="lightbox cursor">Login</a> <span class="sep">|</span> <a href="/register" class="lightbox cursor">Register</a>
 						</li>
 					</ul>
 				</div>
@@ -41,14 +48,14 @@
 export default {
     data(){
         return{
-            show_login_links:false,
+			signed:window.auth.signedIn,
         }
     },
 	methods:{
 		logout(){
 			axios.post('/logout')
 			.then(response=>{
-				this.show_login_links = true;
+				this.signed = window.auth.signedIn;
 			})
 			.catch(error=>{
 				console.log(error);

@@ -30,36 +30,6 @@
                 <span class="sr-only">Next</span>
             </a>
         </div>
-        <!--
-        <section class="intro-block">
-            <div class="slider fade-slider">
-                <div >
-                    <div>
-                        <article class="intro-block-slide overlay bg-cover" style="background-image: url(http://placehold.it/1920x823);">
-                            <div class="align-wrap container">
-                                <div class="align">
-                                    <div class="anim">
-                                        <h1 class="intro-block-heading">{{ title }}</h1>
-                                    </div>
-                                    <div class="anim delay1">
-                                        <p>{{ slide.subtitle }}</p>
-                                    </div>
-                                    <div class="anim delay2">
-                                        <div class="btns-wrap">
-                                            <a  class="btn btn-warning btn-theme text-uppercase">{{ slide.btn_text1 }}</a>
-                                            <a  class="btn btn-white text-uppercase">{{ slide.btn_text2 }}</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-                </div>
-            </div>
-
-            
-        </section>   
-        --> 
     </div>
 </template>
 
@@ -94,9 +64,4 @@ export default {
   font-weight: 700;
   margin: 0 0 13px;
 }
-
 </style>>
-
-</style> scoped>
-
-</style>

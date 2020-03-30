@@ -13,15 +13,21 @@ import Vuex from 'vuex'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import Toasted from 'vue-toasted'
-import VueRouter from 'vue-router'
-import VueCarousel from 'vue-carousel'
+import router from './routes/index'
 
-Vue.use(VueRouter)
 Vue.use(VueAxios, axios)
 Vue.use(Vuex)
-Vue.use(VueCarousel)
 Vue.use(Toasted, {
     iconPack:'fontawesome'
+})
+
+
+router.beforeEach((to,from,next) => {
+    if(to.matched.some(r => r.meta.requiresAuth) && !window.auth.signedIn){
+        window.location = window.auth.login;
+        return
+    }
+    next()
 })
 
 const store = new Vuex.Store(StoreData)
@@ -37,31 +43,27 @@ const store = new Vuex.Store(StoreData)
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-
-import CategoryEdit from './components/categories/CategoryEdit.vue';
-import CategoryShow from './components/categories/CategoryShow.vue';
-import NewCategory from './components/categories/NewCategory.vue';
+import CategoryEdit from './components/backend/categories/CategoryEdit.vue';
+import CategoryShow from './components/backend/categories/CategoryShow.vue';
+import NewCategory from './components/backend/categories/NewCategory.vue';
 
 //Course Components
-import CourseHandler from './components/courses/CourseHandler.vue';
-import CourseAdd from './components/courses/CourseAdd.vue';
-import CourseInfo from './components/courses/CourseInfo.vue';
-import CourseinfoEdit from './components/courses/CourseinfoEdit.vue';
+import CourseHandler from './components/backend/courses/CourseHandler.vue';
+import CourseAdd from './components/backend/courses/CourseAdd.vue';
+import CourseInfo from './components/backend/courses/CourseInfo.vue';
+import CourseinfoEdit from './components/backend/courses/CourseinfoEdit.vue';
 
 import InputTag from 'vue-input-tag';
-import CurriculumSection from './components/courses/CurriculumSection.vue';
-import EditCurriculum from './components/courses/EditCurriculum.vue';
-import EditLecture from './components/courses/EditLecture.vue';
-import vueDropzone from 'vue2-dropzone';
-import 'vue2-dropzone/dist/vue2Dropzone.min.css';
+import CurriculumSection from './components/backend/courses/CurriculumSection.vue';
+import EditCurriculum from './components/backend/courses/EditCurriculum.vue';
+import EditLecture from './components/backend/courses/EditLecture.vue';
 
 //Frontend Components
+import BreadCrumb from './components/frontend/BreadCrumb.vue';
 import MenuCategories from './components/frontend/MenuCategories.vue';
 import HeaderHolder from './components/frontend/HeaderHolder.vue';
 import HeaderTopbar from './components/frontend/HeaderTopbar.vue';
-import HomeSlider from './components/frontend/HomeSlider.vue';
 import CourseCard from './components/frontend/CourseCard.vue';
-import CurriculumView from './components/frontend/CurriculumView.vue';
 
 import AdminSidemenu from './components/misc/AdminSidemenu.vue';
 import InstSidemenu from './components/misc/InstSidemenu.vue';
@@ -75,12 +77,8 @@ import AdminCoursesView from './components/misc/AdminCoursesView.vue';
 //Frontend Components
 Vue.component('header-holder', HeaderHolder);
 Vue.component('header-topbar', HeaderTopbar);
-Vue.component('home-slider', HomeSlider);
 Vue.component('course-card', CourseCard);
-Vue.component('curriculum-view', CurriculumView);
-
-const VueUploadComponent = require('vue-upload-component')
-Vue.component('file-upload', VueUploadComponent)
+Vue.component('bread-crumb', BreadCrumb);
 
 //Backend component register
 Vue.component('category-edit', CategoryEdit);
@@ -95,7 +93,6 @@ Vue.component('course-info-edit', CourseinfoEdit);
 Vue.component('curriculum-section', CurriculumSection);
 Vue.component('edit-curriculum', EditCurriculum);
 Vue.component('edit-lecture', EditLecture);
-Vue.component('vue-dropzone', vueDropzone);
 
 
 //Backend component register
@@ -118,4 +115,5 @@ Vue.component('input-tag', InputTag);
 const app = new Vue({
     el: '#app',
     store,
+    router,
 });
