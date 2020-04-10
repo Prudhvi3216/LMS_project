@@ -11,26 +11,47 @@ window.Vue = require('vue');
 import StoreData from './store'
 import Vuex from 'vuex'
 import axios from 'axios'
-import VueAxios from 'vue-axios'
+//import VueAxios from 'vue-axios'
 import Toasted from 'vue-toasted'
 import router from './routes/index'
 
-Vue.use(VueAxios, axios)
+Vue.use(axios)
 Vue.use(Vuex)
 Vue.use(Toasted, {
     iconPack:'fontawesome'
 })
 
+const store = new Vuex.Store(StoreData)
 
+//Nav Gaurds
 router.beforeEach((to,from,next) => {
-    if(to.matched.some(r => r.meta.requiresAuth) && !window.auth.signedIn){
-        window.location = window.auth.login;
-        return
+    if(to.matched.some(r => r.meta.requiresAuth)){
+        if(!store.getters.loggedIn){
+            next({
+                name:'login'
+            })
+        }
+        else{
+            next()
+        }
     }
-    next()
+    else if(to.matched.some(r => r.meta.signed)){
+        if(store.getters.loggedIn){
+            next({
+                name:'home-page'
+            })
+        }
+        else{
+            next()
+        }
+    }
+    else{
+        next()
+    }
+    
 })
 
-const store = new Vuex.Store(StoreData)
+
 
 /**
  * The following block of code may be used to automatically register your
@@ -44,19 +65,7 @@ const store = new Vuex.Store(StoreData)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 import CategoryEdit from './components/backend/categories/CategoryEdit.vue';
-import CategoryShow from './components/backend/categories/CategoryShow.vue';
 import NewCategory from './components/backend/categories/NewCategory.vue';
-
-//Course Components
-import CourseHandler from './components/backend/courses/CourseHandler.vue';
-import CourseAdd from './components/backend/courses/CourseAdd.vue';
-import CourseInfo from './components/backend/courses/CourseInfo.vue';
-import CourseinfoEdit from './components/backend/courses/CourseinfoEdit.vue';
-
-import InputTag from 'vue-input-tag';
-import CurriculumSection from './components/backend/courses/CurriculumSection.vue';
-import EditCurriculum from './components/backend/courses/EditCurriculum.vue';
-import EditLecture from './components/backend/courses/EditLecture.vue';
 
 //Frontend Components
 import BreadCrumb from './components/frontend/BreadCrumb.vue';
@@ -64,12 +73,8 @@ import MenuCategories from './components/frontend/MenuCategories.vue';
 import HeaderHolder from './components/frontend/HeaderHolder.vue';
 import HeaderTopbar from './components/frontend/HeaderTopbar.vue';
 import CourseCard from './components/frontend/CourseCard.vue';
-
-import AdminSidemenu from './components/misc/AdminSidemenu.vue';
-import InstSidemenu from './components/misc/InstSidemenu.vue';
-import InstructorCourses from './components/misc/InstructorCourses.vue';
-import InstructorProfile from './components/misc/InstructorProfile.vue';
-import AdminCoursesView from './components/misc/AdminCoursesView.vue';
+import Unauthorized from './components/frontend/Unauthorized.vue';
+import Footer from './components/frontend/Footer.vue';
 
 
 
@@ -79,32 +84,16 @@ Vue.component('header-holder', HeaderHolder);
 Vue.component('header-topbar', HeaderTopbar);
 Vue.component('course-card', CourseCard);
 Vue.component('bread-crumb', BreadCrumb);
+Vue.component('unauthorized', Unauthorized);
+Vue.component('footer-component', Footer);
 
 //Backend component register
 Vue.component('category-edit', CategoryEdit);
-Vue.component('category-show', CategoryShow);
 Vue.component('new-category', NewCategory);
-
-//Courses
-Vue.component('course-handler', CourseHandler);
-Vue.component('course-info', CourseInfo);
-Vue.component('course-add', CourseAdd);
-Vue.component('course-info-edit', CourseinfoEdit);
-Vue.component('curriculum-section', CurriculumSection);
-Vue.component('edit-curriculum', EditCurriculum);
-Vue.component('edit-lecture', EditLecture);
 
 
 //Backend component register
 Vue.component('menu-categories', MenuCategories);
-Vue.component('admin-sdmenu', AdminSidemenu);
-Vue.component('instructor-sdmenu', InstSidemenu);
-Vue.component('instructor-courses', InstructorCourses);
-Vue.component('instructor-profile', InstructorProfile);
-Vue.component('admin-courses-view', AdminCoursesView);
-
-//Awesome Vue components
-Vue.component('input-tag', InputTag);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

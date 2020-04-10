@@ -126,6 +126,7 @@
                     <li class="cat-item cat-item-7"><a href="#">IT &amp; Software</a></li>
                 </ul>
             </section>
+            
             <!-- widget intro -->
             <section class="widget widget_intro">
                 <h3>Course Intro</h3>

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="card card-body">
         <div id="builder">
             <h5>{{ course_name }}</h5>
 
@@ -13,7 +13,7 @@
            
         <!--Adding New Section-->
         <div class="form-group">
-            <button class="btn btn-primary btn-sm" @click="add_section"><i class="fa fa-plus">&nbsp;</i>New Section</button>
+            <button class="btn btn-warning" @click="add_section"><i class="fa fa-plus">&nbsp;</i>New Section</button>
             <!--Section-->
                 <div class="section_bg">   
                    <form method="POST" @submit.prevent="" enctype="multipart/form-data"> 

@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Gate;
 class InstructorController extends Controller
 {
     public function index(){
-        return view('backend/Instructor');
+        
     }
 
     public function add_sectiondata(Request $request){
@@ -194,7 +194,7 @@ class InstructorController extends Controller
         $course_info['updated_at'] = $course->updated_at;
         $course_info['category'] = $course->category->name;
         $course_info['instructor'] =  $course->instructor->first_name;
-        return response()->json(['course_info'=>$course_info],200);
+        return response()->json(['course_info'=>$course_info],200);  
     }
 
     //Instructor Courses
@@ -213,7 +213,7 @@ class InstructorController extends Controller
                     $data['inst_level'] = $course->instruction_level->level; 
                     array_push($inst_courses,$data);
                 }
-                return view('backend/InstructorCourses')->with('courses',$inst_courses);
+                return response()->json($inst_courses,200);
             }
             else{
                 return response()->json('No Courses found');
@@ -221,37 +221,49 @@ class InstructorController extends Controller
          }
     }
 
+    //Instructor Profile view
     public function view_profile(){
-        if(Auth::user()->can('isInstructor')){
+        if(Auth::check() && Auth::user()->can('isInstructor')){    
             $instructor = Instructor::where('user_id',Auth::user()->id)->first();
             $inst['first_name'] = $instructor->first_name;
             $inst['last_name'] = $instructor->last_name;
             $inst['contact_email'] = $instructor->contact_email;
-            $inst['telephone'] = $instructor->telphone;
+            $inst['telephone'] = $instructor->telephone;
             $inst['mobile'] = $instructor->mobile;
+            $inst['paypal_id'] = $instructor->paypal_id;
             $inst['biography'] = $instructor->biography;
+            $inst['instructor_image'] = $instructor->instructor_image;
             $inst['link_facebook'] = $instructor->link_facebook;
             $inst['link_twitter'] = $instructor->link_twitter;
-            $inst['link_linkendin'] = $instructor->link_linkendin;
+            $inst['link_linkendin'] = $instructor->link_linkedin;
             $inst['link_google'] = $instructor->link_googleplus;
-            return view('backend/InstructorProfile')->with('inst_info',$inst);
+            return response()->json(['req_status'=>'success','info'=>$inst],200);
+        }
+        else{
+            return response()->json(['req_status'=>'error','error_message'=>'Unauthorized'],401);   
         }
     }
 
+    //Instructor Profile Update
     public function update_profile(Request $request){
-        if(Auth::user()->can('isInstructor')){
-            $author = Auth::user();
+        if(Auth::check() && Auth::user()->can('isInstructor')){
+            $instructor = Instructor::where('user_id',Auth::user()->id)->first();
             $instructor->first_name = $request->first_name;
             $instructor->last_name = $request->last_name;
-            $instructor->contact_email = $request->email;
+            $instructor->contact_email = $request->contact_email;
             $instructor->telephone = $request->telephone;
             $instructor->mobile =  $request->mobile;
             $instructor->biography =  $request->biography;
+            $instructor->paypal_id =  $request->paypal_id;
             $instructor->link_facebook =  $request->link_facebook;
             $instructor->link_googleplus =  $request->link_googleplus;
             $instructor->link_twitter =  $request->link_twitter;
             $instructor->link_linkedin =  $request->link_linkedin;
-            dd($instructor);
+            $instructor->save();
+            return response()->json(['req_status'=>'success','message'=>'Profile Updated Successfully']);
+        }
+        else{
+            return response()->json(['req_status'=>'error','error_message'=>'Unauthorized'],401);
         }
     }
 

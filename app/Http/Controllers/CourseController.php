@@ -30,14 +30,14 @@ class CourseController extends Controller
                 $data['course_title'] = $course->course_title;
                 $data['category'] = $course->category->name;
                 $data['instructor'] = $course->instructor->last_name;
-                $data['duration'] = $course->duration; 
+                $data['duration'] = $course->duration;
                 $data['inst_level'] = $course->instruction_level->level; 
                 array_push($all_courses,$data);
             }
-            return view('backend.courses.courses')->with('courses',$all_courses);
+            return response()->json(['req_type'=>'success','courses'=>$all_courses],200);
         }
         else{
-            return response()->json('No Courses found');
+            return response()->json(['req_type'=>'error','message'=>'No Courses found']);
         }
     }
 
@@ -69,29 +69,35 @@ class CourseController extends Controller
             'overview'=> 'required|string',
             'is_active'=> 'required',
         ]);
-        if($validatedData){
-            $course = new Course;
-            $instructor_id = \Auth::user()->instructor->id;
-            $course->instructor_id = $instructor_id;
-            $course->category_id = $request->category_id;
-            $course->instruction_level_id = $request->instruction_level_id;
-            $course->course_title = $request->course_title;
-            $course->course_slug = Str::slug($request->course_title,'-');
-            $course->keywords = $request->tags;
-            $course->duration = $request->duration;
-            $course->price = $request->price;
-            $course->strike_out_price = $request->strike_out_price;
-            $course->overview = $request->overview;
-            $course->is_active = $request->is_active;
-            $course->save();
-            $inserted_id = $course->id;
-            $message = 'New Course Created Successfully';
-            return response()->json(['message'=> $message, 'type'=>'success', 'course_id' => $inserted_id]);
-            //return redirect('courses')->with(['alert_type'=>'success', 'alert_message'=>'Category Added Successfully']);
+        if(\Auth::check()){
+            if($validatedData){
+                $course = new Course;
+                $instructor_id = \Auth::user()->instructor->id;
+                $course->instructor_id = $instructor_id;
+                $course->category_id = $request->category_id;
+                $course->instruction_level_id = $request->instruction_level_id;
+                $course->course_title = $request->course_title;
+                $course->course_slug = Str::slug($request->course_title,'-');
+                $course->keywords = $request->tags;
+                $course->duration = $request->duration;
+                $course->price = $request->price;
+                $course->strike_out_price = $request->strike_out_price;
+                $course->overview = $request->overview;
+                $course->is_active = $request->is_active;
+                $course->save();
+                $inserted_id = $course->id;
+                $message = 'New Course Created Successfully';
+                return response()->json(['message'=> $message, 'type'=>'success', 'course_id' => $inserted_id]);
+                //return redirect('courses')->with(['alert_type'=>'success', 'alert_message'=>'Category Added Successfully']);
+            }
+            else{
+                return response()->json(['errors'=> $errors, 'type'=>'error']);
+            }
         }
         else{
-            return response()->json(['errors'=> $errors, 'type'=>'error']);
+            return response()->json('Unauthorized',400);
         }
+        
     }
 
     /**

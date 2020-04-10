@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 use App\Category;
 use App\Course;
@@ -10,6 +12,8 @@ use App\CurriculumSection;
 use App\Instructor;
 use App\CurriculumLecturesQuiz;
 use App\Http\Resources\CourseInfo;
+
+
 
 class MainController extends Controller
 {
@@ -27,8 +31,10 @@ class MainController extends Controller
                 $data['slug'] = $course->course_slug;
                 $data['price'] = $course->price;
                 $data['strike_out_price'] = $course->strike_out_price;
+                $data['instructor_id'] = $course->instructor->id;
                 $data['instructor'] = $course->instructor->last_name;
                 $data['instructor_slug'] = $course->instructor->instructor_slug;
+                $data['instructor_image'] = $course->instructor->instructor_image;
                 array_push($all_courses,$data);
             }
         }    
@@ -61,5 +67,56 @@ class MainController extends Controller
         else{
             return response()->json('Category not exist',200);
         }
+    }
+
+    public function instructor_courses(Request $request){
+        $inst_slug = $request->instructor_slug;
+        $instructor_id = Instructor::where('instructor_slug',$inst_slug)->first()->id;
+            $courses = Course::where('instructor_id',$instructor_id)->get();
+            if(count($courses)){
+                $inst_courses = [];
+                foreach($courses as $course){
+                    $data['id'] = $course->id;
+                    $data['course_title'] = $course->course_title;
+                    $data['course_slug'] = $course->course_slug;
+                    $data['price'] = $course->price;
+                    $data['strike_out_price'] = $course->strike_out_price;
+                    $data['category'] = $course->category->name;
+                    $data['duration'] = $course->duration; 
+                    $data['instructor'] = $course->instructor->last_name; 
+                    $data['instructor_slug'] = $course->instructor->instructor_slug; 
+                    $data['instructor_image'] = $course->instructor->instructor_image;
+                    $data['inst_level'] = $course->instruction_level->level; 
+                    array_push($inst_courses,$data);
+                }
+                return response()->json($inst_courses,200);
+            }
+            else{
+                return response()->json('No Courses found');
+            }
+    }
+
+    public function instructor_info(Request $request){
+            $inst_slug = $request->instructor_slug;
+            $instructor = Instructor::where('instructor_slug',$inst_slug)->first();
+            if($instructor){
+                $inst['first_name'] = $instructor->first_name;
+                $inst['last_name'] = $instructor->last_name;
+                $inst['contact_email'] = $instructor->contact_email;
+                $inst['instructor_image'] = $instructor->instructor_image;
+                $inst['telephone'] = $instructor->telphone;
+                $inst['mobile'] = $instructor->mobile;
+                $inst['biography'] = $instructor->biography;
+                $inst['link_facebook'] = $instructor->link_facebook;
+                $inst['link_twitter'] = $instructor->link_twitter;
+                $inst['link_linkendin'] = $instructor->link_linkendin;
+                $inst['link_google'] = $instructor->link_googleplus;
+                return response()->json(['req_type'=>'success', 'info'=>$inst],200);
+            }
+            else{
+                $message = "Instructor Doesn't exist";
+                return response()->json(['req_type'=>'error', 'message'=>$message],200);
+            }
+        
     }
 }

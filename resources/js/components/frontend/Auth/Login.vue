@@ -23,19 +23,18 @@
                                 </div>
                             </div>
 
-                            <div class="form-group d-flex flex-column">
-                                <button type="submit" class="btn btn-success">Login</button>
-                            </div>
+                            <button type="submit" class="btn btn-lg btn-block btn-primary">Login</button>
+
                         </form>
                         
                         
-                        
+                        <!--Social Logins
                         <div class="text-center">
                             <h5>OR</h5>
                         </div>
                         
 
-                        <!--Social Logins-->
+                       
                         <div class="d-flex flex-column">                
                             <a href="#" class="col btn text-white m-1" style="background-color:#3B5998;">
                                 <i class="fa fa-facebook fa-fw"></i>Login with Facebook
@@ -44,7 +43,7 @@
                                 <i class="fa fa-google fa-fw"></i> Login with Google
                             </a>
                         </div>
-                        <!--Social Logins End-->
+                        -->
 
                     </div>
                 </div>
@@ -54,24 +53,26 @@
     </div>
 </template>
 <script>
+import { mapActions } from 'vuex'
 export default {
     data(){
         return{
             email:null,
             password:null,
             remember:null,
+            form: new FormData,
         }
     },
     methods:{
+
+        ...mapActions(['retriveToken']),
+
         login(){
-            const url = '/api/login';
-            axios.post(url)
-            .then(response=>{
-                console.log(response);
+            this.$store.dispatch('retriveToken', {
+                email:this.email,
+                password:this.password,
+                remember:this.remember
             })
-            .catch(error=>{
-                console.log(error);
-            });
         }
     }
 }

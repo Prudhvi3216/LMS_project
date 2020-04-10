@@ -1,8 +1,14 @@
 <template>
     <div>
         <home-slider></home-slider>
-        <popular-courses></popular-courses>
-        {{ user }}
+        <popular-courses v-slot:inputelement>
+            <!--
+            <header class="popular-posts-head">
+                <h2 class="popular-head-heading">Most Popular Courses</h2>
+            </header>
+            -->
+            <input type="text" class="form-control" placeholder="Enter Name">
+        </popular-courses>
     </div>
 </template>
 
@@ -12,7 +18,8 @@ import PopularCourses from '../frontend/PopularCourses.vue';
 export default {
     data(){
          return{
-             user:window.auth,
+             user:'',
+             name:''
          }
     },
     components:{

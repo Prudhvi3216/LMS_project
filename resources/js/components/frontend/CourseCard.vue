@@ -3,7 +3,8 @@
             <!-- popular post -->
                 <article class="popular-post">
                     <div class="aligncenter">
-                        <img src="http://placehold.it/262x212" alt="image description">
+                        <img v-if="course_image" src="http://placehold.it/262x212" alt="image description">
+                        <img v-else src="/images/courses/default.JPG" alt="image description">
                     </div>
                     <div>
                         <strong class="bg-primary text-white font-lato text-uppercase price-tag">{{ course.price }}</strong>
@@ -13,7 +14,8 @@
                     </h3>
                     <div class="post-author">
                         <div class="alignleft rounded-circle no-shrink">
-                            <img src="http://placehold.it/35x35" class="rounded-circle" alt="image description">
+                            <img v-if="course.instructor_image" :src="'/images/'+course.instructor_image" class="rounded-circle" alt="image description">
+                            <img v-else src="/images/instructor/default.PNG" class="rounded-circle" alt="image description">
                         </div>
                         <h4 class="author-heading">
                             <router-link :to="{ name: 'instructor-page', params: { name: course.instructor_slug }}">{{ course.instructor }}</router-link>
@@ -50,7 +52,7 @@ export default {
     props:['course'],
     data(){
         return{
-            
+            course_image:false,
         }
     },
 }

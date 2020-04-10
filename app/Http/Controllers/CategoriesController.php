@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 //Model
 use App\Category as Categories;
@@ -19,7 +19,13 @@ class CategoriesController extends Controller
     public function index()
     {
         $categories = Categories::Select('id', 'name', 'slug')->get();
-        return view('backend/categories/Categories')->with('categories',$categories);
+        if(count($categories)){
+            return response()->json(['req_type'=>'success','categories'=>$categories],200);
+        }
+        else{
+            return response()->json(['req_type'=>'error'],422);
+        }
+        
     }
 
     /**

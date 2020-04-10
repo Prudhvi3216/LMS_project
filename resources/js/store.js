@@ -1,73 +1,91 @@
 import Axios from "axios";
+import router from './routes';
+
+Axios.defaults.baseURL = 'http://127.0.0.1:8000/';
 
 export default{
     strict:true,
     state:{
-        test_sections:[],
-        section_data:[],
-        current_course:{id:6},
+        token: localStorage.getItem('access_token') || null,
+        user: null,
     },
     getters:{
-        sections(state){
-            return state.test_sections;
+
+        loggedIn(state){
+           return state.token !== null;
         },
-        curriculum_course_id(state){
-            return state.current_course.id;
-        },
-        section_title(state, section_index){
-            return state.test_sections[section_index].section_title;
+        user(state){
+            return state.user;
         }
+
     },
     mutations:{
-        update_section_title(state, payload){         
-            const section = state.sections.find(section => {
-                return section.id == payload.section_id
-            });
-            section.title = payload.section_title;
-        },
 
-        //Sections
-        sections(state, sec_data){
-            state.section_data = sec_data;
+        retriveToken(state, token){
+            state.token = token;
         },
+        retriveUser(state, user){
+            state.user = user;
+        },
+        destroyToken(state){
+            state.token = null
+            state.user = null
+        }
 
     },
     actions:{
 
-      load_sections({commit}){
-        const id = this.state.current_course.id;
-        Axios.post(`/get-curriculum/${id}`)
-        .then(response => {
-            const sec_data = response.data;
-            commit('SECTIONS', sec_data);
-        })
-        .error(error=>(console.log(error)))
-      }, 
+        retriveToken(context,credentials){
+            const url = '/api/login';
+            Axios.post(url,{
+                email:credentials.email,
+                password:credentials.password,
+                remember:credentials.remember
+            })
+            .then(response=>{                
+                if(response.data.req_status == 'success'){
+                    const token = response.data.access_token;
+                    localStorage.setItem('access_token',token);
+                    context.commit('retriveToken',token);
+                    router.push({ name: 'home-page' });
+                }
+            })
+            .catch(error=>{
+                console.log(error);
+            });
+        },
 
+        retriveUser(context){
+            const url = '/api/user';
+            Axios.defaults.headers.common['Authorization'] = 'Bearer ' + context.state.token
+            Axios.get(url)
+            .then(response=>{                
+                if(response.data.req_status == 'success'){
+                    const user = response.data.user;
+                    context.commit('retriveUser',user);
+                }
+            })
+            .catch(error=>{
+                console.log(error.response.data);
+            });
+        },
 
-      insert_section_data(section_index){
-            console.log(section_index);
-            const url = '/add-section';
-            Axios.post(url,section_data)
-                .then(response=>{
-                    const data = response.data;
-                    /*
-                    this.test_sections[section_index].alert_type = response.data.alert_type;
-                    if(response.status == 200){
-                        this.test_sections[section_index].title_insert_show = false;
-                        this.test_sections[section_index].title_edit_show = true;
-                        this.test_sections[section_index].editing = false;
-                        this.test_sections[section_index].section_id = response.data.section_inserted_id;
-                    } 
-                    */
+        destroyToken(context){
+            if(context.getters.loggedIn){
+                const url = '/api/logout';
+                Axios.get(url)
+                .then(response=>{                
+                    localStorage.removeItem('access_token');
+                    context.commit('destroyToken');
+                    //router.push({ name: 'home-page' });
                 })
                 .catch(error=>{
+                    localStorage.removeItem('access_token');
+                    context.commit('destroyToken');
                     console.log(error);
                 });
-        }
+            }
+        },
 
     },
-
-    
-
 }

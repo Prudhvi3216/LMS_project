@@ -1,5 +1,5 @@
 <template>
-    <div v-if="this.$props.course_id">
+    <div v-if="this.$props.course_id" class="card card-body">
         <h5 class="card-title">{{ course_info.course_title }}</h5>
         <p>
             <span class="text-muted">Author</span><br>
@@ -73,7 +73,7 @@ export default{
     methods:{
         get_course_info(){
             const id = this.$props.course_id;
-            axios.post(`/get-course-info/${id}`)
+            axios.post(`/api/instructor/get-course-data/${id}`)
             .then(response=>{
                 this.course_info = response.data.course_info;
             })

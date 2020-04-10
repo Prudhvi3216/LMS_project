@@ -37,7 +37,7 @@ Route::group(['prefix'=>'instructor', 'middleware'=>['auth','can:isInstructor']]
   Route::get('profile', 'InstructorController@view_profile');
 
   //Edit Profile
-  Route::post('update-profile', 'InstructorController@update_profile');
+  
 
   //Change Password
   Route::get('change-password', function () {
@@ -64,7 +64,7 @@ Route::group(['prefix'=>'instructor', 'middleware'=>['auth','can:isInstructor']]
 
 //Admin routes
 Route::group(['prefix'=>'admin', 'middleware'=>['auth','can:isAdmin']], function () {
-  Route::get('/courses', 'CourseController@index');
+  //Route::get('/courses', 'CourseController@index');
 });
 
 
@@ -79,10 +79,10 @@ Route::get('course', function(){
 //Backend routes
 Route::group(['middleware'=>['auth','can:Admin_or_Inst']], function(){
   //Categories  
-  Route::resource('/categories', 'Admin\CategoriesController');
+  //Route::resource('/categories', 'Admin\CategoriesController');
 
   
-  Route::post('/get-course-info/{id}', 'InstructorController@get_course_data');
+  
 
   //Dashboard
   Route::get('/dashboard', 'DashboardController@index')->name('dashboard-index');

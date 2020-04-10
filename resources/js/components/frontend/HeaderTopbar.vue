@@ -24,21 +24,35 @@
 				</div>
 				<div class="col-xs-3 col justify-end">
 					<!-- user links -->
-					<ul class="list-unstyled user-links fw-bold font-lato">
+					<ul v-if="loggedIn" class="nav fw-bold font-lato">
 						<!--
 						<router-link to="/home">Home</router-link>
 						<router-link to="/courses">Courses</router-link>
 						<router-link to="/login">Login</router-link>
 						<router-link to="/register">Register</router-link>
 						-->
-						<li v-if="signed">
-							<a  class="lightbox cursor"></a>
-							<a @click="logout" class="lightbox cursor">Logout</a>
-						</li>
-						<li v-else>
-							<a href="/login" class="lightbox cursor">Login</a> <span class="sep">|</span> <a href="/register" class="lightbox cursor">Register</a>
-						</li>
+						{{ Auth_username }} <br>
+						<a @click="logout" class="dropdown-item lightbox cursor">Logout</a>
+						<!--
+						<div class="dropdown">
+							<button class="nav-link dropdown-toggle" id="dLabel" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"></button>
+							<div class="dropdown-menu" aria-labelledby="dLabel">
+								
+								<a class="dropdown-item" href="#">Another action</a>
+								<a class="dropdown-item" href="#">Something else here</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="#">Separated link</a>
+							</div>		
+						</div>
+						-->
 					</ul>
+					<ul v-else class="list-unstyled user-links fw-bold font-lato">
+						<li v-if="!loggedIn">
+							<router-link class="lightbox cursor" to="/login">Login</router-link>
+							<span class="sep">|</span> 
+							<router-link class="lightbox cursor" to="/register">Register</router-link>
+						</li>
+					</ul>	
 				</div>
 			</div>
 		</div>
@@ -46,21 +60,23 @@
 </template>    
 <script>
 export default {
-    data(){
-        return{
-			signed:true,
-        }
-    },
+	data(){
+		return{
+			Auth_username :this.$store.getters.user
+		}
+	},
+	computed:{
+		loggedIn(){
+			if(this.$store.getters.loggedIn){
+				this.$store.dispatch('retriveUser');
+				this.Auth_username = this.$store.getters.user;
+			}
+			return this.$store.getters.loggedIn;
+		},
+	},
 	methods:{
 		logout(){
-			axios.post('/logout')
-			.then(response=>{
-				console.log(response);
-				//this.signed = window.auth.signedIn;
-			})
-			.catch(error=>{
-				console.log(error);
-			})
+			this.$store.dispatch('destroyToken');
 		}
 	}
 }

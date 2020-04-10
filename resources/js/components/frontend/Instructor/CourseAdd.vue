@@ -1,5 +1,8 @@
 <template>
-    <form method="POST" @submit.prevent="add_course" v-if="!this.$props.course_id">
+    <div class="col-md-10">
+        <h3>New Course</h3>
+        <div class="card card-body">
+            <form method="POST" @submit.prevent="add_course" v-if="!this.$props.course_id">
             <div class="form-row">
                 <div class="col form-group">
                         <label class="label">Course Name</label>
@@ -11,18 +14,21 @@
                             <option v-for="category in categories" :value="category.id" v-bind:key="category.id" >{{ category.name }}</option>
                         </select>
                 </div>
+                
+            </div>
+            <div class="form-row">
                 <div class="col form-group">
                         <label for="Instruction level">Instruction Level</label>
                         <select class="form-control" required v-model="instruction_level_id">
                             <option v-for="level in inst_levels" :value="level.id" v-bind:key="level.id">{{ level.name }}</option>
                         </select>
-                </div> 
-            </div>
-            <div class="form-row">
+                </div>
                 <div class="col form-group">
                     <label class="label">Duration</label>
                     <input class="form-control" v-model="duration"> 
-                </div> 
+                </div>  
+            </div>    
+            <div class="form-row">
                 <div class="col form-group">
                     <label class="label">Price</label>
                     <input type="number" class="form-control" v-model="price"> 
@@ -59,10 +65,12 @@
                 <textarea v-model="overview" required class="form-control"></textarea>
             </div>
             <div class="form-group">
-                <button class="btn btn-success btn-sm float-right" type="submit">Add Course</button>
+                <button class="btn btn-primary btn-lg float-right" type="submit">Add Course</button>
             </div>               
         </form>
-
+        </div>
+        
+    </div>
 </template>
 
 <script>
@@ -88,14 +96,14 @@ export default {
 
     methods:{
          add_course(){
-            const url = 'instructor/courses/';
+            const url = '/api/instructor/courses';
             axios.post(url,{
                 category_id : this.category_id,
                 instructor_id : this.instructor_id,
                 instruction_level_id : this.instruction_level_id,
                 course_title : this.course_title,
                 tags : this.tags,
-                duration : this.duration, 
+                duration : this.duration,
                 price : this.price,
                 strike_out_price : this.strike_out_price,
                 overview : this.overview,
