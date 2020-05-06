@@ -70,8 +70,12 @@
     </div>   
 </template>
 <script>
+import EditLecture from './EditLecture.vue';
 export default {
     props:['section'],
+    components:{
+        'edit-lecture':EditLecture
+    },
     data(){
         return{
             section_title_editing:false,
@@ -92,7 +96,7 @@ export default {
         new_lecture(){
             this.new_lecture_show = true;
             const last_lecture_length = this.$props.section.lectures.length;
-             const new_lecture = {
+            const new_lecture = {
                     lecture_id:last_lecture_length+1,
                     lecture_title:'',
                     lecture_description:'',
@@ -137,7 +141,7 @@ export default {
 
         //Update Section title
         section_title_update(section_id){
-            const url = `/instructor/update-section-title/${section_id}`;
+            const url = `/api/instructor/update-section-title/${section_id}`;
             axios.post(url,{
                 section_title:this.section_title,
             })

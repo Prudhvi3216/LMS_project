@@ -1,31 +1,19 @@
 <template>
-    <section class="popular-posts-block container">
-        <slot name="inputelement"></slot>
-        Break
-        <slot name="inputelement"></slot>
-
-        <ul class='nav'>
-  <li class='active'>Home</li>
-  <li>
-    <div class="dropdown">
-      <a class="dropdown-toggle" data-toggle="dropdown" href="#">Personal asset loans</a>
-      <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">            
-        <li><a href="#">asds</a></li>
-        <li class="divider"></li>
-      </ul>
-    </div>   
-    </li>
-    <li>Payday loans</li>
-  <li>About</li>
-  <li>Contact</li>
-</ul>
-        
-        <!--
-        <div class="row">
-            <course-card v-for="(course,index) in courses" :key="index" :course="course"></course-card>
-        </div>
-        -->
-    </section>                
+    <section class="mt-5 mb-5">
+        <h1 class="h4 mb-3">Most Popular Courses</h1>
+        <carousel :per-page="4" :mouse-drag="true" navigationEnabled=true  :paginationEnabled="false">
+            <slide v-for="(course,index) in courses" :key="index">
+                <course-card :course="course">
+                    <!--Price Slot-->
+                    <template v-slot:price>
+                        <div class="clearfix" >
+                            <span class="float-right"><strike>{{ course.price>0 ? course.strike_out_price : '' }}</strike> <span class="h4 font-weight-bolder">{{ course.price>0 ? course.price : 'Free' }}</span></span>
+                        </div>
+                    </template>
+                </course-card>
+            </slide>    
+        </carousel> 
+    </section>        
 </template>
 <script>
 export default {
@@ -38,7 +26,6 @@ export default {
         this.popular_courses();
     },
     methods:{
-
         popular_courses(){
             const url = '/api/popular-courses';
             axios.get(url)
@@ -48,7 +35,7 @@ export default {
             .catch(error=>{
                 console.log(error);
             });
-        }
+        },
     }
 }
 </script>

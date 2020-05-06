@@ -11,15 +11,17 @@ window.Vue = require('vue');
 import StoreData from './store'
 import Vuex from 'vuex'
 import axios from 'axios'
-//import VueAxios from 'vue-axios'
 import Toasted from 'vue-toasted'
 import router from './routes/index'
+import VueCarousel from 'vue-carousel';
+import {StarRating} from 'vue-rate-it';
 
 Vue.use(axios)
 Vue.use(Vuex)
 Vue.use(Toasted, {
     iconPack:'fontawesome'
 })
+Vue.use(VueCarousel);
 
 const store = new Vuex.Store(StoreData)
 
@@ -70,27 +72,31 @@ import NewCategory from './components/backend/categories/NewCategory.vue';
 //Frontend Components
 import BreadCrumb from './components/frontend/BreadCrumb.vue';
 import MenuCategories from './components/frontend/MenuCategories.vue';
+import Nav from './components/frontend/Nav.vue';
 import HeaderHolder from './components/frontend/HeaderHolder.vue';
 import HeaderTopbar from './components/frontend/HeaderTopbar.vue';
 import CourseCard from './components/frontend/CourseCard.vue';
 import Unauthorized from './components/frontend/Unauthorized.vue';
+import NoRecords from './components/frontend/NoRecords.vue';
 import Footer from './components/frontend/Footer.vue';
-
-
+import CurrTabs from './components/frontend/Instructor/CurrTabs.vue';
 
 
 //Frontend Components
+Vue.component('nav-menu', Nav);
 Vue.component('header-holder', HeaderHolder);
 Vue.component('header-topbar', HeaderTopbar);
 Vue.component('course-card', CourseCard);
 Vue.component('bread-crumb', BreadCrumb);
 Vue.component('unauthorized', Unauthorized);
+Vue.component('no-records', NoRecords);
 Vue.component('footer-component', Footer);
+Vue.component('current-tabs', CurrTabs);
+Vue.component('star-rating', StarRating);
 
 //Backend component register
 Vue.component('category-edit', CategoryEdit);
 Vue.component('new-category', NewCategory);
-
 
 //Backend component register
 Vue.component('menu-categories', MenuCategories);

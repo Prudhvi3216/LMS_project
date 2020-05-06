@@ -15,7 +15,7 @@
             <h6 class="fw-normal text-muted">Back-end Developer</h6>
             <span v-html="this.$props.biography"></span>
             <router-link :to="{ name: 'instructor-page', params: { instructor_slug : this.$props.slug }}">
-                <button class="btn btn-warning font-lato fw-semi text-uppercase">View Profile</button>
+                <button class="btn yellow-color font-lato fw-semi text-uppercase">View Profile</button>
             </router-link>
         </div>
     </div>
@@ -25,3 +25,8 @@ export default {
     props:['instructor','slug','biography','instructor_image'],
 }
 </script>
+<style scoped>
+.yellow-color{
+    background: #ffc000;
+}
+</style>

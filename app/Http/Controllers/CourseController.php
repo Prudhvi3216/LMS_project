@@ -10,6 +10,7 @@ use App\InstructionLevel;
 use Illuminate\Support\Str;
 
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -69,7 +70,7 @@ class CourseController extends Controller
             'overview'=> 'required|string',
             'is_active'=> 'required',
         ]);
-        if(\Auth::check()){
+        if(Auth::check()){
             if($validatedData){
                 $course = new Course;
                 $instructor_id = \Auth::user()->instructor->id;

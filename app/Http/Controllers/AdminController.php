@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Instructor;
+use App\Blog;
 
-
-class DashboardController extends Controller
+class AdminController extends Controller
 {
     //Dashboard home page
     public function instructors_info(){
@@ -23,5 +23,15 @@ class DashboardController extends Controller
             array_push($inst_data,$data);
         }
         return response()->json(['req_type'=>'success','instructors'=>$inst_data],200);
+      }
+
+      public function blogs(){
+          $blog_posts = Blog::all();
+          return response()->json(['blogs'=>$blog_posts],200);
+      }
+
+      //Create Instructor
+      public function create_instructor(){
+
       }
 }

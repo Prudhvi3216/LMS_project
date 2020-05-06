@@ -19,7 +19,6 @@ class MainController extends Controller
 {
     //Home page data
     public function popular_courses(){
-        //$categories = Category::Select('id', 'name', 'slug')->get();
         $db_courses = Course::Where('is_active',1)->get();
         if(count($db_courses)){
             $all_courses = [];
@@ -44,14 +43,10 @@ class MainController extends Controller
     //Curriculum
     public function frontend_curriculum($course_slug){
         //Use get helper while using resourse collections, as get returns array of rows
-        $course = Course::where('course_slug',$course_slug)->get();
-        if($course){
-            $data = CourseInfo::collection($course);
-            return response()->json($data,200);
-        }
-        else{
-            return response()->json('Course not found');
-        }
+        $course_id = Course::Select('id')->where('course_slug',$course_slug)->get();
+        $course = Course::findOrFail($course_id);
+        $data = CourseInfo::collection($course);
+        return response()->json(['curriculum'=>$data],200);
     }
 
     //Courses for a category
@@ -61,11 +56,15 @@ class MainController extends Controller
             //Map method https://stackoverflow.com/questions/38412091/get-only-specific-attributes-with-from-laravel-collection
             //$categories = Category::Select('id', 'name', 'slug')->get();
             $courses = $category->courses->map->only(['id','course_title','course_slug','price','strike_out_price','overview','category_id','instructor_id']);
-            return response()->json($courses,200);
-            //return view('frontend.pages.courses')->with(['categories'=>$categories,'courses'=>$courses]);
+            if($courses){
+                return response()->json(['courses'=>$courses,'category'=>$category->name],200);
+            }
+            else{
+                return response()->json('Courses Not Found',422);
+            }
         }
         else{
-            return response()->json('Category not exist',200);
+            return response()->json('Category not exist',422);
         }
     }
 
@@ -117,6 +116,12 @@ class MainController extends Controller
                 $message = "Instructor Doesn't exist";
                 return response()->json(['req_type'=>'error', 'message'=>$message],200);
             }
-        
     }
+
+    //Categories list for Course form and Frontend Menu
+    public function categories_list(){
+        $categories_list = Category::Select('id', 'name', 'slug', 'icon_class')->where('is_active',1)->get();
+        return response()->json(['categories'=>$categories_list],200);
+    }
+
 }

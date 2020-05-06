@@ -73,7 +73,7 @@ export default{
     methods:{
         get_course_info(){
             const id = this.$props.course_id;
-            axios.post(`/api/instructor/get-course-data/${id}`)
+            axios.get(`/api/instructor/get-course-data/${id}`)
             .then(response=>{
                 this.course_info = response.data.course_info;
             })

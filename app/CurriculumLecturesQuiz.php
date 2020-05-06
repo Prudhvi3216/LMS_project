@@ -13,4 +13,8 @@ class CurriculumLecturesQuiz extends Model
     public function sections(){
         return $this->belongsTo('App\CurriculumSection');
     }
+
+    public function course_files(){
+        return $this->hasMany('App\CourseFiles', 'id', 'media');
+    }
 }

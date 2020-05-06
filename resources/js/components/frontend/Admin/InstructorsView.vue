@@ -1,4 +1,4 @@
-<template>
+      <template>
     <div class="">
         <h4>instructors</h4>
         <div v-if="nodata" class="card">
@@ -22,7 +22,6 @@
                 </tr>
             </tbody>
         </table>
-        
     </div>
 </template>
 <script>

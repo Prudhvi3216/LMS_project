@@ -1,20 +1,19 @@
 <template>
     <div>
         <home-slider></home-slider>
-        <popular-courses v-slot:inputelement>
-            <!--
-            <header class="popular-posts-head">
-                <h2 class="popular-head-heading">Most Popular Courses</h2>
-            </header>
-            -->
-            <input type="text" class="form-control" placeholder="Enter Name">
-        </popular-courses>
+        <popular-courses class="container"></popular-courses>
+        <front-categories></front-categories>
+        <!--<testmonials></testmonials>-->
+        <recent-news></recent-news>
     </div>
 </template>
 
 <script>
 import HomeSlider from '../frontend/HomeSlider.vue';
 import PopularCourses from '../frontend/PopularCourses.vue';
+import FrontCategories from '../frontend/FrontCategories.vue';
+import Testmonials from '../frontend/Testmonials.vue';
+import RecentNews from '../frontend/RecentNews.vue';
 export default {
     data(){
          return{
@@ -25,6 +24,9 @@ export default {
     components:{
         'home-slider':HomeSlider,
         'popular-courses':PopularCourses,
+        'front-categories':FrontCategories,
+        'testmonials':Testmonials,
+        'recent-news':RecentNews
     },
 }
 </script>

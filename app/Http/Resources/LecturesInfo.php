@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\LectureFiles;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class LecturesInfo extends JsonResource
@@ -15,11 +16,12 @@ class LecturesInfo extends JsonResource
     public function toArray($request)
     {
         return [
+            'lecture_quiz_id' => $this->lecture_quiz_id,
             'title' => $this->title,
             'description' => $this->description,
             'contenttext' => $this->contenttext,
-            'media' => $this->media,
             'media_type' => $this->media_type,
+            'files' => LectureFiles::collection($this->course_files)
         ];
     }
 }

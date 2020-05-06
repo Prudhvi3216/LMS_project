@@ -5,7 +5,9 @@
     <hr class="my-4">
     <p>Please contact Adminstrator for any queries related to your account.</p>
     <p class="lead">
-        <a class="btn btn-primary btn-lg" href="#" role="button">Back to Home</a>
+        <router-link :to="{ name: 'home-page'}">
+            <button class="btn btn-primary btn-lg">Back to Home</button>
+        </router-link>
     </p>
     </div>
 </template>

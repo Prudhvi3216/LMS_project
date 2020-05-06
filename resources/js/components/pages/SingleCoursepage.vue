@@ -1,16 +1,23 @@
 <template>
     <div>
-        <header class="heading-banner text-white bgCover" style="background-image: url(http://placehold.it/1920x181);">
+        <header class="heading-banner text-white bgCover custom-bg">
             <div class="container holder">
                 <div class="align">
-                    <h1>Course Single</h1>
+                    <h1>{{ course_title }}</h1>
                 </div>
             </div>
         </header>
-        <bread-crumb :breadcrumbs="breadcrumbs"></bread-crumb>
-        <div id="two-columns" class="container">
-            <curriculum-view :curriculum="data"></curriculum-view>
-        </div>            
+        <!-- breadcrumb nav -->
+            <div class="container">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Course</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ course_title }}</li>
+                </ol>
+            </div>
+        <section class="container mt-4 mb-4">
+            <curriculum-view :curriculum="curriculum"></curriculum-view>
+        </section>       
     </div>
 </template>
 
@@ -18,45 +25,34 @@
 import CurriculumView from '../frontend/Curriculum/CurriculumView.vue';
 export default {
     components:{
-        'curriculum-view':CurriculumView,
+        'curriculum-view':CurriculumView
     },
     data(){
         return{
-            course_slug:this.$route.params.slug,
-            data:null,
-            breadcrumbs:[
-                {
-                    text:'Home',
-                    link:'home',
-                    active:true,
-                },
-                {
-                    text:'Courses',
-                    link:'courses',
-                    active:true,
-                },
-                {
-                    text:this.$route.params.slug,
-                    link:'',
-                    active:false,
-                }
-            ]
+            curriculum : '',
+            course_title: ''
         }
     },
-    mounted(){
-        this.get_curriculum();
+    created(){
+        this.get_curriculum(this.$route.params.slug);
     },
     methods:{
-        get_curriculum(){
-            const url = `/api/get-curriculum/${this.course_slug}`;
-            axios.post(url)
+        get_curriculum(course_slug){
+            const url = `/api/get-curriculum/${course_slug}`;
+            axios.get(url)
             .then(response=>{
-                this.data = response.data[0];
+                this.curriculum = response.data.curriculum[0];
+                this.course_title = response.data.curriculum[0].course_title;
             })
             .catch(error=>{
                 console.log(error);
-            });
+            })
         }
     }
 }
 </script>
+<style scoped>
+.custom-bg{
+    background: linear-gradient(#29303B,#29303B,#29303B);
+}
+</style>

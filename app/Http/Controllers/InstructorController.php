@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 //Models
+use App\User;
+use App\Category;
 use App\Course;
-use App\CurriculumSection;
 use App\CourseFiles;
-use App\CurriculumLecturesQuiz;
+use App\CurriculumSection;
 use App\Instructor;
+use App\CurriculumLecturesQuiz;
+use App\Http\Resources\CourseInfo;
 
 use Validator;
 
@@ -18,10 +21,14 @@ use Illuminate\Support\Facades\Gate;
 
 class InstructorController extends Controller
 {
-    public function index(){
-        
+    //Get Curriculum
+    public function curriculum($id){
+        $course = Course::findOrFail($id);
+        $data = CourseInfo::collection([$course]);
+        return response()->json(['curriculum'=>$data],200);
     }
 
+    //Add Section
     public function add_sectiondata(Request $request){
 
         $validate = $request->validate([
@@ -37,9 +44,8 @@ class InstructorController extends Controller
             $curriculum_section->save();
             
             if($curriculum_section){
-                $inserted_id = $curriculum_section->section_id;
                 $success_message = 'Section Added Successfully';
-                return response()->json(['section_inserted_id'=>$inserted_id,'success'=>$success_message],200);
+                return response()->json($success_message,200);
             }
             else{
                 return response()->json('Section data not inserted',422);
@@ -67,7 +73,7 @@ class InstructorController extends Controller
                 $curriculum_lectures_quiz->description = $request->lecture_description;
                 $curriculum_lectures_quiz->contenttext = $request->lecture_contenttext;
                 $curriculum_lectures_quiz->media = $request->media;
-
+                
                 //Media Types
                 if($request->media_type == 'application/pdf'){
                     $curriculum_lectures_quiz->media_type = 1;
@@ -80,6 +86,12 @@ class InstructorController extends Controller
                 //$curriculum_lectures_quiz->publish = $request->publish;
                 //$curriculum_lectures_quiz->resources = $request->resources;
                 $curriculum_lectures_quiz->save();
+                if($curriculum_lectures_quiz){
+                    return response()->json('Lecture Inserted Successfully',200);
+                }
+                else{
+                    return response()->json('Error while creating new lecture',400);
+                }                
         }
         else{
             return response()->json('errors',$validate->errors()->all());
@@ -93,7 +105,7 @@ class InstructorController extends Controller
         return response()->json(['course_name'=>$course_name],200); 
     }
 
-    //Curriculum
+    //Not using
     public function get_curriculum($id){
         $course = Course::find($id);
         $sections = $course->sections;
@@ -124,13 +136,18 @@ class InstructorController extends Controller
             $curriculum_section->save();
             return response()->json(['message'=>'Section title Successfully Updated'],200);
         }
-        
-
     }
 
-    //Deleting a section from course
+    //Deleting Section
     public function delete_existing_section($section_id){
-        
+        $section = CurriculumSection::find($section_id);
+        if($section){
+            $section->delete();
+            return response()->json('Section Data Deleted Successfully',200);
+        }
+        else{
+            return response()->json('Section Data Not Found',422);
+        }
     }
 
     //Deleting a lecture from section 
@@ -138,11 +155,11 @@ class InstructorController extends Controller
         $curriculum_lectures_quiz = CurriculumLecturesQuiz::find($lecture_id);
         $curriculum_lectures_quiz->delete(); //Can also use destroy method on model
         if($curriculum_lectures_quiz){
-            $message = 'Record deleted Successfully';
+            $message = 'Lecture deleted Successfully';
             return response()->json($message,200);
         }
         else{
-            dd('Record not Deleted'); 
+            return response()->json('Record not Deleted',422);
         }
     }
 
@@ -155,7 +172,7 @@ class InstructorController extends Controller
     }
 
     public function update_existing_lecture(Request $request, $lecture_id){
-        
+
         $rules = [
             'lecture_title' => 'required|string|min:3|max:50',
             'lecture_description' => 'nullable|string',
@@ -180,28 +197,51 @@ class InstructorController extends Controller
 
     //Get Course info based on Course ID
     public function get_course_data($id){
-        $course = Course::find($id);
-        $course_info['course_title'] = $course->course_title;
-        $course_info['thumb_image'] = $course->thumb_image;
-        $course_info['overview'] = $course->overview;
-        $course_info['duration'] = $course->duration;
-        $course_info['price'] = $course->price;
-        $course_info['strike_out_price'] = $course->strike_out_price;
-        $course_info['keywords'] = $course->keywords;
-        $course_info['is_active'] = $course->is_active;
-        $course_info['instruction_level'] = $course->instruction_level->level;
-        $course_info['created_at'] = $course->created_at;
-        $course_info['updated_at'] = $course->updated_at;
-        $course_info['category'] = $course->category->name;
-        $course_info['instructor'] =  $course->instructor->first_name;
-        return response()->json(['course_info'=>$course_info],200);  
+        if(Auth::check() && Auth::user()->can('isInstructor')){
+            $course = Course::find($id);
+            $course_info['course_title'] = $course->course_title;
+            $course_info['thumb_image'] = $course->thumb_image;
+            $course_info['overview'] = $course->overview;
+            $course_info['duration'] = $course->duration;
+            $course_info['price'] = $course->price;
+            $course_info['strike_out_price'] = $course->strike_out_price;
+            $course_info['keywords'] = $course->keywords;
+            $course_info['is_active'] = $course->is_active;
+            $course_info['instruction_level'] = $course->instruction_level->level;
+            $course_info['created_at'] = $course->created_at;
+            $course_info['updated_at'] = $course->updated_at;
+            $course_info['category'] = $course->category->name;
+            $course_info['instructor'] =  $course->instructor->first_name;
+            return response()->json(['course_info'=>$course_info],200);  
+        }
+        else{
+            return response()->json(['message'=>'Unauthorized'],401);
+        }    
+    }
+
+    public function get_course_media($id){
+        if(Auth::check() && Auth::user()->can('isInstructor')){
+            $course = Course::find($id);
+            if($course){
+                $course_media['course_image'] = $course->course_image;
+                $course_media['thumb_image'] = $course->thumb_image;
+                $course_media['course_video'] = $course->course_video;
+                return response()->json($course_media,200);
+            }
+            else{
+                return response()->json(['message'=>'Course Not Found'],404);
+            }
+        }
+        else{
+            return response()->json(['message'=>'Unauthorized'],401);
+        }   
     }
 
     //Instructor Courses
     public function instructor_courses(){
-        if(Auth::user()->can('isInstructor')){
-            $instructor_id = Instructor::where('user_id',Auth::user()->id)->first()->id;
-            $courses = Course::where('instructor_id',$instructor_id)->get();
+        if(Auth::check() && Auth::user()->can('isInstructor')){
+            $instructor = User::find(Auth::user()->id)->instructor()->first();
+            $courses = $instructor->courses()->get();
             if(count($courses)){
                 $inst_courses = [];
                 foreach($courses as $course){
@@ -213,12 +253,15 @@ class InstructorController extends Controller
                     $data['inst_level'] = $course->instruction_level->level; 
                     array_push($inst_courses,$data);
                 }
-                return response()->json($inst_courses,200);
+                return response()->json(['courses'=>$inst_courses],200);
             }
             else{
-                return response()->json('No Courses found');
+                return response()->json(['message'=>'No Courses found'],404);
             }
-         }
+        }
+        else{
+            return response()->json(['message'=>'Unauthorized'],401);
+        }    
     }
 
     //Instructor Profile view

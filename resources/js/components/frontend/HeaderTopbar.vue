@@ -31,20 +31,9 @@
 						<router-link to="/login">Login</router-link>
 						<router-link to="/register">Register</router-link>
 						-->
-						{{ Auth_username }} <br>
 						<a @click="logout" class="dropdown-item lightbox cursor">Logout</a>
-						<!--
-						<div class="dropdown">
-							<button class="nav-link dropdown-toggle" id="dLabel" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"></button>
-							<div class="dropdown-menu" aria-labelledby="dLabel">
-								
-								<a class="dropdown-item" href="#">Another action</a>
-								<a class="dropdown-item" href="#">Something else here</a>
-								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="#">Separated link</a>
-							</div>		
-						</div>
-						-->
+						
+													
 					</ul>
 					<ul v-else class="list-unstyled user-links fw-bold font-lato">
 						<li v-if="!loggedIn">

@@ -8,7 +8,6 @@
                 <edit-curriculum :section="section"></edit-curriculum>
             </div>    
             
-            
         </div> 
            
         <!--Adding New Section-->
@@ -20,8 +19,8 @@
                        
                         <div class="m-4 p-2">
 
-                            <div class="form-group" v-for="(section, section_index) in test_sections" :key="section.section_index">
-                                 <h6>Section - {{ section_index+1 }} </h6>
+                            <div class="form-group" v-for="(section, section_index) in test_sections" :key="section_index">
+                                <h6>Section - {{ section_index+1 }} </h6>
                                 <div class="row">                                    
                                     <input type="text" class="form-control col-md-10" v-if="section.editing" v-model="section.section_title" placeholder="Enter Section Title">
                                     <p class="col-md-10" v-else>{{ section.section_title }}</p>
@@ -95,8 +94,13 @@
 </template>
 
 <script>
+import EditCurriculum from './EditCurriculum.vue';
+
 export default {
     props:['course_id'],
+    components:{
+        'edit-curriculum' : EditCurriculum
+    },
     data(){
         return{
             form:new FormData,
@@ -133,7 +137,7 @@ export default {
                         this.test_sections[section_index].test_lecturedata[lec_index].uploadPercentage = parseInt( Math.round( ( progressEvent.loaded / progressEvent.total ) * 100 ));
                     }.bind(this)
                 };
-                const url = '/instructor/course-uploadfile';
+                const url = '/api/instructor/course-uploadfile';
                 axios.post(url,form_data,config)
                     .then(response=>{
                         const success_message = response.data.success;
@@ -181,7 +185,7 @@ export default {
 
         get_sections(){
             const id = this.$props.course_id;
-            axios.post(`/instructor/get-curriculum/${id}`)
+            axios.post(`/api/instructor/get-curriculum/${id}`)
             .then(response=>{
                 this.sections = response.data.sections,
                 this.course_name = response.data.course_name
@@ -243,8 +247,9 @@ export default {
         },
 
         deleteLecture(new_lecture){
-               const lecture_index = this.lectures.indexOf(new_lecture);
-               this.lectures.splice(lecture_index, 1);
+            console.log('called');
+            const lecture_index = this.lectures.indexOf(new_lecture);
+            this.lectures.splice(lecture_index, 1);
         },
 
         //Insert section

@@ -5,7 +5,7 @@
             <div class="col-md-2">
                 <ul class="list-group">
                     <li v-for="(nav,index) in navs" :key="index" class="list-group-item">
-                        <router-link :to="{ name : nav.link }"><i :class="nav.icont"></i> {{ nav.title }}</router-link>
+                        <router-link :to="{ name : nav.link }"><i :class="nav.icon"></i> {{ nav.title }}</router-link>
                     </li>
                 </ul>
             </div>

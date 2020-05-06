@@ -1,7 +1,6 @@
 <template>
     <div class="row">
          <article id="content" class="col-xl-9 col-md-9 col-sm-12">
-            <!-- content h1 -->
             <h2 class="content-h2 fw-semi">{{ curriculum.course_title }}</h2>
             <!-- view header -->
             <header class="view-header row">
@@ -47,45 +46,42 @@
             <div class="aligncenter content-aligncenter">
                 <img src="http://placehold.it/828x430" alt="image description">
             </div>
-            <h3 class="content-h3">Course Description</h3>
+            <h3 class="content-h3"><b>Course Description</b></h3>
                 <p class="text-muted">{{ curriculum.overview }}</p>
-            <h3 class="content-h3">Curriculum</h3>
+            <h3 class="content-h3"><b>Curriculum</b></h3>
             <!-- sectionRow -->
             <section v-for="(section,index) in curriculum.sections" :key="index" class="sectionRow">
-                <h2 class="h6 text-uppercase fw-semi rowHeading">SECTION-{{ index+1 }} : {{ section.title }}</h2>
-                <!-- sectionRowPanelGroup -->
-                <div class="panel-group sectionRowPanelGroup" id="accordion" role="tablist" aria-multiselectable="true">
-    
-                    <!-- panel -->
-                    <div v-for="(lecture,index) in section.lectures" :key="index" class="panel panel-default border">
-                        <div class="panel-heading" role="tab" id="lecture.lecture_quiz_id">
-                            <h3 class="panel-title fw-normal">
-                                <a class="accOpener" role="button" data-toggle="collapse" data-parent="#accordion" aria-expanded="false">
-                                    <span class="accOpenerCol">
-                                        <i class="fas fa-chevron-circle-right accOpenerIcn"></i><i class="fas fa-play-circle inlineIcn"></i> {{ lecture.title }} <span class="label label-primary text-white text-uppercase">Video</span>
-                                    </span>
-                                    <span class="accOpenerCol hd-phone">
-                                        <span class="tagText bg-primary fw-semi text-white text-uppercase">preview</span>
-                                        <time datetime="2011-01-12" class="timeCount">17 Min</time>
-                                    </span>
-                                </a>
-                            </h3>
-                        </div>
-                        <!-- collapseOne -->
-                        <div  class="panel-collapse collapse" role="tabpanel">
-                            <div class="panel-body">
-                                <p> {{ lecture.description }} </p>
+
+                <div class="card-body gery-color mt-2" data-toggle="collapse" :data-target="'#panel'+section.section_id">
+                    <h6 class="text-uppercase" >SECTION-{{ index+1 }} : {{ section.title }}</h6>
+                </div>
+                
+                <div class="collapse" :id="'panel'+section.section_id">
+                    <div class="panel-group sectionRowPanelGroup" id="accordion" role="tablist" aria-multiselectable="true">
+                        <!-- panel -->
+                        <div v-for="lecture in section.lectures" :key="lecture.lecture_quiz_id" class="panel panel-default border">
+                            <div class="panel-heading" role="tab">
+                                <h3 class="panel-title fw-normal">
+                                    <a class="accOpener" role="button" data-toggle="collapse" data-parent="#accordion" aria-expanded="false">
+                                        <span class="accOpenerCol">
+                                            <i class="fas fa-chevron-circle-right accOpenerIcn"></i><i class="fas fa-play-circle inlineIcn"></i> {{ lecture.title }}
+                                        </span>
+                                        <span class="accOpenerCol hd-phone">
+                                            <span class="tagText bg-primary fw-semi text-white text-uppercase">preview</span>
+                                            <time datetime="2011-01-12" class="timeCount">17 Min</time>
+                                        </span>
+                                    </a>
+                                </h3>
                             </div>
                         </div>
                     </div>
-                
-
                 </div>
+                <!-- sectionRowPanelGroup -->
             </section>
             <!-- sectionRow -->
 
-            <section>
-                <h2 class="h4">About Instructor</h2>
+            <section class="mt-4">
+                <h3 class="content-h3"><b>About Instructor</b></h3>
                 <instructor-info :instructor="curriculum.instructor" :slug="curriculum.instructor_slug" :biography="curriculum.biography" :instructor_image="curriculum.instructor_image"></instructor-info>
             </section>
             
@@ -101,16 +97,15 @@
         <aside class="col-xl-3 col-md-3 col-sm-12" id="sidebar">
             <!-- widget course select -->
             <section class="widget widget_box widget_course_select">
-                <header class="widgetHead text-center bg-theme">
-                    <h3 class="text-uppercase">Take This Course</h3>
+                <header class="widgetHead text-center yellow-color cursor" @click="enroll_course">
+                    <h3 class="text-uppercase"><b>{{ curriculum.price!=0 ? 'Take this Course' : 'Enroll Now' }}</b></h3>
                 </header>
-                    <strong class="price element-block font-lato" data-label="price:">{{ curriculum.price }}</strong>
+                    <strong class="price element-block font-lato">{{ curriculum.price!=0 ? curriculum.price : 'Free' }}</strong>
                     <ul class="list-unstyled font-lato">
                         <li><i class="far fa-user icn no-shrink"></i> 199 Students</li>
                         <li><i class="far fa-clock icn no-shrink"></i> Duration: {{ curriculum.duration }}</li>
                         <li><i class="fas fa-bullhorn icn no-shrink"></i> Lectures: 10</li>
                         <li><i class="far fa-play-circle icn no-shrink"></i> Video: 12 hours</li>
-                        <li><i class="far fa-address-card icn no-shrink"></i> Certificate of Completion</li>
                     </ul>
             </section>
             <!-- widget categories -->
@@ -205,7 +200,28 @@ export default {
         }
     },
     methods:{
-
+        enroll_course(){
+            const course_id = this.$props.curriculum.id;
+            const url = `/api/user/enroll-course/${course_id}`;
+            axios.get(url)
+            .then(response=>{
+                console.log(response);
+            })
+            .catch(error=>{
+                console.log(error);
+            })
+        }
     }
 }
 </script>
+<style scoped>
+.yellow-color{
+    background: #ffc000;
+}
+.gery-color{
+    background: rgb(223, 219, 219);
+}
+.cursor{
+    cursor: pointer;
+}
+</style>

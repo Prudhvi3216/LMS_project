@@ -1,11 +1,10 @@
 <template>
     <div>
-        <router-link to="new-course">
+        <router-link to="new-course" v-if="add_course_button">
             <button class="btn btn-primary btn-lg mt-2 mb-2"><i class="fa fa-plus"></i> Add Course</button>
         </router-link>
-        <!--
-        <a href="/instructor/add-curriculum" type="button" class="btn btn-primary mt-2 mb-2"><i class="fa fa-plus"></i> Add Course</a>
-        -->
+        <unauthorized v-if="unauthorized"></unauthorized>
+        <no-records v-if="no_records"></no-records>
         <div v-if="show_courses" class="card">
             <h4 class="p-2">Manage Courses</h4>
             <table class="table table-bordered">
@@ -26,7 +25,7 @@
                         <td>{{ course.duration }}</td>
                         <td>
                             <router-link to=""><button class="btn btn-primary">View</button></router-link>
-                            <router-link :to="{ name: 'edit-course', params: { course_id : course.id }}"><button class="btn btn-primary">Edit</button></router-link>
+                            <router-link v-if="course.id" :to="{ name: 'edit-course', params: { course_id : course.id }}"><button class="btn btn-primary">Edit</button></router-link>
                             <router-link to=""><button class="btn btn-danger">Delete</button></router-link>
                             <!--
                             <a href="/instructor/courses/view-course" class="btn btn-link">View</a>
@@ -38,7 +37,6 @@
                 </tbody>
             </table>
         </div>
-        <h3 v-else>{{ message }}</h3>
     </div>
 </template>
 <script>
@@ -46,8 +44,12 @@ export default {
     data(){
         return{
             courses:'',
-            message:'No Courses',
-            show_courses:true,
+            message:'',
+
+            show_courses: false,
+            no_records: false,
+            add_course_button:true,
+            unauthorized: false
         }
     },
     mounted(){
@@ -55,15 +57,24 @@ export default {
     },
     methods:{
         instructor_courses(){ 
-            //const instructor_slug = this.$route.params.instructor_slug;
-            //const url = `/api/get-instructor-courses/${instructor_slug}`;
-            const url = '/api/get-instructor-courses/budda-seshu';
-            axios.post(url)
+            const url = '/api/instructor/instructor-courses';
+            axios.get(url)
             .then(response=>{
-                this.courses = response.data;
+                if(response.status == 200){
+                    this.courses = response.data.courses;
+                    this.show_courses = true;
+                }
             })
             .catch(error=>{
-                console.log(error);
+                if(error.response.status == 404){
+                    this.show_courses = false;
+                    this.no_records = true;
+                }
+                else if(error.response.status == 401){
+                    this.show_courses = false;
+                    this.unauthorized = true;
+                    this.add_course_button = false;
+                }
             });
         }    
     }

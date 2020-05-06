@@ -1,6 +1,7 @@
 import HomePage from '../components/pages/HomePage.vue'
 import SingleCoursepage from '../components/pages/SingleCoursepage.vue'
 import CoursesPage from '../components/pages/CoursesPage.vue'
+import CourseLearn from '../components/pages/CourseLearn.vue'
 import UserPage from '../components/pages/UserPage.vue'
 import InstructorPage from '../components/pages/InstructorPage.vue'
 import Login from '../components/frontend/Auth/Login.vue'
@@ -14,19 +15,21 @@ import AdminCoursesView from '../components/frontend/Admin/AdminCoursesView.vue'
 import Dashboard from '../components/frontend/Admin/Dashboard.vue'
 import Categories from '../components/frontend/Admin/Categories.vue'
 import InstructorsView from '../components/frontend/Admin/InstructorsView.vue'
+import Blog from '../components/frontend/Admin/Blog.vue'
+import CreateBlogpost from '../components/frontend/Admin/CreateBlogpost.vue'
 
 //Instructor Components
 import InstructorCourses from '../components/frontend/Instructor/InstructorCourses.vue';
 import InstructorProfile from '../components/frontend/Instructor/InstructorProfile.vue';
 
+//User Components
+import Courses from '../components/frontend/User/Courses.vue';
+
 //Course Components
 import CourseHandler from '../components/frontend/Instructor/CourseHandler.vue';
 import CourseAdd from '../components/frontend/Instructor/CourseAdd.vue';
-
-
-import CurriculumSection from '../components/frontend/Instructor/CurriculumSection.vue';
-import EditCurriculum from '../components/frontend/Instructor/EditCurriculum.vue';
-import EditLecture from '../components/frontend/Instructor/EditLecture.vue';
+import CourseImage from '../components/frontend/Instructor/CourseImage.vue';
+import AdvCurriculum from '../components/frontend/Instructor/AdvancedCurriculum.vue';
 
 /*
 import SingleCourse from '../components/pages/SingleCourse.vue'
@@ -47,11 +50,21 @@ const routes = [
         name: 'coruses-page' 
     },
     { 
+        path: '/courses/:slug', 
+        component: CoursesPage,
+        name: 'category-course-page',
+    },
+    { 
         path: '/course/:slug', 
         component: SingleCoursepage,
         name: 'single-course-page',
     },
-    
+    { 
+        path: '/course/learn/:slug', 
+        component: CourseLearn,
+        name: 'course-learn-page',
+        meta:{requiresAuth : true} 
+    },
     { 
         path: '/login', 
         component: Login,
@@ -71,9 +84,14 @@ const routes = [
     },
     //Authenticated User
     {
-        path:'/user',
+        path:'/my-account',
         component: UserPage,
         children:[
+            { 
+                path: '', 
+                component: Courses,
+                name:'user-page'
+            },
             { 
                 path: 'profile', 
                 component: UserPage,
@@ -81,7 +99,7 @@ const routes = [
             },
             { 
                 path: 'my-courses', 
-                component: UserPage,
+                component: Courses,
                 name:'my-courses'
             },
         ],
@@ -120,6 +138,16 @@ const routes = [
                   name:'edit-course'
               },
               {
+                path: 'edit-course-image/:course_id',
+                component: CourseImage,
+                name:'edit-course-image'
+              },
+              {
+                path: 'edit-course-curriculum/:course_id',
+                component: AdvCurriculum,
+                name:'edit-course-curriculum'
+              },
+              {
                   path: 'profile',
                   component: InstructorProfile,
                   name: 'instructor-profile'
@@ -152,7 +180,12 @@ const routes = [
             },
             {
                 path: 'blog',
-                component: AdminCoursesView
+                component: Blog
+            },
+            {
+                path: 'create-post',
+                component: CreateBlogpost,
+                name: 'create-post'
             }
           ],
           meta:{requiresAuth : true}

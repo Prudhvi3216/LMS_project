@@ -16,6 +16,7 @@ class SectionInfo extends JsonResource
     public function toArray($request)
     {
         return [
+            'section_id' => $this->section_id,
             'title' => $this->title,
             'description' => $this->description,
             'lectures' => LecturesInfo::collection($this->curriculum_lectures),

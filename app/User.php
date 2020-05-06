@@ -51,4 +51,9 @@ class User extends Authenticatable
     public function accounts(){
         return $this->hasMany('App\LinkedSocialAccount');
     }
+
+    //User Enrolled Courses
+    public function enrolled_courses(){
+        return $this->hasMany('App\CourseTaken');
+    }
 }

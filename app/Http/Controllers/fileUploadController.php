@@ -4,15 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 
 use App\CourseFiles;
+
 
 class fileUploadController extends Controller
 {
     //Course files upload handler
     public function upload_file(Request $request){
             $file_validation = Validator::make($request->all(), [
-                'file' => 'mimetypes:image/jpeg,image/png,video/avi,video/mpeg,video/quicktime,application/pdf',
+                'file' => 'mimetypes:image/jpeg,image/png,video/avi,video/mpeg,video/quicktime,video/mp4,application/pdf'
             ]);
 
             if($file_validation->fails()){
@@ -46,7 +49,7 @@ class fileUploadController extends Controller
                        }
                     }
                 }
-                elseif($file_mimetype == 'video/avi' || $file_mimetype == 'video/mpeg' || $file_mimetype == 'video/quicktime'){
+                elseif($file_mimetype == 'video/avi' || $file_mimetype == 'video/mpeg' || $file_mimetype == 'video/quicktime' || $file_mimetype == 'video/mp4'){
                     //Video validation
                     $video_validation = Validator::make($request->all(),[
                         'file' => 'max:20000' //single digit represents kb, video should be < 20MB
@@ -111,9 +114,11 @@ class fileUploadController extends Controller
             $file_extension = $lecture_file->getClientOriginalExtension();
 
             $file_name = rand().'-'.$file_title;
-            $lecture_file->move(public_path($storage_path), $file_name);
+            Storage::put($storage_path.$file_name, file_get_contents($lecture_file));
+            //$lecture_file->move(public_path($storage_path), $file_name);
 
-            if(file_exists(public_path($storage_path).$file_name)){
+            //if(file_exists(public_path($storage_path).$file_name)){
+             if(Storage::exists($storage_path.$file_name)){   
                 $course_files = new CourseFiles;
                 $course_files->file_name = $file_name;
                 $course_files->file_title = $file_title;
@@ -133,4 +138,58 @@ class fileUploadController extends Controller
                 }
             } 
         }
+
+        //Delete Lecture File
+        public function delete_lecture_file($id){
+            $storage_path = 'curriculum_files/';
+            $file = CourseFiles::find($id);
+            if($file){
+                $file_name = $file->file_name;
+                $file_database_clear = $file->delete();
+                if($file_database_clear){
+                    $file_deleted = Storage::delete($storage_path.$file_name);
+                    if($file_deleted){
+                        return response()->json('File Deleted Successfully',200);
+                    }
+                    else{
+                        return response()->json('File not found in the directory',422);
+                    }
+                }
+                else{
+                    return response()->json('Unable to delete file record',422);
+                }
+            }
+            else{
+                return response()->json('No file record',422);
+            }
+        }
+
+        //Course Image upload
+        public function upload_course_image(Request $request){
+            $file_validation = Validator::make($request->all(), [
+                'file' => 'mimetypes:image/jpeg,image/png',
+            ]);
+
+            if($file_validation->fails()){
+                return response()->json([$file_validation->errors()->all()],422);
+            }
+            else{
+                return response()->json('Validation Passed');
+            }
+        }
+
+        //Upload Course Promo Video
+        public function upload_course_video(Request $request){
+            $file_validation = Validator::make($request->all(), [
+                'file' => 'mimetypes:video/avi,video/mpeg,video/quicktime,video/mp4',
+            ]);
+
+            if($file_validation->fails()){
+                return response()->json([$file_validation->errors()->all()],422);
+            }
+            else{
+                return response()->json('Validation Passed');
+            }
+        }
+
 }

@@ -5,7 +5,7 @@
             <div class="col-md-2">
                 <ul class="list-group">
                     <li v-for="(nav,index) in navs" :key="index" class="list-group-item">
-                        <router-link :to="nav.link"><i :class="nav.icont"></i> {{ nav.title }}</router-link>
+                        <router-link :to="nav.link"><i :class="nav.icon"></i> {{ nav.title }}</router-link>
                     </li>
                 </ul>
             </div>
@@ -23,27 +23,33 @@ export default {
                 {
                     title:'Dashboard',
                     link:'dashboard',
-                    icon:'fa-tachometer-alt',
+                    icon:'fa fa-tachometer-alt',
                     active:'',
                 },
                 {
                     title:'Categories',
                     link:'categories',
-                    icon:'fa-chart-area',
+                    icon:'fa fa-chart-area',
                     active:'',
                 },
                 {
                     title:'Courses',
                     link:'courses',
-                    icon:'fa-list',
+                    icon:'fa fa-list',
                     active:false,
                 },
                 {
                     title:'Instructors',
                     link:'instructors',
-                    icon:'fa-user',
+                    icon:'fa fa-user',
                     active:false,
                 },
+                {
+                    title:'Blog',
+                    link:'blog',
+                    icon:'fa fa-list',
+                    active:false,
+                }
             ]
         }
     }
