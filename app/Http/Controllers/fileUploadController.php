@@ -166,6 +166,7 @@ class fileUploadController extends Controller
 
         //Course Image upload
         public function upload_course_image(Request $request){
+
             $file_validation = Validator::make($request->all(), [
                 'file' => 'mimetypes:image/jpeg,image/png',
             ]);
@@ -174,7 +175,9 @@ class fileUploadController extends Controller
                 return response()->json([$file_validation->errors()->all()],422);
             }
             else{
-                return response()->json('Validation Passed');
+                //dd($request->file);
+                Storage::disk('s3')->put('images', $request->file);
+                return response()->json('Success');
             }
         }
 

@@ -15,6 +15,7 @@ import Toasted from 'vue-toasted'
 import router from './routes/index'
 import VueCarousel from 'vue-carousel';
 import {StarRating} from 'vue-rate-it';
+import VuePlyr from 'vue-plyr'
 
 Vue.use(axios)
 Vue.use(Vuex)
@@ -22,6 +23,7 @@ Vue.use(Toasted, {
     iconPack:'fontawesome'
 })
 Vue.use(VueCarousel);
+Vue.use(VuePlyr);
 
 const store = new Vuex.Store(StoreData)
 

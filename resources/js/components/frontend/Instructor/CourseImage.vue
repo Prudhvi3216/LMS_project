@@ -16,9 +16,9 @@
                         <button class="btn btn-link text-danger">Delete</button>
                     </div>
                 </div>
-                <form @submit.prevent="Uploadimage" class="form" v-if="upload_image_section">
-                    <input type="file">
-                    <button class="btn btn-success btn-lg">Upload Image</button>
+                <form method="POST" @submit.prevent="upload_course_image" v-if="upload_image_section" enctype="multipart/form-data">
+                    <input type="file" ref="file" name="file" @change="course_image_selected">
+                    <button type="submit" class="btn btn-success btn-lg">Upload Image</button>
                 </form>
             </div>
         </div>
@@ -31,6 +31,11 @@ export default {
             show_data:false,
             unauthorized:false,
             no_course:false,
+
+            //Variables
+            course_image:'',
+            course_thumbnail:'',
+            course_promo_video:'',
 
             default_image:true,
             upload_image_section:true,
@@ -63,6 +68,32 @@ export default {
                     this.unauthorized = true;
                 }
             })    
+        },
+        
+        course_image_selected(e){
+            this.course_image = e.target.files[0];
+        },
+
+        //Upload Course Image
+        upload_course_image(){
+            const url = '/api/instructor/upload-course-image';
+            const file = this.course_image;
+            const config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            };
+            var form = new FormData();
+            form.append('file',file);
+            
+            axios.post(url,form,config)
+                .then(response=>{
+                    console.log(response.data);
+                })
+                .catch(error=>{
+                    console.log(error);
+                })
+            
         }
     }
 }

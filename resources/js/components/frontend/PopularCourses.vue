@@ -1,7 +1,7 @@
 <template>
     <section class="mt-5 mb-5">
         <h1 class="h4 mb-3">Most Popular Courses</h1>
-        <carousel :per-page="4" :mouse-drag="true" navigationEnabled=true  :paginationEnabled="false">
+        <carousel :per-page="4" :mouse-drag="true" :navigationEnabled="true"  :paginationEnabled="false">
             <slide v-for="(course,index) in courses" :key="index">
                 <course-card :course="course">
                     <!--Price Slot-->

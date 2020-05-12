@@ -58,7 +58,6 @@ Route::group(['prefix'=>'instructor', 'middleware'=>'auth:api'], function() {
   Route::post('/delete-lecture/{id}', 'InstructorController@delete_existing_lecture')->name('delete-lecture');
   Route::delete('/delete-lecture-file/{id}', 'fileUploadController@delete_lecture_file');
 
-  Route::get('/add-curriculum', 'VueController@curriculum')->name('add-curriculum');
   Route::post('/course-uploadfile', 'fileUploadController@upload_file')->name('course_fileupload');
 
   //Test Routes

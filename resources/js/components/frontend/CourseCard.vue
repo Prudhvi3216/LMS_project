@@ -10,14 +10,12 @@
                 <router-link :to="{ name: 'instructor-page', params: { name: course.instructor_slug }}">{{ course.instructor }}</router-link>
             </h6>
             <star-rating 
-                :item-size="15" 
-                :glyph="fa-star" 
+                :item-size="15"  
                 active-color="#ffc000" 
-                border-width=0 
-                    show-rating=false
-                read-only=true
+                :border-width=0 
+                :show-rating="false"
+                :read-only="true"
                 v-model="rating"
-                inline=ture
             ></star-rating>
             <slot name="price"></slot>
            
