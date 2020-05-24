@@ -13,7 +13,7 @@
 	<meta name="keywords" content="Learning">
 	<meta name="author" content="Prudhvi Raju">
 	<!-- set the page title -->
-	<title>Maxxlearn Pro - Online Education</title>
+	<title>Maxxlearn Pro - Online Education for Professionals </title>
 	<!-- include google roboto font cdn link -->
 	<link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i%7COpen+Sans:300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
 	
