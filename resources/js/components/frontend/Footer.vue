@@ -5,8 +5,8 @@
   <aside class="aside container">
     <div class="row">
       <div class="col-xs-12 col-sm-6 col-md-3 col">
-        <div class="logo"><a href="home.html"><img src="images/logo.png" alt="studyLMS"></a></div>
-        <p>We have over 20 years experience providing expert Educational both businesses and individuals. Our Investment Committee brings cades the industry expertise in driving our investment approach. portfolio constructor and allocation</p>
+        <div class="logo"><a href="/"><img src="images/logo.png" alt="MaxProLearn"></a></div>
+        <p>We have over 20 years experience providing expert Educational both businesses and individuals. Our Inve$
         <a href="#" class="btn btn-default text-uppercase">Start Leaning Now</a>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-3 col hidden-xs">
@@ -36,7 +36,8 @@
             </a>
           </li>
           <li>
-            <a href="course-single.html">
+
+          <a href="course-single.html">
               <div class="alignleft">
                 <img src="http://placehold.it/60x60" alt="image description">
               </div>
@@ -64,7 +65,7 @@
       </nav>
       <div class="col-xs-12 col-sm-6 col-md-3 col">
         <h3>contact us</h3>
-        <p>If you want to contact us about any issue our support available to help you 8am-7pm Monday to saturday.</p>
+        <p>If you want to contact us about any issue our support available to help you 8am-7pm Monday to saturday.$
         <!-- ft address -->
         <address class="ft-address">
           <dl>
@@ -73,26 +74,28 @@
             <dt><span class="fas fa-phone-square"><span class="sr-only">phone</span></span></dt>
             <dd>Call: <a href="tel:+2156237532">+ 215 623 7532</a></dd>
             <dt><span class="fas fa-envelope-square"><span class="sr-only">email</span></span></dt>
-            <dd>Email: <a href="mailto:info@Studylms.com">info@Studylms.com</a></dd>
+            <dd>Email: <a href="mailto:sales@maxprolearn.com">sales@maxprolearn.com</a></dd>
           </dl>
         </address>
-      </div>
+       </div>
     </div>
   </aside>
-  <!-- page footer -->
+        <!-- page footer -->
   <footer id="page-footer" class="font-lato">
     <div class="container">
       <div class="row holder">
-        <div class="col-xs-12 col-sm-push-6 col-sm-6">
+
+        <!-- <div class="col-xs-12 col-sm-push-6 col-sm-6">
           <ul class="socail-networks list-unstyled">
             <li><a href="#"><span class="fab fa-facebook"></span></a></li>
             <li><a href="#"><span class="fab fa-twitter"></span></a></li>
             <li><a href="#"><span class="fab fa-instagram"></span></a></li>
             <li><a href="#"><span class="fab fa-linkedin"></span></a></li>
           </ul>
-        </div>
+        </div> -->
+
         <div class="col-xs-12 col-sm-pull-6 col-sm-6">
-          <p><a href="#">Studylms</a> | &copy; 2018 <a href="#">DesignFalls</a>, All rights reserved</p>
+          <p>Maxprolearn &copy; 2015 | All rights reserved</p>
         </div>
       </div>
     </div>
@@ -101,6 +104,6 @@
 </template>
 <script>
 export default {
-    
+
 }
 </script>
