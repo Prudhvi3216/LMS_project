@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\File;
 use Illuminate\Support\Facades\Storage;
 
+use App\Course;
 use App\CourseFiles;
 
 
@@ -168,16 +169,26 @@ class fileUploadController extends Controller
         public function upload_course_image(Request $request){
 
             $file_validation = Validator::make($request->all(), [
+                'course_id' => 'numeric',
                 'file' => 'mimetypes:image/jpeg,image/png',
             ]);
 
             if($file_validation->fails()){
                 return response()->json([$file_validation->errors()->all()],422);
             }
-            else{
-                //dd($request->file);
-                Storage::disk('s3')->put('images', $request->file);
-                return response()->json('Success');
+            else{                
+                $file_path = Storage::disk('gcs')->put('/images', $request->file);
+                if($file_path){
+                    $course_id = $request->course_id;
+                    $course = Course::find($course_id);
+                    $course->course_image = $file_path;
+                    $course->save();
+                    return response()->json('File Uploaded and Data Inserted Successfully',200);
+                }
+                else{
+                    return response()->json('File Not Uploaded',422);
+                }   
+                
             }
         }
 

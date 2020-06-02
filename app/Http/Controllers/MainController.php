@@ -26,6 +26,7 @@ class MainController extends Controller
                 $data['course_id'] = $course->id;
                 $data['course_title'] = $course->course_title;
                 $data['course_slug'] = $course->course_slug;
+                $data['course_image'] = $course->course_image;
                 $data['category'] = $course->category->name;
                 $data['slug'] = $course->course_slug;
                 $data['price'] = $course->price;

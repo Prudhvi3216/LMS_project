@@ -1,7 +1,6 @@
 <template>
     <div class="card" style="width: 15rem;">
-        <img v-if="course_image" src="http://placehold.it/262x212" alt="image description">
-        <img v-else src="/images/courses/default.JPG" alt="image description">
+        <img v-if="course.course_image" :src="'https://storage.googleapis.com/storage/v1/maxprolearn-files/'+course.course_image" alt="image description">
         <div class="card-body">
             <h1 class="h6 font-weight-bolder">
                 <router-link :to="{ name: 'single-course-page', params: { slug: course.course_slug }}"> {{ course.course_title }} </router-link>

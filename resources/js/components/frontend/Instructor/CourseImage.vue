@@ -85,7 +85,7 @@ export default {
             };
             var form = new FormData();
             form.append('file',file);
-            
+            form.append('course_id',this.$route.params.course_id);
             axios.post(url,form,config)
                 .then(response=>{
                     console.log(response.data);

@@ -2570,7 +2570,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['course'],
   data: function data() {
@@ -2985,6 +2984,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
 //
 //
 //
@@ -4180,6 +4182,7 @@ __webpack_require__.r(__webpack_exports__);
       };
       var form = new FormData();
       form.append('file', file);
+      form.append('course_id', this.$route.params.course_id);
       axios.post(url, form, config).then(function (response) {
         console.log(response.data);
       })["catch"](function (error) {
@@ -43337,19 +43340,16 @@ var render = function() {
     "div",
     { staticClass: "card", staticStyle: { width: "15rem" } },
     [
-      _vm.course_image
+      _vm.course.course_image
         ? _c("img", {
             attrs: {
-              src: "http://placehold.it/262x212",
+              src:
+                "https://storage.googleapis.com/storage/v1/maxprolearn-files/" +
+                _vm.course.course_image,
               alt: "image description"
             }
           })
-        : _c("img", {
-            attrs: {
-              src: "/images/courses/default.JPG",
-              alt: "image description"
-            }
-          }),
+        : _vm._e(),
       _vm._v(" "),
       _c(
         "div",
@@ -44586,16 +44586,16 @@ var staticRenderFns = [
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-xs-12 col-sm-6 col-md-3 col" }, [
             _c("div", { staticClass: "logo" }, [
-              _c("a", { attrs: { href: "home.html" } }, [
+              _c("a", { attrs: { href: "/" } }, [
                 _c("img", {
-                  attrs: { src: "images/logo.png", alt: "studyLMS" }
+                  attrs: { src: "images/logo.png", alt: "MaxProLearn" }
                 })
               ])
             ]),
             _vm._v(" "),
             _c("p", [
               _vm._v(
-                "We have over 20 years experience providing expert Educational both businesses and individuals. Our Investment Committee brings cades the industry expertise in driving our investment approach. portfolio constructor and allocation"
+                "We have over 20 years experience providing expert Educational both businesses and individuals."
               )
             ]),
             _vm._v(" "),
@@ -44744,10 +44744,9 @@ var staticRenderFns = [
             _vm._v(" "),
             _c("p", [
               _vm._v(
-                "If you want to contact us about any issue our support available to help you 8am-7pm Monday to saturday."
+                "If you want to contact us about any issue our support available to help you 8am-7pm Monday to saturday.$\r\n        "
               )
             ]),
-            _vm._v(" "),
             _c("address", { staticClass: "ft-address" }, [
               _c("dl", [
                 _c("dt", [
@@ -44781,8 +44780,8 @@ var staticRenderFns = [
                 _vm._v(" "),
                 _c("dd", [
                   _vm._v("Email: "),
-                  _c("a", { attrs: { href: "mailto:info@Studylms.com" } }, [
-                    _vm._v("info@Studylms.com")
+                  _c("a", { attrs: { href: "mailto:sales@maxprolearn.com" } }, [
+                    _vm._v("sales@maxprolearn.com")
                   ])
                 ])
               ])
@@ -44794,41 +44793,8 @@ var staticRenderFns = [
       _c("footer", { staticClass: "font-lato", attrs: { id: "page-footer" } }, [
         _c("div", { staticClass: "container" }, [
           _c("div", { staticClass: "row holder" }, [
-            _c("div", { staticClass: "col-xs-12 col-sm-push-6 col-sm-6" }, [
-              _c("ul", { staticClass: "socail-networks list-unstyled" }, [
-                _c("li", [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("span", { staticClass: "fab fa-facebook" })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("span", { staticClass: "fab fa-twitter" })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("span", { staticClass: "fab fa-instagram" })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("span", { staticClass: "fab fa-linkedin" })
-                  ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
             _c("div", { staticClass: "col-xs-12 col-sm-pull-6 col-sm-6" }, [
-              _c("p", [
-                _c("a", { attrs: { href: "#" } }, [_vm._v("Studylms")]),
-                _vm._v(" | © 2018 "),
-                _c("a", { attrs: { href: "#" } }, [_vm._v("DesignFalls")]),
-                _vm._v(", All rights reserved")
-              ])
+              _c("p", [_vm._v("Maxprolearn © 2015 | All rights reserved")])
             ])
           ])
         ])
@@ -66333,12 +66299,6 @@ Vue.component('category-edit', _components_backend_categories_CategoryEdit_vue__
 Vue.component('new-category', _components_backend_categories_NewCategory_vue__WEBPACK_IMPORTED_MODULE_9__["default"]); //Backend component register
 
 Vue.component('menu-categories', _components_frontend_MenuCategories_vue__WEBPACK_IMPORTED_MODULE_11__["default"]);
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
 var app = new Vue({
   el: '#app',
   store: store,
@@ -70215,8 +70175,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./routes */ "./resources/js/routes/index.js");
 
+ //Axios.defaults.baseURL = 'http://35.223.76.203/';
 
-axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.baseURL = 'http://35.223.76.203/';
+axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.baseURL = 'http://127.0.0.1:8000/';
 /* harmony default export */ __webpack_exports__["default"] = ({
   strict: true,
   state: {

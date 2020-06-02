@@ -6,7 +6,7 @@
     <div class="row">
       <div class="col-xs-12 col-sm-6 col-md-3 col">
         <div class="logo"><a href="/"><img src="images/logo.png" alt="MaxProLearn"></a></div>
-        <p>We have over 20 years experience providing expert Educational both businesses and individuals. Our Inve$
+        <p>We have over 20 years experience providing expert Educational both businesses and individuals.</p>
         <a href="#" class="btn btn-default text-uppercase">Start Leaning Now</a>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-3 col hidden-xs">
