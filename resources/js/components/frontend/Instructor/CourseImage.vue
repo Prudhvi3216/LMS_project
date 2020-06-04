@@ -6,22 +6,46 @@
             <h1 class="display-4">Course Not Found!</h1>
             <p>Please add course info before uploading course media</p>
         </div>
-        <div v-if="show_data">
-            <div class="card card-body" v-if="default_image">
-                Course Image
-                <div class="row">
+
+            <file-upload>
+                <template v-slot:title>
+                    <h4>Course Thumbnail</h4>
+                </template>
+            </file-upload>
+
+
+            <!--Existing Course Promo Video-->
+            <div class="card card-body mt-3 mb-3" >
+                <div v-if="course_thumbnail">
                     <img src="" class="img-thumbnail">
                     <div class="from-group">
                         <button class="btn btn-link text-primary">Edit</button>
                         <button class="btn btn-link text-danger">Delete</button>
                     </div>
                 </div>
-                <form method="POST" @submit.prevent="upload_course_image" v-if="upload_image_section" enctype="multipart/form-data">
+
+                <form method="POST" @submit.prevent="upload_course_image" v-else enctype="multipart/form-data">
                     <input type="file" ref="file" name="file" @change="course_image_selected">
                     <button type="submit" class="btn btn-success btn-lg">Upload Image</button>
                 </form>
             </div>
-        </div>
+
+            <!--Existing Course Thumbnail-->
+            <div class="card card-body mt-3 mb-3">
+                <h4>Course Promo Video</h4>
+                <div v-if="course_promo_video">
+                    <img src="" class="img-thumbnail">
+                    <div class="from-group">
+                        <button class="btn btn-link text-primary">Edit</button>
+                        <button class="btn btn-link text-danger">Delete</button>
+                    </div>
+                </div>
+                <form method="POST" @submit.prevent="upload_course_image" v-else enctype="multipart/form-data">
+                    <input type="file" ref="file" name="file" @change="course_image_selected">
+                    <button type="submit" class="btn btn-success btn-lg">Upload Image</button>
+                </form>    
+            </div>
+
     </div>
 </template>
 <script>
@@ -37,7 +61,6 @@ export default {
             course_thumbnail:'',
             course_promo_video:'',
 
-            default_image:true,
             upload_image_section:true,
             edit:false,
             delete:false,
@@ -48,7 +71,7 @@ export default {
             this.load_course_media(this.$route.params.course_id);
         }
         else{
-            alert('id missing');
+            this.no_course = true;
         }
     },
     methods:{
@@ -57,6 +80,9 @@ export default {
             axios.get(url)
             .then(response=>{
                 this.show_data = true;
+                this.course_image = response.data.course_image;
+                this.course_thumbnail = response.data.thumb_image;
+                this.course_promo_video = response.data.course_video;
             })
             .catch(error=>{
                 if(error.response.status == 404){

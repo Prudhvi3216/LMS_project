@@ -56,7 +56,7 @@ export default {
 
         //Insert Section
         insert_section_title(section_title){
-            if(this.$$route.params.course_id){
+            if(this.$route.params.course_id){
                 if(!section_title){
                     Vue.toasted.error('Please Enter Section title',{
                         icon: {

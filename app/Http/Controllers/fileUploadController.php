@@ -177,7 +177,7 @@ class fileUploadController extends Controller
                 return response()->json([$file_validation->errors()->all()],422);
             }
             else{                
-                $file_path = Storage::disk('gcs')->put('/images', $request->file);
+                $file_path = Storage::disk('gcs')->put('/course_images', $request->file);
                 if($file_path){
                     $course_id = $request->course_id;
                     $course = Course::find($course_id);
@@ -192,9 +192,38 @@ class fileUploadController extends Controller
             }
         }
 
+        //
+        //Course Thumbnail upload
+        public function upload_course_thumbnail(Request $request){
+
+            $file_validation = Validator::make($request->all(), [
+                'course_id' => 'numeric',
+                'file' => 'mimetypes:image/jpeg,image/png',
+            ]);
+
+            if($file_validation->fails()){
+                return response()->json([$file_validation->errors()->all()],422);
+            }
+            else{                
+                $file_path = Storage::disk('gcs')->put('/course_thumbnails', $request->file);
+                if($file_path){
+                    $course_id = $request->course_id;
+                    $course = Course::find($course_id);
+                    $course->thumb_image = $file_path;
+                    $course->save();
+                    return response()->json('File Uploaded and Data Inserted Successfully',200);
+                }
+                else{
+                    return response()->json('File Not Uploaded',422);
+                }   
+                
+            }
+        }
+
         //Upload Course Promo Video
         public function upload_course_video(Request $request){
             $file_validation = Validator::make($request->all(), [
+                'course_id' => 'numeric',
                 'file' => 'mimetypes:video/avi,video/mpeg,video/quicktime,video/mp4',
             ]);
 
@@ -202,7 +231,17 @@ class fileUploadController extends Controller
                 return response()->json([$file_validation->errors()->all()],422);
             }
             else{
-                return response()->json('Validation Passed');
+                $file_path = Storage::disk('gcs')->put('/course_promo_videos', $request->file);
+                if($file_path){
+                    $course_id = $request->course_id;
+                    $course = Course::find($course_id);
+                    $course->course_video = $file_path;
+                    $course->save();
+                    return response()->json('File Uploaded and Data Inserted Successfully',200);
+                }
+                else{
+                    return response()->json('File Not Uploaded',422);
+                }   
             }
         }
 

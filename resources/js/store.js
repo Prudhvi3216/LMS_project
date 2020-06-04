@@ -1,8 +1,8 @@
 import Axios from "axios";
 import router from './routes';
 
-//Axios.defaults.baseURL = 'http://35.223.76.203/';
-Axios.defaults.baseURL = 'http://127.0.0.1:8000/';
+Axios.defaults.baseURL = 'http://35.223.76.203/';
+//Axios.defaults.baseURL = 'http://127.0.0.1:8000/';
 
 export default{
     strict:true,

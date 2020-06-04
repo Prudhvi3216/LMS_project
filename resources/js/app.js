@@ -82,7 +82,7 @@ import Unauthorized from './components/frontend/Unauthorized.vue';
 import NoRecords from './components/frontend/NoRecords.vue';
 import Footer from './components/frontend/Footer.vue';
 import CurrTabs from './components/frontend/Instructor/CurrTabs.vue';
-
+import FileUpload from './components/frontend/Instructor/FileUpload.vue';
 
 //Frontend Components
 Vue.component('nav-menu', Nav);
@@ -98,9 +98,8 @@ Vue.component('star-rating', StarRating);
 
 //Backend component register
 Vue.component('category-edit', CategoryEdit);
+Vue.component('file-uplaod', FileUpload);
 Vue.component('new-category', NewCategory);
-
-//Backend component register
 Vue.component('menu-categories', MenuCategories);
 
 
