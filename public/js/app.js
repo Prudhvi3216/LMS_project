@@ -70711,7 +70711,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./routes */ "./resources/js/routes/index.js");
 
 
-axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.baseURL = 'http://35.223.76.203/'; //Axios.defaults.baseURL = 'http://127.0.0.1:8000/';
+axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.baseURL = 'http://maxlearnpro.com/'; //Axios.defaults.baseURL = 'http://127.0.0.1:8000/';
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   strict: true,

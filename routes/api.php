@@ -77,16 +77,9 @@ Route::group(['prefix'=>'user', 'middleware'=>'auth:api'], function() {
     Route::get('/enroll-course/{course_id}', 'UserController@enroll_course');
     Route::get('/my-courses', 'UserController@my_courses');
     
-    Route::get('view-profile', function () {
-      return dd('View Profile');
-    });
+    Route::get('view-profile', 'UserController@enroll_course');
 
-    Route::get('edit-profile', function () {
-      return dd('edit-profile');
-    });
+    Route::get('edit-profile', 'UserController@enroll_course');
   
-    Route::get('change-password', function () {
-      return dd('Change Password');
-    });
-    
+    Route::get('change-password', 'UserController@enroll_course');
   });
