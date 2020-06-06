@@ -9,7 +9,7 @@
                         <!-- post author -->
                         <div class="post-author">
                             <div class="alignleft no-shrink rounded-circle">
-                                <a href="#"><img src="http://placehold.it/35x35" class="rounded-circle" alt="image description"></a>
+                                <a href="#"><img src="https://placehold.it/35x35" class="rounded-circle" alt="image description"></a>
                             </div>
                             <div class="description-wrap">
                                 <h2 class="author-heading"><a href="#">Instructor</a></h2>

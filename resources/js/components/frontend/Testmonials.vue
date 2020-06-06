@@ -13,7 +13,7 @@
                                 <p>“ Trent from punchy rollie grab us a waggin school. Flat out like a bludger where he hasn't got a damper. As stands out like brass razoo heaps it'll be relo. As busy as a paddock.”</p>
                                 <cite class="element-block font-lato">
                                     <span class="avatar rounded-circle element-block">
-                                        <img class="rounded-circle" src="http://placehold.it/65x65" alt="Nethor Doct -Developer">
+                                        <img class="rounded-circle" src="https://placehold.it/65x65" alt="Nethor Doct -Developer">
                                     </span>
                                     <strong class="element-block h5 h">Nethor Doct -<span class="text-gray">Developer</span></strong>
                                 </cite>
@@ -25,7 +25,7 @@
                                 <p>“ Trent from punchy rollie grab us a waggin school. Flat out like a bludger where he hasn't got a damper. As stands out like brass razoo heaps it'll be relo. As busy as a paddock.”</p>
                                 <cite class="element-block font-lato">
                                     <span class="avatar rounded-circle element-block">
-                                        <img class="rounded-circle" src="http://placehold.it/65x65" alt="Nethor Doct -Developer">
+                                        <img class="rounded-circle" src="https://placehold.it/65x65" alt="Nethor Doct -Developer">
                                     </span>
                                     <strong class="element-block h5 h">Nethor Doct -<span class="text-gray">Developer</span></strong>
                                 </cite>
@@ -37,7 +37,7 @@
                                 <p>“ Trent from punchy rollie grab us a waggin school. Flat out like a bludger where he hasn't got a damper. As stands out like brass razoo heaps it'll be relo. As busy as a paddock.”</p>
                                 <cite class="element-block font-lato">
                                     <span class="avatar rounded-circle element-block">
-                                        <img class="rounded-circle" src="http://placehold.it/65x65" alt="Nethor Doct -Developer">
+                                        <img class="rounded-circle" src="https://placehold.it/65x65" alt="Nethor Doct -Developer">
                                     </span>
                                     <strong class="element-block h5 h">Nethor Doct -<span class="text-gray">Developer</span></strong>
                                 </cite>
@@ -49,7 +49,7 @@
                                 <p>“ Trent from punchy rollie grab us a waggin school. Flat out like a bludger where he hasn't got a damper. As stands out like brass razoo heaps it'll be relo. As busy as a paddock.”</p>
                                 <cite class="element-block font-lato">
                                     <span class="avatar rounded-circle element-block">
-                                        <img class="rounded-circle" src="http://placehold.it/65x65" alt="Nethor Doct -Developer">
+                                        <img class="rounded-circle" src="https://placehold.it/65x65" alt="Nethor Doct -Developer">
                                     </span>
                                     <strong class="element-block h5 h">Nethor Doct -<span class="text-gray">Developer</span></strong>
                                 </cite>

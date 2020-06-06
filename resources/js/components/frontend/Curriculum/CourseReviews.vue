@@ -4,7 +4,7 @@
     <ul class="list-unstyled reviewsList">
         <li>
             <div class="alignleft">
-                <a href="instructor-single.html"><img src="http://placehold.it/50x50" alt="Lavin Duster"></a>
+                <a href="instructor-single.html"><img src="https://placehold.it/50x50" alt="Lavin Duster"></a>
             </div>
             <div class="description-wrap">
                 <div class="descrHead">

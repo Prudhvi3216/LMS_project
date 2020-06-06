@@ -43925,7 +43925,10 @@ var staticRenderFns = [
           _c("div", { staticClass: "alignleft" }, [
             _c("a", { attrs: { href: "instructor-single.html" } }, [
               _c("img", {
-                attrs: { src: "http://placehold.it/50x50", alt: "Lavin Duster" }
+                attrs: {
+                  src: "https://placehold.it/50x50",
+                  alt: "Lavin Duster"
+                }
               })
             ])
           ]),
@@ -44457,7 +44460,7 @@ var staticRenderFns = [
       _c("a", { attrs: { href: "#" } }, [
         _c("img", {
           staticClass: "rounded-circle",
-          attrs: { src: "http://placehold.it/35x35", alt: "image description" }
+          attrs: { src: "https://placehold.it/35x35", alt: "image description" }
         })
       ])
     ])
@@ -44951,7 +44954,7 @@ var staticRenderFns = [
                     _c("div", { staticClass: "alignleft" }, [
                       _c("img", {
                         attrs: {
-                          src: "http://placehold.it/60x60",
+                          src: "https://placehold.it/60x60",
                           alt: "image description"
                         }
                       })
@@ -45166,7 +45169,7 @@ var staticRenderFns = [
         {
           staticClass: "bg-cover categories-aside text-center mt-5 mb-5",
           staticStyle: {
-            "background-image": "url(http://placehold.it/1920x365)"
+            "background-image": "url(https://placehold.it/1920x365)"
           }
         },
         [
@@ -48632,7 +48635,7 @@ var render = function() {
     "aside",
     {
       staticClass: "bg-cover categories-aside text-center",
-      staticStyle: { "background-image": "url(http://placehold.it/1920x365)" }
+      staticStyle: { "background-image": "url(https://placehold.it/1920x365)" }
     },
     [
       _c("div", { staticClass: "container holder" }, [
@@ -49079,7 +49082,7 @@ var staticRenderFns = [
               _c("a", { attrs: { href: "blog-single.html" } }, [
                 _c("img", {
                   attrs: {
-                    src: "http://placehold.it/360x210",
+                    src: "https://placehold.it/360x210",
                     alt: "image desciption"
                   }
                 })
@@ -49120,7 +49123,7 @@ var staticRenderFns = [
               _c("a", { attrs: { href: "blog-single.html" } }, [
                 _c("img", {
                   attrs: {
-                    src: "http://placehold.it/360x210",
+                    src: "https://placehold.it/360x210",
                     alt: "image desciption"
                   }
                 })
@@ -49161,7 +49164,7 @@ var staticRenderFns = [
               _c("a", { attrs: { href: "blog-single.html" } }, [
                 _c("img", {
                   attrs: {
-                    src: "http://placehold.it/360x210",
+                    src: "https://placehold.it/360x210",
                     alt: "image desciption"
                   }
                 })
@@ -49264,7 +49267,7 @@ var staticRenderFns = [
                               _c("img", {
                                 staticClass: "rounded-circle",
                                 attrs: {
-                                  src: "http://placehold.it/65x65",
+                                  src: "https://placehold.it/65x65",
                                   alt: "Nethor Doct -Developer"
                                 }
                               })
@@ -49303,7 +49306,7 @@ var staticRenderFns = [
                               _c("img", {
                                 staticClass: "rounded-circle",
                                 attrs: {
-                                  src: "http://placehold.it/65x65",
+                                  src: "https://placehold.it/65x65",
                                   alt: "Nethor Doct -Developer"
                                 }
                               })
@@ -49342,7 +49345,7 @@ var staticRenderFns = [
                               _c("img", {
                                 staticClass: "rounded-circle",
                                 attrs: {
-                                  src: "http://placehold.it/65x65",
+                                  src: "https://placehold.it/65x65",
                                   alt: "Nethor Doct -Developer"
                                 }
                               })
@@ -49384,7 +49387,7 @@ var staticRenderFns = [
                               _c("img", {
                                 staticClass: "rounded-circle",
                                 attrs: {
-                                  src: "http://placehold.it/65x65",
+                                  src: "https://placehold.it/65x65",
                                   alt: "Nethor Doct -Developer"
                                 }
                               })
@@ -49692,7 +49695,9 @@ var render = function() {
       "header",
       {
         staticClass: "heading-banner text-white bgCover",
-        staticStyle: { "background-image": "url(http://placehold.it/1920x181)" }
+        staticStyle: {
+          "background-image": "url(https://placehold.it/1920x181)"
+        }
       },
       [
         _c("div", { staticClass: "container holder" }, [
@@ -70711,7 +70716,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./routes */ "./resources/js/routes/index.js");
 
 
-axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.baseURL = 'http://maxlearnpro.com/'; //Axios.defaults.baseURL = 'http://127.0.0.1:8000/';
+axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.baseURL = 'https://maxprolearn.com/'; //Axios.defaults.baseURL = 'http://127.0.0.1:8000/';
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   strict: true,
