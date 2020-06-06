@@ -2,7 +2,7 @@
 @section('content')
 
 <!-- heading banner -->
-<header class="heading-banner text-white bgCover" style="background-image: url(http://placehold.it/1920x181);">
+<header class="heading-banner text-white bgCover" style="background-image: url(https://placehold.it/1920x181);">
     <div class="container holder">
         <div class="align">
             <h1>Course Single</h1>

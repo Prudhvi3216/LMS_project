@@ -2,7 +2,7 @@
 @section('content')
 
 <!-- heading banner -->
-<header class="heading-banner text-white bgCover" style="background-image: url(http://placehold.it/1920x181);">
+<header class="heading-banner text-white bgCover" style="background-image: url(https://placehold.it/1920x181);">
     <div class="container holder">
         <div class="align">
             <h1>Course Single</h1>
@@ -31,7 +31,7 @@
 								<!-- popular post -->
 								<article class="popular-post">
 									<div class="aligncenter">
-										<img src="http://placehold.it/262x212" alt="image description">
+										<img src="https://placehold.it/262x212" alt="image description">
 									</div>
 									<div>
 										<strong class="bg-primary text-white font-lato text-uppercase price-tag">$99.00</strong>
@@ -39,7 +39,7 @@
 									<h3 class="post-heading"><a href="course-single.html">French for Beginners to Advanced Training</a></h3>
 									<div class="post-author">
 										<div class="alignleft rounded-circle no-shrink">
-											<a href="instructor-single.html"><img src="http://placehold.it/35x35" class="rounded-circle" alt="image description"></a>
+											<a href="instructor-single.html"><img src="https://placehold.it/35x35" class="rounded-circle" alt="image description"></a>
 										</div>
 										<h4 class="author-heading"><a href="instructor-single.html">Keny White</a></h4>
 									</div>
@@ -72,7 +72,7 @@
 								<!-- popular post -->
 								<article class="popular-post">
 									<div class="aligncenter">
-										<img src="http://placehold.it/262x212" alt="image description">
+										<img src="https://placehold.it/262x212" alt="image description">
 									</div>
 									<div>
 										<strong class="bg-success text-white font-lato text-uppercase price-tag">Free</strong>
@@ -80,7 +80,7 @@
 									<h3 class="post-heading"><a href="course-single.html">Introduction to Mobile Apps Development</a></h3>
 									<div class="post-author">
 										<div class="alignleft no-shrink rounded-circle">
-											<a href="instructor-single.html"><img src="http://placehold.it/35x35" class="rounded-circle" alt="image description"></a>
+											<a href="instructor-single.html"><img src="https://placehold.it/35x35" class="rounded-circle" alt="image description"></a>
 										</div>
 										<h4 class="author-heading"><a href="instructor-single.html">Sarah Johnson</a></h4>
 									</div>
@@ -113,7 +113,7 @@
 								<!-- popular post -->
 								<article class="popular-post">
 									<div class="aligncenter">
-										<img src="http://placehold.it/262x212" alt="image description">
+										<img src="https://placehold.it/262x212" alt="image description">
 									</div>
 									<div>
 										<strong class="bg-primary text-white font-lato text-uppercase price-tag">$85.60</strong>
@@ -121,7 +121,7 @@
 									<h3 class="post-heading"><a href="course-single.html">How to Become a Startup Founder</a></h3>
 									<div class="post-author">
 										<div class="alignleft no-shrink rounded-circle">
-											<a href="instructor-single.html"><img src="http://placehold.it/35x35" class="rounded-circle" alt="image description"></a>
+											<a href="instructor-single.html"><img src="https://placehold.it/35x35" class="rounded-circle" alt="image description"></a>
 										</div>
 										<h4 class="author-heading"><a href="instructor-single.html">Jhon Milton</a></h4>
 									</div>
@@ -154,7 +154,7 @@
 								<!-- popular post -->
 								<article class="popular-post">
 									<div class="aligncenter">
-										<img src="http://placehold.it/262x212" alt="image description">
+										<img src="https://placehold.it/262x212" alt="image description">
 									</div>
 									<div>
 										<strong class="bg-success text-white font-lato text-uppercase price-tag">free</strong>
@@ -162,7 +162,7 @@
 									<h3 class="post-heading"><a href="course-single.html">Your Complete Guide to Self Devlopement</a></h3>
 									<div class="post-author">
 										<div class="alignleft no-shrink rounded-circle">
-											<a href="instructor-single.html"><img src="http://placehold.it/35x35" class="rounded-circle" alt="image description"></a>
+											<a href="instructor-single.html"><img src="https://placehold.it/35x35" class="rounded-circle" alt="image description"></a>
 										</div>
 										<h4 class="author-heading"><a href="instructor-single.html">Sarah Johnson</a></h4>
 									</div>
@@ -195,7 +195,7 @@
 								<!-- popular post -->
 								<article class="popular-post">
 									<div class="aligncenter">
-										<img src="http://placehold.it/262x212" alt="image description">
+										<img src="https://placehold.it/262x212" alt="image description">
 									</div>
 									<div>
 										<strong class="bg-primary text-white font-lato text-uppercase price-tag">$68.00</strong>
@@ -203,7 +203,7 @@
 									<h3 class="post-heading"><a href="course-single.html">Adobe InDesign CS6 Tutorial Beginners</a></h3>
 									<div class="post-author">
 										<div class="alignleft no-shrink rounded-circle">
-											<a href="instructor-single.html"><img src="http://placehold.it/35x35" class="rounded-circle" alt="image description"></a>
+											<a href="instructor-single.html"><img src="https://placehold.it/35x35" class="rounded-circle" alt="image description"></a>
 										</div>
 										<h4 class="author-heading"><a href="instructor-single.html">Ans Niversity</a></h4>
 									</div>
@@ -236,7 +236,7 @@
 								<!-- popular post -->
 								<article class="popular-post">
 									<div class="aligncenter">
-										<img src="http://placehold.it/262x212" alt="image description">
+										<img src="https://placehold.it/262x212" alt="image description">
 									</div>
 									<div>
 										<strong class="bg-primary text-white font-lato text-uppercase price-tag">$75.00</strong>
@@ -244,7 +244,7 @@
 									<h3 class="post-heading"><a href="course-single.html">Swift Programming for Beginners</a></h3>
 									<div class="post-author">
 										<div class="alignleft no-shrink rounded-circle">
-											<a href="instructor-single.html"><img src="http://placehold.it/35x35" class="rounded-circle" alt="image description"></a>
+											<a href="instructor-single.html"><img src="https://placehold.it/35x35" class="rounded-circle" alt="image description"></a>
 										</div>
 										<h4 class="author-heading"><a href="instructor-single.html">Don Cooper</a></h4>
 									</div>
@@ -277,7 +277,7 @@
 								<!-- popular post -->
 								<article class="popular-post">
 									<div class="aligncenter">
-										<img src="http://placehold.it/262x212" alt="image description">
+										<img src="https://placehold.it/262x212" alt="image description">
 									</div>
 									<div>
 										<strong class="bg-primary text-white font-lato text-uppercase price-tag">$89.00</strong>
@@ -285,7 +285,7 @@
 									<h3 class="post-heading"><a href="course-single.html">Become a Professional Film Maker</a></h3>
 									<div class="post-author">
 										<div class="alignleft no-shrink rounded-circle">
-											<a href="instructor-single.html"><img src="http://placehold.it/35x35" class="rounded-circle" alt="image description"></a>
+											<a href="instructor-single.html"><img src="https://placehold.it/35x35" class="rounded-circle" alt="image description"></a>
 										</div>
 										<h4 class="author-heading"><a href="instructor-single.html">Don Cooper</a></h4>
 									</div>
@@ -318,7 +318,7 @@
 								<!-- popular post -->
 								<article class="popular-post">
 									<div class="aligncenter">
-										<img src="http://placehold.it/262x212" alt="image description">
+										<img src="https://placehold.it/262x212" alt="image description">
 									</div>
 									<div>
 										<strong class="bg-primary text-white font-lato text-uppercase price-tag">$55.00</strong>
@@ -326,7 +326,7 @@
 									<h3 class="post-heading"><a href="course-single.html">Branding like a professional in 10 days</a></h3>
 									<div class="post-author">
 										<div class="alignleft no-shrink rounded-circle">
-											<a href="instructor-single.html"><img src="http://placehold.it/35x35" class="rounded-circle" alt="image description"></a>
+											<a href="instructor-single.html"><img src="https://placehold.it/35x35" class="rounded-circle" alt="image description"></a>
 										</div>
 										<h4 class="author-heading"><a href="instructor-single.html">Logancee Wok</a></h4>
 									</div>
@@ -359,7 +359,7 @@
 								<!-- popular post -->
 								<article class="popular-post">
 									<div class="aligncenter">
-										<img src="http://placehold.it/262x212" alt="image description">
+										<img src="https://placehold.it/262x212" alt="image description">
 									</div>
 									<div>
 										<strong class="bg-success text-white font-lato text-uppercase price-tag">free</strong>
@@ -367,7 +367,7 @@
 									<h3 class="post-heading"><a href="course-single.html">Anatomy for Figure Drawing Mastering Figure</a></h3>
 									<div class="post-author">
 										<div class="alignleft no-shrink rounded-circle">
-											<a href="instructor-single.html"><img src="http://placehold.it/35x35" class="rounded-circle" alt="image description"></a>
+											<a href="instructor-single.html"><img src="https://placehold.it/35x35" class="rounded-circle" alt="image description"></a>
 										</div>
 										<h4 class="author-heading"><a href="instructor-single.html">Keny White</a></h4>
 									</div>
@@ -441,7 +441,7 @@
 							<h3>Course Intro</h3>
 							<div class="aligncenter overlay">
 								<a href="http://www.youtube.com/embed/9bZkp7q19f0?autoplay=1" class="btn-play far fa-play-circle lightbox fancybox.iframe"></a>
-								<img src="http://placehold.it/262x220" alt="image description">
+								<img src="https://placehold.it/262x220" alt="image description">
 							</div>
 						</section>
 						<!-- widget popular posts -->
@@ -452,7 +452,7 @@
 								<li>
 									<a href="course-single.html">
 										<div class="alignleft large">
-											<img src="http://placehold.it/80x70" alt="image description">
+											<img src="https://placehold.it/80x70" alt="image description">
 										</div>
 										<div class="description-wrap">
 											<h4>Introduction to Mobile Apps Development</h4>
@@ -463,7 +463,7 @@
 								<li>
 									<a href="course-single.html">
 										<div class="alignleft large">
-											<img src="http://placehold.it/80x70" alt="image description">
+											<img src="https://placehold.it/80x70" alt="image description">
 										</div>
 										<div class="description-wrap">
 											<h4>Become a Professional Film Maker</h4>
@@ -474,7 +474,7 @@
 								<li>
 									<a href="course-single.html">
 										<div class="alignleft large">
-											<img src="http://placehold.it/80x70" alt="image description">
+											<img src="https://placehold.it/80x70" alt="image description">
 										</div>
 										<div class="description-wrap">
 											<h4>Swift Programming For Beginners</h4>

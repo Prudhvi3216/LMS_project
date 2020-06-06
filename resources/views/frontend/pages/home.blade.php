@@ -1,3 +1,4 @@
+
 @extends('frontend.index')
 @section('content')
 <home-slider></home-slider>
@@ -26,7 +27,7 @@
             
                     <article class="popular-post">
                         <div class="aligncenter">
-                            <img src="http://placehold.it/262x212" alt="image description">
+                            <img src="https://placehold.it/262x212" alt="image description">
                         </div>
                         <div>
                             <strong class="bg-primary text-white font-lato text-uppercase price-tag">{{ $course->price }}</strong>
@@ -34,7 +35,7 @@
                         <h3 class="post-heading"><a href="/course/{{ $course->course_slug }}">{{ $course->course_title }}</a></h3>
                         <div class="post-author">
                             <div class="alignleft rounded-circle no-shrink">
-                                <img src="http://placehold.it/35x35" class="rounded-circle" alt="image description">
+                                <img src="https://placehold.it/35x35" class="rounded-circle" alt="image description">
                             </div>
                             <h4 class="author-heading"><a href="instructor-single.html"></a>{{ $course->instructor->first_name }}</h4>
                         </div>
