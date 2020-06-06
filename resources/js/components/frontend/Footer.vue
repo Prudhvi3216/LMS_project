@@ -16,7 +16,7 @@
           <li>
             <a href="course-single.html">
               <div class="alignleft">
-                <img src="http://placehold.it/60x60" alt="image description">
+                <img src="https://placehold.it/60x60" alt="image description">
               </div>
               <div class="description-wrap">
                 <h4>Introduction to Mobile Apps Development</h4>

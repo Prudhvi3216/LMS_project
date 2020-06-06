@@ -2,7 +2,7 @@
         <div class="slider fade-slider">
             <div>
                 <!-- intro block slide -->
-                <article class="intro-block-slide overlay bg-cover" style="background-image: url(http://placehold.it/1920x823);">
+                <article class="intro-block-slide overlay bg-cover" style="background-image: url(https://placehold.it/1920x823);">
                     <div class="align-wrap container">
                         <div class="align">
                             <div class="anim">
@@ -25,7 +25,7 @@
 
         <div>
         <!-- intro block slide -->
-        <article class="intro-block-slide overlay bg-cover" style="background-image: url(http://placehold.it/1920x823);">
+        <article class="intro-block-slide overlay bg-cover" style="background-image: url(https://placehold.it/1920x823);">
             <div class="align-wrap container">
                 <div class="align">
                     <div class="anim">
@@ -47,7 +47,7 @@
         
         <div>
         <!-- intro block slide -->
-        <article class="intro-block-slide overlay bg-cover" style="background-image: url(http://placehold.it/1920x823);">
+        <article class="intro-block-slide overlay bg-cover" style="background-image: url(https://placehold.it/1920x823);">
             <div class="align-wrap container">
                 <div class="align">
                     <div class="anim">

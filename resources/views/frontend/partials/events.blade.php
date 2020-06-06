@@ -11,7 +11,7 @@
   <ul class="list-unstyled upcoming-events-list">
     <li>
       <div class="alignright">
-        <img src="http://placehold.it/220x130" alt="image description">
+        <img src="https://placehold.it/220x130" alt="image description">
       </div>
       <div class="alignleft">
         <time datetime="2011-01-12" class="time text-uppercase">
@@ -28,7 +28,7 @@
     </li>
     <li>
       <div class="alignright">
-        <img src="http://placehold.it/220x130" alt="image description">
+        <img src="https://placehold.it/220x130" alt="image description">
       </div>
       <div class="alignleft">
         <time datetime="2011-01-12" class="time text-uppercase">
@@ -45,7 +45,7 @@
     </li>
     <li>
       <div class="alignright">
-        <img src="http://placehold.it/220x130" alt="image description">
+        <img src="https://placehold.it/220x130" alt="image description">
       </div>
       <div class="alignleft">
         <time datetime="2011-01-12" class="time text-uppercase">

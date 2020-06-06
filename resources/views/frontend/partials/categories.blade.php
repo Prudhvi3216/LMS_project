@@ -1,5 +1,5 @@
 <!-- categories aside -->
-<aside class="bg-cover categories-aside text-center" style="background-image: url(http://placehold.it/1920x365);">
+<aside class="bg-cover categories-aside text-center" style="background-image: url(https://placehold.it/1920x365);">
   <div class="container holder">
     <!-- categories list -->
     <ul class="list-unstyled categories-list">
