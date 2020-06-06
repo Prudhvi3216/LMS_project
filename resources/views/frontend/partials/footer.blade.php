@@ -1,3 +1,4 @@
+
 <!-- footer area container -->
 <div class="footer-area bg-dark text-gray">
   <!-- aside -->
@@ -15,7 +16,7 @@
           <li>
             <a href="course-single.html">
               <div class="alignleft">
-                <img src="http://placehold.it/60x60" alt="image description">
+                <img src="https://placehold.it/60x60" alt="image description">
               </div>
               <div class="description-wrap">
                 <h4>Introduction to Mobile Apps Development</h4>
@@ -26,7 +27,7 @@
           <li>
             <a href="course-single.html">
               <div class="alignleft">
-                <img src="http://placehold.it/60x60" alt="image description">
+                <img src="https://placehold.it/60x60" alt="image description">
               </div>
               <div class="description-wrap">
                 <h4>Become a Professional Film Maker</h4>
@@ -37,7 +38,7 @@
           <li>
             <a href="course-single.html">
               <div class="alignleft">
-                <img src="http://placehold.it/60x60" alt="image description">
+                <img src="https://placehold.it/60x60" alt="image description">
               </div>
               <div class="description-wrap">
                 <h4>Swift Programming For Beginners</h4>

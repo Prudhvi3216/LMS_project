@@ -1,3 +1,4 @@
+
 <!-- news block -->
 <section class="news-block container">
   <header class="seperator-head text-center">
@@ -9,7 +10,7 @@
       <!-- news post -->
       <article class="news-post">
         <div class="aligncenter">
-          <a href="blog-single.html"><img src="http://placehold.it/360x210" alt="image desciption"></a>
+          <a href="blog-single.html"><img src="https://placehold.it/360x210" alt="image desciption"></a>
         </div>
         <h3><a href="blog-single.html">Best Educational Psd Template Launching Today</a></h3>
         <p>Areas tackled in the most fundamental part of medical research include cellu lar and molecular biology&hellip;</p>
@@ -20,7 +21,7 @@
       <!-- news post -->
       <article class="news-post">
         <div class="aligncenter">
-          <a href="blog-single.html"><img src="http://placehold.it/360x210" alt="image desciption"></a>
+          <a href="blog-single.html"><img src="https://placehold.it/360x210" alt="image desciption"></a>
         </div>
         <h3><a href="blog-single.html">Your one stop Solution for Android Development Needs</a></h3>
         <p>Areas tackled in the most fundamental part of medical research include cellu lar and molecular biology&hellip;</p>
@@ -31,7 +32,7 @@
       <!-- news post -->
       <article class="news-post">
         <div class="aligncenter">
-          <a href="blog-single.html"><img src="http://placehold.it/360x210" alt="image desciption"></a>
+          <a href="blog-single.html"><img src="https://placehold.it/360x210" alt="image desciption"></a>
         </div>
         <h3><a href="blog-single.html">Online Learning students council meeting 2017</a></h3>
         <p>Areas tackled in the most fundamental part of medical research include cellu lar and molecular biology&hellip;</p>

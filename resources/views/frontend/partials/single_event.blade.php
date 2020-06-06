@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col-xs-12 col-md-8 col">
       <div class="alignleft">
-        <img src="http://placehold.it/255x220" alt="image description">
+        <img src="https://placehold.it/255x220" alt="image description">
       </div>
       <div class="description-wrap">
         <h2><span class="element-block">Get the coaching training</span><span class="fw-light ttn element-block">1000s of online courses for free</span></h2>
