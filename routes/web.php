@@ -12,8 +12,9 @@
 */
 
 //Auth::routes(['verify'=>true]);
+
 //SPA View
-Route::view('{any}', 'frontend.spa')->where('any','[\/\w\.-]*');
+Route::view('{any}', 'frontend/spa')->where('any','[\/\w\.-]*');
 
 //Oauth
 Route::get('/login/google', 'Auth\LoginController@redirectToProvider')->name('google-auth');
