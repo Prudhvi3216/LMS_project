@@ -3953,6 +3953,7 @@ __webpack_require__.r(__webpack_exports__);
         'id': '3',
         'name': 'Advanced'
       }],
+      //Default Variables
       instructor_id: null,
       category_id: null,
       instruction_level_id: null,
@@ -3968,8 +3969,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     add_course: function add_course() {
-      var _this = this;
-
       var url = '/api/instructor/courses';
       axios.post(url, {
         category_id: this.category_id,
@@ -3983,18 +3982,17 @@ __webpack_require__.r(__webpack_exports__);
         overview: this.overview,
         is_active: this.is_active
       }).then(function (response) {
-        if (response.data.type == 'success') {
-          _this.msg_type = 'success';
-          _this.message = response.data.message;
-          _this.show_form = false;
-          _this.show_next_sec = true;
-          _this.course_info_show = true;
-        }
+        Vue.toasted.success(response.data, {
+          icon: {
+            name: 'fa-check'
+          }
+        });
       })["catch"](function (error) {
-        if (response.data.type == 'error') {
-          _this.msg_type = 'error';
-          _this.message = response.data.message;
-        }
+        Vue.toasted.error(error.response.data, {
+          icon: {
+            name: 'fa-check'
+          }
+        });
       });
     }
   }
@@ -4152,16 +4150,36 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       show_data: false,
       unauthorized: false,
       no_course: false,
-      //Variables
+      //Existing values
       course_image: '',
       course_thumbnail: '',
       course_promo_video: '',
+      //Defined Variables
+      course_image_file: '',
+      course_thumbnail_file: '',
+      course_promo_file: '',
       upload_image_section: true,
       edit: false,
       "delete": false
@@ -4195,24 +4213,120 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     course_image_selected: function course_image_selected(e) {
-      this.course_image = e.target.files[0];
+      this.course_image_file = e.target.files[0];
     },
     //Upload Course Image
     upload_course_image: function upload_course_image() {
       var url = '/api/instructor/upload-course-image';
-      var file = this.course_image;
+      var file = this.course_image_file;
       var config = {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       };
       var form = new FormData();
-      form.append('file', file);
+      form.append('image_file', file);
       form.append('course_id', this.$route.params.course_id);
       axios.post(url, form, config).then(function (response) {
-        console.log(response.data);
+        //Success Message
+        Vue.toasted.success(response.data, {
+          icon: {
+            name: 'fa-check'
+          }
+        });
       })["catch"](function (error) {
-        console.log(error);
+        //Error Message
+        Vue.toasted.error(error.response.data.message, {
+          icon: {
+            name: 'fa-check'
+          }
+        });
+      });
+    },
+    //Delete Course Thumbnail
+    delete_course_image: function delete_course_image() {
+      var course_id = this.$route.params.course_id;
+
+      if (course_id) {
+        axios["delete"]("/api/instructor/delete-course-image/".concat(course_id)).then(function (response) {
+          //Success Message
+          Vue.toasted.success(response.data, {
+            icon: {
+              name: 'fa-check'
+            }
+          });
+        })["catch"](function (error) {
+          //Error Message
+          Vue.toasted.error(error.response.data.message, {
+            icon: {
+              name: 'fa-check'
+            }
+          });
+        });
+      } else {
+        alert('Course ID not exist');
+      }
+    },
+    course_thumbnail_selected: function course_thumbnail_selected(e) {
+      this.course_thumbnail_file = e.target.files[0];
+    },
+    //Upload Course Thumbnail
+    upload_course_thumbnail: function upload_course_thumbnail() {
+      var url = '/api/instructor/upload-course-thumbnail';
+      var file = this.course_thumbnail_file;
+      var config = {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      };
+      var form = new FormData();
+      form.append('thumbnail_file', file);
+      form.append('course_id', this.$route.params.course_id);
+      axios.post(url, form, config).then(function (response) {
+        //Success Message
+        Vue.toasted.success(response.data, {
+          icon: {
+            name: 'fa-check'
+          }
+        });
+      })["catch"](function (error) {
+        //Error Message
+        Vue.toasted.error(error.response.data.message, {
+          icon: {
+            name: 'fa-check'
+          }
+        });
+      });
+    },
+    course_promo_selected: function course_promo_selected(e) {
+      this.course_promo_file = e.target.files[0];
+    },
+    //Upload Course Promo Video
+    upload_course_promo: function upload_course_promo() {
+      var url = '/api/instructor/upload-course-promo';
+      var file = this.course_promo_file;
+      var config = {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      };
+      var form = new FormData();
+      form.append('promo_file', file);
+      form.append('course_id', this.$route.params.course_id);
+      axios.post(url, form, config).then(function (response) {
+        //Success Message
+        Vue.toasted.success(response.data, {
+          icon: {
+            name: 'fa-check'
+          }
+        });
+      })["catch"](function (error) {
+        //Error Message
+        Vue.toasted.error(error.response.data.message, {
+          icon: {
+            name: 'fa-check'
+          }
+        });
       });
     }
   }
@@ -46477,24 +46591,87 @@ var render = function() {
           ])
         : _vm._e(),
       _vm._v(" "),
-      _c("file-upload", {
-        scopedSlots: _vm._u([
-          {
-            key: "title",
-            fn: function() {
-              return [_c("h4", [_vm._v("Course Thumbnail")])]
-            },
-            proxy: true
-          }
-        ])
-      }),
-      _vm._v(" "),
       _c("div", { staticClass: "card card-body mt-3 mb-3" }, [
+        _c("h4", [_vm._v("Course Thumbnail")]),
+        _vm._v(" "),
         _vm.course_thumbnail
           ? _c("div", [
               _c("img", { staticClass: "img-thumbnail", attrs: { src: "" } }),
               _vm._v(" "),
-              _vm._m(0)
+              _c("div", { staticClass: "from-group" }, [
+                _c("button", { staticClass: "btn btn-link text-primary" }, [
+                  _vm._v("Edit")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-link text-danger",
+                    on: { click: _vm.delete_course_thumbnail }
+                  },
+                  [_vm._v("Delete")]
+                )
+              ])
+            ])
+          : _c(
+              "form",
+              {
+                attrs: { method: "POST", enctype: "multipart/form-data" },
+                on: {
+                  submit: function($event) {
+                    $event.preventDefault()
+                    return _vm.upload_course_thumbnail($event)
+                  }
+                }
+              },
+              [
+                _c("input", {
+                  ref: "file",
+                  attrs: { type: "file", name: "file" },
+                  on: { change: _vm.course_thumbnail_selected }
+                }),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-success btn-lg",
+                    attrs: { type: "submit" }
+                  },
+                  [_vm._v("Upload Thumbnail")]
+                )
+              ]
+            )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "card card-body mt-3 mb-3" }, [
+        _c("h4", [_vm._v("Course Image")]),
+        _vm._v(" "),
+        _vm.course_image
+          ? _c("div", [
+              _vm._v(
+                "\n                " +
+                  _vm._s(_vm.course_image) +
+                  "\n                "
+              ),
+              _c("img", {
+                staticClass: "img-thumbnail",
+                attrs: { src: _vm.course_image }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "from-group" }, [
+                _c("button", { staticClass: "btn btn-link text-primary" }, [
+                  _vm._v("Edit")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-link text-danger",
+                    on: { click: _vm.delete_course_image }
+                  },
+                  [_vm._v("Delete")]
+                )
+              ])
             ])
           : _c(
               "form",
@@ -46533,7 +46710,7 @@ var render = function() {
           ? _c("div", [
               _c("img", { staticClass: "img-thumbnail", attrs: { src: "" } }),
               _vm._v(" "),
-              _vm._m(1)
+              _vm._m(0)
             ])
           : _c(
               "form",
@@ -46542,7 +46719,7 @@ var render = function() {
                 on: {
                   submit: function($event) {
                     $event.preventDefault()
-                    return _vm.upload_course_image($event)
+                    return _vm.upload_course_promo($event)
                   }
                 }
               },
@@ -46550,7 +46727,7 @@ var render = function() {
                 _c("input", {
                   ref: "file",
                   attrs: { type: "file", name: "file" },
-                  on: { change: _vm.course_image_selected }
+                  on: { change: _vm.course_promo_selected }
                 }),
                 _vm._v(" "),
                 _c(
@@ -46559,7 +46736,7 @@ var render = function() {
                     staticClass: "btn btn-success btn-lg",
                     attrs: { type: "submit" }
                   },
-                  [_vm._v("Upload Image")]
+                  [_vm._v("Upload Promo Video")]
                 )
               ]
             )
@@ -46569,20 +46746,6 @@ var render = function() {
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "from-group" }, [
-      _c("button", { staticClass: "btn btn-link text-primary" }, [
-        _vm._v("Edit")
-      ]),
-      _vm._v(" "),
-      _c("button", { staticClass: "btn btn-link text-danger" }, [
-        _vm._v("Delete")
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -68642,14 +68805,15 @@ __webpack_require__.r(__webpack_exports__);
 /*!*********************************************************************!*\
   !*** ./resources/js/components/frontend/Instructor/CourseImage.vue ***!
   \*********************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _CourseImage_vue_vue_type_template_id_73390d30___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CourseImage.vue?vue&type=template&id=73390d30& */ "./resources/js/components/frontend/Instructor/CourseImage.vue?vue&type=template&id=73390d30&");
 /* harmony import */ var _CourseImage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CourseImage.vue?vue&type=script&lang=js& */ "./resources/js/components/frontend/Instructor/CourseImage.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _CourseImage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _CourseImage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -68679,7 +68843,7 @@ component.options.__file = "resources/js/components/frontend/Instructor/CourseIm
 /*!**********************************************************************************************!*\
   !*** ./resources/js/components/frontend/Instructor/CourseImage.vue?vue&type=script&lang=js& ***!
   \**********************************************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -70715,9 +70879,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./routes */ "./resources/js/routes/index.js");
 
+ //Axios.defaults.baseURL = 'https://maxprolearn.com/';
 
-axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.baseURL = 'https://maxprolearn.com/'; //Axios.defaults.baseURL = 'http://127.0.0.1:8000/';
-
+axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.baseURL = 'http://127.0.0.1:8000/';
 /* harmony default export */ __webpack_exports__["default"] = ({
   strict: true,
   state: {

@@ -10,7 +10,7 @@
                 </div>   
                 <div class="col form-group">
                         <label for="Category">Category</label>
-                        <select class="form-control" required v-model="category_id">
+                        <select class="form-control" required v-model="category_id">                            
                             <option v-for="category in categories" :value="category.id" v-bind:key="category.id" >{{ category.name }}</option>
                         </select>
                 </div>
@@ -80,6 +80,7 @@ export default {
         return{
             inst_levels:[{'id':'1', 'name':'Beginner'},{'id':'2', 'name':'Intermediate'},{'id':'3', 'name':'Advanced'}],
 
+            //Default Variables
             instructor_id:null,
             category_id:null,
             instruction_level_id:null,
@@ -110,19 +111,18 @@ export default {
                 is_active : this.is_active
             })
             .then(response=>{
-                if(response.data.type == 'success'){
-                    this.msg_type = 'success';
-                    this.message = response.data.message;
-                    this.show_form = false;
-                    this.show_next_sec = true;
-                    this.course_info_show = true;
-                }
+                Vue.toasted.success(response.data,{
+                    icon: {
+                        name: 'fa-check',
+                    }
+                });
             })
             .catch(error=>{
-                if(response.data.type == 'error'){
-                    this.msg_type = 'error';
-                    this.message = response.data.message;
-                }
+                Vue.toasted.error(error.response.data,{
+                    icon: {
+                        name: 'fa-check',
+                    }
+                });
             })
         },
     }

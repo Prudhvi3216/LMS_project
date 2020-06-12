@@ -7,20 +7,34 @@
             <p>Please add course info before uploading course media</p>
         </div>
 
-            <file-upload>
-                <template v-slot:title>
-                    <h4>Course Thumbnail</h4>
-                </template>
-            </file-upload>
-
-
-            <!--Existing Course Promo Video-->
-            <div class="card card-body mt-3 mb-3" >
+            <!--Course Thumbnail-->
+            <div class="card card-body mt-3 mb-3">
+                <h4>Course Thumbnail</h4>
+                <!--Existing Course Thumbnail-->
                 <div v-if="course_thumbnail">
                     <img src="" class="img-thumbnail">
                     <div class="from-group">
                         <button class="btn btn-link text-primary">Edit</button>
-                        <button class="btn btn-link text-danger">Delete</button>
+                        <button class="btn btn-link text-danger" @click="delete_course_thumbnail">Delete</button>
+                    </div>
+                </div>
+
+                <form method="POST" @submit.prevent="upload_course_thumbnail" v-else enctype="multipart/form-data">
+                    <input type="file" ref="file" name="file" @change="course_thumbnail_selected">
+                    <button type="submit" class="btn btn-success btn-lg">Upload Thumbnail</button>
+                </form>
+            </div>
+
+            <!--Course Image-->
+            <div class="card card-body mt-3 mb-3">
+                <h4>Course Image</h4>
+                <!--Existing Course Thumbnail-->
+                <div v-if="course_image">
+                    {{ course_image }}
+                    <img :src="course_image" class="img-thumbnail">
+                    <div class="from-group">
+                        <button class="btn btn-link text-primary">Edit</button>
+                        <button class="btn btn-link text-danger" @click="delete_course_image">Delete</button>
                     </div>
                 </div>
 
@@ -30,9 +44,10 @@
                 </form>
             </div>
 
-            <!--Existing Course Thumbnail-->
+            <!--Course Promo Video-->
             <div class="card card-body mt-3 mb-3">
                 <h4>Course Promo Video</h4>
+                <!--Existing Course Video-->
                 <div v-if="course_promo_video">
                     <img src="" class="img-thumbnail">
                     <div class="from-group">
@@ -40,9 +55,10 @@
                         <button class="btn btn-link text-danger">Delete</button>
                     </div>
                 </div>
-                <form method="POST" @submit.prevent="upload_course_image" v-else enctype="multipart/form-data">
-                    <input type="file" ref="file" name="file" @change="course_image_selected">
-                    <button type="submit" class="btn btn-success btn-lg">Upload Image</button>
+
+                <form method="POST" @submit.prevent="upload_course_promo" v-else enctype="multipart/form-data">
+                    <input type="file" ref="file" name="file" @change="course_promo_selected">
+                    <button type="submit" class="btn btn-success btn-lg">Upload Promo Video</button>
                 </form>    
             </div>
 
@@ -56,10 +72,15 @@ export default {
             unauthorized:false,
             no_course:false,
 
-            //Variables
+            //Existing values
             course_image:'',
             course_thumbnail:'',
             course_promo_video:'',
+
+            //Defined Variables
+            course_image_file:'',
+            course_thumbnail_file:'',
+            course_promo_file:'',
 
             upload_image_section:true,
             edit:false,
@@ -97,29 +118,137 @@ export default {
         },
         
         course_image_selected(e){
-            this.course_image = e.target.files[0];
+            this.course_image_file = e.target.files[0];
         },
 
         //Upload Course Image
         upload_course_image(){
             const url = '/api/instructor/upload-course-image';
-            const file = this.course_image;
+            const file = this.course_image_file;
             const config = {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             };
             var form = new FormData();
-            form.append('file',file);
+            form.append('image_file',file);
             form.append('course_id',this.$route.params.course_id);
             axios.post(url,form,config)
                 .then(response=>{
-                    console.log(response.data);
+                    //Success Message
+                    Vue.toasted.success(response.data,{
+                        icon: {
+                            name: 'fa-check',
+                        }
+                    });
                 })
                 .catch(error=>{
-                    console.log(error);
+                    //Error Message
+                    Vue.toasted.error(error.response.data.message,{
+                        icon: {
+                            name: 'fa-check',
+                        }
+                    });
                 })
             
+        },
+
+        //Delete Course Thumbnail
+        delete_course_image(){
+            const course_id = this.$route.params.course_id;
+            if(course_id){
+                axios.delete(`/api/instructor/delete-course-image/${course_id}`)
+                .then(response=>{
+                    //Success Message
+                    Vue.toasted.success(response.data,{
+                        icon: {
+                            name: 'fa-check',
+                        }
+                    });
+                })
+                .catch(error=>{
+                    //Error Message
+                    Vue.toasted.error(error.response.data.message,{
+                        icon: {
+                            name: 'fa-check',
+                        }
+                    });
+                })
+            }
+            else{
+                alert('Course ID not exist');
+            }    
+        },
+
+        course_thumbnail_selected(e){
+            this.course_thumbnail_file = e.target.files[0];
+        },
+
+        //Upload Course Thumbnail
+        upload_course_thumbnail(){
+            const url = '/api/instructor/upload-course-thumbnail';
+            const file = this.course_thumbnail_file;
+            const config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            };
+            var form = new FormData();
+            form.append('thumbnail_file',file);
+            form.append('course_id',this.$route.params.course_id);
+            axios.post(url,form,config)
+                .then(response=>{
+                   //Success Message
+                    Vue.toasted.success(response.data,{
+                        icon: {
+                            name: 'fa-check',
+                        }
+                    });
+                })
+                .catch(error=>{
+                    //Error Message
+                    Vue.toasted.error(error.response.data.message,{
+                        icon: {
+                            name: 'fa-check',
+                        }
+                    });
+                })
+            
+        },
+
+        course_promo_selected(e){
+            this.course_promo_file = e.target.files[0];
+        },
+
+        //Upload Course Promo Video
+        upload_course_promo(){
+            const url = '/api/instructor/upload-course-promo';
+            const file = this.course_promo_file;
+            const config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            };
+            var form = new FormData();
+            form.append('promo_file',file);
+            form.append('course_id',this.$route.params.course_id);
+            axios.post(url,form,config)
+                .then(response=>{
+                    //Success Message
+                    Vue.toasted.success(response.data,{
+                        icon: {
+                            name: 'fa-check',
+                        }
+                    });
+                })
+                .catch(error=>{
+                    //Error Message
+                    Vue.toasted.error(error.response.data.message,{
+                        icon: {
+                            name: 'fa-check',
+                        }
+                    });
+                })
         }
     }
 }

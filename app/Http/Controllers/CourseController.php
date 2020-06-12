@@ -86,9 +86,9 @@ class CourseController extends Controller
                 $course->overview = $request->overview;
                 $course->is_active = $request->is_active;
                 $course->save();
-                $inserted_id = $course->id;
+                //$inserted_id = $course->id;
                 $message = 'New Course Created Successfully';
-                return response()->json(['message'=> $message, 'type'=>'success', 'course_id' => $inserted_id]);
+                return response()->json($message,200);
                 //return redirect('courses')->with(['alert_type'=>'success', 'alert_message'=>'Category Added Successfully']);
             }
             else{
