@@ -12,7 +12,8 @@
                 <h4>Course Thumbnail</h4>
                 <!--Existing Course Thumbnail-->
                 <div v-if="course_thumbnail">
-                    <img src="" class="img-thumbnail">
+                    {{ course_thumbnail }}
+                    <img :src="course_thumbnail" class="img-thumbnail">
                     <div class="from-group">
                         <button class="btn btn-link text-primary">Edit</button>
                         <button class="btn btn-link text-danger" @click="delete_course_thumbnail">Delete</button>
@@ -49,7 +50,8 @@
                 <h4>Course Promo Video</h4>
                 <!--Existing Course Video-->
                 <div v-if="course_promo_video">
-                    <img src="" class="img-thumbnail">
+                    {{ course_promo_video }}
+                    <img :src="course_promo_video" class="img-thumbnail">
                     <div class="from-group">
                         <button class="btn btn-link text-primary">Edit</button>
                         <button class="btn btn-link text-danger">Delete</button>
@@ -141,6 +143,7 @@ export default {
                             name: 'fa-check',
                         }
                     });
+                    this.load_course_media(this.$route.params.course_id);
                 })
                 .catch(error=>{
                     //Error Message
@@ -165,6 +168,7 @@ export default {
                             name: 'fa-check',
                         }
                     });
+                    this.load_course_media(this.$route.params.course_id);
                 })
                 .catch(error=>{
                     //Error Message
@@ -204,6 +208,7 @@ export default {
                             name: 'fa-check',
                         }
                     });
+                    this.load_course_media(this.$route.params.course_id);
                 })
                 .catch(error=>{
                     //Error Message
