@@ -2574,7 +2574,6 @@ __webpack_require__.r(__webpack_exports__);
   props: ['course'],
   data: function data() {
     return {
-      course_image: true,
       rating: 3.5
     };
   }
@@ -2723,6 +2722,23 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _CourseReviews_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CourseReviews.vue */ "./resources/js/components/frontend/Curriculum/CourseReviews.vue");
 /* harmony import */ var _InstructorInfo_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./InstructorInfo.vue */ "./resources/js/components/frontend/Curriculum/InstructorInfo.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -5878,19 +5894,19 @@ __webpack_require__.r(__webpack_exports__);
       navs: [{
         title: 'Dashboard',
         link: 'dashboard',
-        icon: 'fa-tachometer-alt'
+        icon: 'fa fa-tachometer-alt'
       }, {
         title: 'Course Categories',
         link: 'instructor-categories',
-        icon: 'fa-chart-area'
+        icon: 'fa fa-chart-area'
       }, {
         title: 'Manage Courses',
         link: 'instructor-mycourses',
-        icon: 'fa-list'
+        icon: 'fa fa-list'
       }, {
         title: 'Profile',
         link: 'instructor-profile',
-        icon: 'fa-user'
+        icon: 'fa fa-user'
       }]
     };
   }
@@ -43874,12 +43890,10 @@ var render = function() {
     "div",
     { staticClass: "card", staticStyle: { width: "15rem" } },
     [
-      _vm.course.course_image
+      _vm.course.thumb_image
         ? _c("img", {
             attrs: {
-              src:
-                "https://storage.googleapis.com/storage/v1/maxprolearn-files/" +
-                _vm.course.course_image,
+              src: "/storage/" + _vm.course.thumb_image,
               alt: "image description"
             }
           })
@@ -44372,7 +44386,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "row" }, [
+  return _c("div", { staticClass: "row bg-white pt-3 pb-3" }, [
     _c(
       "article",
       { staticClass: "col-xl-9 col-md-9 col-sm-12", attrs: { id: "content" } },
@@ -44419,15 +44433,29 @@ var render = function() {
           _vm._m(4)
         ]),
         _vm._v(" "),
-        _vm._m(5),
+        _c("div", { staticClass: "aligncenter content-aligncenter" }, [
+          _vm.curriculum.course_image
+            ? _c("img", {
+                attrs: {
+                  src: "/storage/" + _vm.curriculum.course_image,
+                  alt: _vm.curriculum.course_title
+                }
+              })
+            : _c("img", {
+                attrs: {
+                  src: "http://placehold.it/828x430",
+                  alt: _vm.curriculum.course_title
+                }
+              })
+        ]),
         _vm._v(" "),
-        _vm._m(6),
+        _vm._m(5),
         _vm._v(" "),
         _c("p", { staticClass: "text-muted" }, [
           _vm._v(_vm._s(_vm.curriculum.overview))
         ]),
         _vm._v(" "),
-        _vm._m(7),
+        _vm._m(6),
         _vm._v(" "),
         _vm._l(_vm.curriculum.sections, function(section, index) {
           return _c("section", { key: index, staticClass: "sectionRow" }, [
@@ -44513,7 +44541,7 @@ var render = function() {
                                     )
                                   ]),
                                   _vm._v(" "),
-                                  _vm._m(8, true)
+                                  _vm._m(7, true)
                                 ]
                               )
                             ])
@@ -44533,7 +44561,7 @@ var render = function() {
           "section",
           { staticClass: "mt-4" },
           [
-            _vm._m(9),
+            _vm._m(8),
             _vm._v(" "),
             _c("instructor-info", {
               attrs: {
@@ -44603,23 +44631,64 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("ul", { staticClass: "list-unstyled font-lato" }, [
-              _vm._m(10),
+              _vm._m(9),
               _vm._v(" "),
               _c("li", [
                 _c("i", { staticClass: "far fa-clock icn no-shrink" }),
                 _vm._v(" Duration: " + _vm._s(_vm.curriculum.duration))
               ]),
               _vm._v(" "),
-              _vm._m(11),
+              _vm._m(10),
               _vm._v(" "),
-              _vm._m(12)
+              _vm._m(11)
             ])
           ]
         ),
         _vm._v(" "),
-        _vm._m(13),
+        _vm._m(12),
         _vm._v(" "),
-        _vm._m(14),
+        _c(
+          "section",
+          { staticClass: "widget widget_intro" },
+          [
+            _c("h3", [_vm._v("Course Intro")]),
+            _vm._v(" "),
+            _c("vue-plyr", [
+              _c(
+                "video",
+                { attrs: { width: "320", height: "240", controls: "" } },
+                [
+                  _c("source", {
+                    attrs: {
+                      src:
+                        "http://127.0.0.1:8080/storage/" +
+                        _vm.curriculum.course_video
+                    }
+                  }),
+                  _vm._v(
+                    "\n                    Your browser does not support the video tag.\n                "
+                  )
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c("vue-plyr", [
+              _c(
+                "video",
+                { attrs: { width: "320", height: "240", controls: "" } },
+                [
+                  _c("source", {
+                    attrs: { src: "/storage/" + _vm.curriculum.course_video }
+                  }),
+                  _vm._v(
+                    "\n                    Your browser does not support the video tag.\n                "
+                  )
+                ]
+              )
+            ])
+          ],
+          1
+        ),
         _vm._v(" "),
         _c("section", { staticClass: "widget widget_popular_posts" }, [
           _c("h3", [_vm._v("Popular Courses")]),
@@ -44627,7 +44696,7 @@ var render = function() {
           _c("ul", { staticClass: "widget-cources-list list-unstyled" }, [
             _c("li", [
               _c("a", { attrs: { href: "course-single.html" } }, [
-                _vm._m(15),
+                _vm._m(13),
                 _vm._v(" "),
                 _c("div", { staticClass: "description-wrap" }, [
                   _c("h4", [_vm._v("Introduction to Mobile Apps Development")]),
@@ -44644,13 +44713,13 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _vm._m(16),
+            _vm._m(14),
             _vm._v(" "),
-            _vm._m(17)
+            _vm._m(15)
           ])
         ]),
         _vm._v(" "),
-        _vm._m(18)
+        _vm._m(16)
       ]
     )
   ])
@@ -44737,16 +44806,6 @@ var staticRenderFns = [
           [_vm._v("(2 Reviews)")]
         )
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "aligncenter content-aligncenter" }, [
-      _c("img", {
-        attrs: { src: "http://placehold.it/828x430", alt: "image description" }
-      })
     ])
   },
   function() {
@@ -44853,28 +44912,6 @@ var staticRenderFns = [
         _c("li", { staticClass: "cat-item cat-item-7" }, [
           _c("a", { attrs: { href: "#" } }, [_vm._v("IT & Software")])
         ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("section", { staticClass: "widget widget_intro" }, [
-      _c("h3", [_vm._v("Course Intro")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "aligncenter overlay" }, [
-        _c("a", {
-          staticClass: "btn-play far fa-play-circle lightbox fancybox.iframe",
-          attrs: { href: "http://www.youtube.com/embed/9bZkp7q19f0?autoplay=1" }
-        }),
-        _vm._v(" "),
-        _c("img", {
-          attrs: {
-            src: "http://placehold.it/260x220",
-            alt: "image description"
-          }
-        })
       ])
     ])
   },
@@ -46698,7 +46735,7 @@ var render = function() {
                   _vm._v(" "),
                   _c("div", { staticClass: "from-group" }, [
                     _c("button", { staticClass: "btn btn-link text-primary" }, [
-                      _vm._v("Edit")
+                      _vm._v("Replace")
                     ]),
                     _vm._v(" "),
                     _c(
@@ -46756,7 +46793,7 @@ var render = function() {
                   _vm._v(" "),
                   _c("div", { staticClass: "from-group" }, [
                     _c("button", { staticClass: "btn btn-link text-primary" }, [
-                      _vm._v("Edit")
+                      _vm._v("Replace")
                     ]),
                     _vm._v(" "),
                     _c(
@@ -70999,9 +71036,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./routes */ "./resources/js/routes/index.js");
 
+ //Axios.defaults.baseURL = 'https://maxprolearn.com/';
 
-axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.baseURL = 'https://maxprolearn.com/'; //Axios.defaults.baseURL = 'http://127.0.0.1:8000/';
-
+axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.baseURL = 'http://127.0.0.1:8000/';
 /* harmony default export */ __webpack_exports__["default"] = ({
   strict: true,
   state: {

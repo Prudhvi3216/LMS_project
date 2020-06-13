@@ -23,22 +23,22 @@ export default {
                 {
                     title:'Dashboard',
                     link:'dashboard',
-                    icon:'fa-tachometer-alt'
+                    icon:'fa fa-tachometer-alt'
                 },
                 {
                     title:'Course Categories',
                     link:'instructor-categories',
-                    icon:'fa-chart-area'
+                    icon:'fa fa-chart-area'
                 },
                 {
                     title:'Manage Courses',
                     link:'instructor-mycourses',
-                    icon:'fa-list'
+                    icon:'fa fa-list'
                 },
                 {
                     title:'Profile',
                     link:'instructor-profile',
-                    icon:'fa-user'
+                    icon:'fa fa-user'
                 }
             ]
         }

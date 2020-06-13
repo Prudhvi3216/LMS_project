@@ -18,8 +18,7 @@ class CreateCurriculumSectionsTable extends Migration {
 			$table->integer('course_id')->nullable();
 			$table->string('title', 100)->nullable();
 			$table->integer('sort_order')->nullable();
-			$table->dateTime('createdOn');
-			$table->dateTime('updatedOn');
+			$table->timestamps();
 		});
 	}
 

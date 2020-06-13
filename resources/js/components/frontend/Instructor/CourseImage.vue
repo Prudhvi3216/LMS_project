@@ -16,7 +16,7 @@
                     <div v-if="course_thumbnail">
                         <img :src="'/storage/'+course_thumbnail" class="img-fluid img-thumbnail" width="300">
                         <div class="from-group">
-                            <button class="btn btn-link text-primary">Edit</button>
+                            <button class="btn btn-link text-primary">Replace</button>
                             <button class="btn btn-link text-danger" @click="delete_course_thumbnail">Delete</button>
                         </div>
                     </div>
@@ -37,7 +37,7 @@
                     <div v-if="course_image">
                         <img :src="'/storage/'+course_image" class="img-fluid img-thumbnail" width="300">
                         <div class="from-group">
-                            <button class="btn btn-link text-primary">Edit</button>
+                            <button class="btn btn-link text-primary">Replace</button>
                             <button class="btn btn-link text-danger" @click="delete_course_image">Delete</button>
                         </div>
                     </div>

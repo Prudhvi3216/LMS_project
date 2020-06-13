@@ -1,5 +1,5 @@
 <template>
-    <div class="row">
+    <div class="row bg-white pt-3 pb-3">
          <article id="content" class="col-xl-9 col-md-9 col-sm-12">
             <h2 class="content-h2 fw-semi">{{ curriculum.course_title }}</h2>
             <!-- view header -->
@@ -44,7 +44,8 @@
                 </div>
             </header>
             <div class="aligncenter content-aligncenter">
-                <img src="http://placehold.it/828x430" alt="image description">
+                <img v-if="curriculum.course_image" :src="'/storage/'+curriculum.course_image" :alt="curriculum.course_title">
+                <img v-else src="http://placehold.it/828x430" :alt="curriculum.course_title">
             </div>
             <h3 class="content-h3"><b>Course Description</b></h3>
                 <p class="text-muted">{{ curriculum.overview }}</p>
@@ -125,10 +126,26 @@
             <!-- widget intro -->
             <section class="widget widget_intro">
                 <h3>Course Intro</h3>
-                <div class="aligncenter overlay">
+                <vue-plyr>
+                        <video width="320" height="240" controls>
+                        <source :src="'http://127.0.0.1:8080/storage/'+curriculum.course_video">
+                        Your browser does not support the video tag.
+                    </video>
+                </vue-plyr>
+
+                <vue-plyr>
+                    <video width="320" height="240" controls>
+                        <source :src="'/storage/'+curriculum.course_video">
+                        Your browser does not support the video tag.
+                    </video>
+                </vue-plyr>
+               
+                    
+                    <!--
                     <a href="http://www.youtube.com/embed/9bZkp7q19f0?autoplay=1" class="btn-play far fa-play-circle lightbox fancybox.iframe"></a>
                     <img src="http://placehold.it/260x220" alt="image description">
-                </div>
+                    -->
+               
             </section>
             <!-- widget popular posts -->
             <section class="widget widget_popular_posts">
