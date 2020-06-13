@@ -71036,9 +71036,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./routes */ "./resources/js/routes/index.js");
 
- //Axios.defaults.baseURL = 'https://maxprolearn.com/';
 
-axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.baseURL = 'http://127.0.0.1:8000/';
+axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.baseURL = 'https://maxprolearn.com/'; //Axios.defaults.baseURL = 'http://127.0.0.1:8000/';
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   strict: true,
   state: {
