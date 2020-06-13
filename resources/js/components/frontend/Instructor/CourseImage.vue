@@ -7,62 +7,78 @@
             <p>Please add course info before uploading course media</p>
         </div>
 
+        <div class="card-deck">
             <!--Course Thumbnail-->
-            <div class="card card-body mt-3 mb-3">
-                <h4>Course Thumbnail</h4>
-                <!--Existing Course Thumbnail-->
-                <div v-if="course_thumbnail">
-                    {{ course_thumbnail }}
-                    <img :src="course_thumbnail" class="img-thumbnail">
-                    <div class="from-group">
-                        <button class="btn btn-link text-primary">Edit</button>
-                        <button class="btn btn-link text-danger" @click="delete_course_thumbnail">Delete</button>
+            <div class="card mt-3 mb-3">
+                <div class="card-body">
+                    <h5>Course Thumbnail</h5>
+                    <!--Existing Course Thumbnail-->
+                    <div v-if="course_thumbnail">
+                        <img :src="'/storage/'+course_thumbnail" class="img-fluid img-thumbnail" width="300">
+                        <div class="from-group">
+                            <button class="btn btn-link text-primary">Edit</button>
+                            <button class="btn btn-link text-danger" @click="delete_course_thumbnail">Delete</button>
+                        </div>
                     </div>
-                </div>
 
-                <form method="POST" @submit.prevent="upload_course_thumbnail" v-else enctype="multipart/form-data">
-                    <input type="file" ref="file" name="file" @change="course_thumbnail_selected">
-                    <button type="submit" class="btn btn-success btn-lg">Upload Thumbnail</button>
-                </form>
+                    <form method="POST" @submit.prevent="upload_course_thumbnail" v-else enctype="multipart/form-data" class="mt-3">
+                        <input type="file" ref="file" name="file" @change="course_thumbnail_selected">
+                        <button type="submit" class="btn btn-success btn-block mt-2">Upload Thumbnail</button>
+                    </form>
+                </div>
+                
             </div>
 
             <!--Course Image-->
-            <div class="card card-body mt-3 mb-3">
-                <h4>Course Image</h4>
-                <!--Existing Course Thumbnail-->
-                <div v-if="course_image">
-                    {{ course_image }}
-                    <img :src="course_image" class="img-thumbnail">
-                    <div class="from-group">
-                        <button class="btn btn-link text-primary">Edit</button>
-                        <button class="btn btn-link text-danger" @click="delete_course_image">Delete</button>
+            <div class="card mt-3 mb-3">
+                <div class="card-body">
+                    <h5>Course Image</h5>
+                    <!--Existing Course Thumbnail-->
+                    <div v-if="course_image">
+                        <img :src="'/storage/'+course_image" class="img-fluid img-thumbnail" width="300">
+                        <div class="from-group">
+                            <button class="btn btn-link text-primary">Edit</button>
+                            <button class="btn btn-link text-danger" @click="delete_course_image">Delete</button>
+                        </div>
                     </div>
-                </div>
 
-                <form method="POST" @submit.prevent="upload_course_image" v-else enctype="multipart/form-data">
-                    <input type="file" ref="file" name="file" @change="course_image_selected">
-                    <button type="submit" class="btn btn-success btn-lg">Upload Image</button>
-                </form>
+                    <form method="POST" @submit.prevent="upload_course_image" v-else enctype="multipart/form-data" class="mt-3">
+                        <input type="file" ref="file" name="file" @change="course_image_selected" >
+                        <button type="submit" class="btn btn-success btn-block mt-2">Upload Course Image</button>
+                    </form>
+                </div>
+            
+                
             </div>
 
             <!--Course Promo Video-->
-            <div class="card card-body mt-3 mb-3">
-                <h4>Course Promo Video</h4>
-                <!--Existing Course Video-->
-                <div v-if="course_promo_video">
-                    {{ course_promo_video }}
-                    <img :src="course_promo_video" class="img-thumbnail">
-                    <div class="from-group">
-                        <button class="btn btn-link text-primary">Edit</button>
-                        <button class="btn btn-link text-danger">Delete</button>
+            <div class="card mt-3 mb-3">
+                <div class="card-body">
+                    <h5>Course Promo Video</h5>
+                    <!--Existing Course Video-->
+                    <div v-if="course_promo_video">
+                        <vue-plyr>
+                            <video width="320" height="240" controls>
+                                <source :src="'/storage/'+course_promo_video">
+                                Your browser does not support the video tag.
+                            </video>
+                        </vue-plyr>
+                    
+                        <div class="from-group">
+                            <button class="btn btn-link text-primary">Replace</button>
+                            <button class="btn btn-link text-danger" @click="delete_course_promo">Delete</button>
+                        </div>
                     </div>
-                </div>
 
-                <form method="POST" @submit.prevent="upload_course_promo" v-else enctype="multipart/form-data">
-                    <input type="file" ref="file" name="file" @change="course_promo_selected">
-                    <button type="submit" class="btn btn-success btn-lg">Upload Promo Video</button>
-                </form>    
+                    <form method="POST" @submit.prevent="upload_course_promo" v-else enctype="multipart/form-data" class="mt-3">
+                        <input type="file" ref="file" name="file" @change="course_promo_selected">
+                        <button type="submit" class="btn btn-success btn-block mt-2">Upload Promo Video</button>
+                    </form>   
+                </div>
             </div>
+
+        </div>
+            
 
     </div>
 </template>
@@ -80,7 +96,7 @@ export default {
             course_promo_video:'',
 
             //Defined Variables
-            course_image_file:'',
+            course_image_file : '',
             course_thumbnail_file:'',
             course_promo_file:'',
 
@@ -301,10 +317,11 @@ export default {
                             name: 'fa-check',
                         }
                     });
+                    this.load_course_media(this.$route.params.course_id);
                 })
                 .catch(error=>{
                     //Error Message
-                    Vue.toasted.error(error.response.data.message,{
+                    Vue.toasted.error(error.response.data,{
                         icon: {
                             name: 'fa-check',
                         }

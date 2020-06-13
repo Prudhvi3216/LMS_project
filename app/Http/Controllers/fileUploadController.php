@@ -250,9 +250,9 @@ class fileUploadController extends Controller
             $storage_path = '';
             $course = Course::find($course_id);
             if($course){
-                $file_name = $course->course_image;
+                $file_name = $course->thumb_image;
                 if($file_name){
-                    $course->course_image = '';
+                    $course->thumb_image = '';
                     $course->save();
                     $file_deleted = Storage::disk('public')->delete($file_name);
                     if($file_deleted){
@@ -308,9 +308,9 @@ class fileUploadController extends Controller
             $storage_path = '';
             $course = Course::find($course_id);
             if($course){
-                $file_name = $course->course_image;
+                $file_name = $course->course_video;
                 if($file_name){
-                    $course->course_image = '';
+                    $course->course_video = '';
                     $course->save();
                     $file_deleted = Storage::disk('public')->delete($file_name);
                     if($file_deleted){

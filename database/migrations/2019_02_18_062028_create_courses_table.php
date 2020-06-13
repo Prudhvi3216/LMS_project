@@ -24,7 +24,7 @@ class CreateCoursesTable extends Migration {
 			$table->text('overview')->nullable();
 			$table->string('course_image')->nullable();
 			$table->string('thumb_image')->nullable();
-			$table->integer('course_video')->unsigned()->nullable();
+			$table->string('course_video')->nullable();
 			$table->string('duration')->nullable();
 			$table->decimal('price', 8, 2)->nullable();
 			$table->decimal('strike_out_price', 8, 2)->nullable();

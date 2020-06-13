@@ -4168,6 +4168,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -4373,6 +4389,8 @@ __webpack_require__.r(__webpack_exports__);
     },
     //Upload Course Promo Video
     upload_course_promo: function upload_course_promo() {
+      var _this7 = this;
+
       var url = '/api/instructor/upload-course-promo';
       var file = this.course_promo_file;
       var config = {
@@ -4390,9 +4408,11 @@ __webpack_require__.r(__webpack_exports__);
             name: 'fa-check'
           }
         });
+
+        _this7.load_course_media(_this7.$route.params.course_id);
       })["catch"](function (error) {
         //Error Message
-        Vue.toasted.error(error.response.data.message, {
+        Vue.toasted.error(error.response.data, {
           icon: {
             name: 'fa-check'
           }
@@ -46661,192 +46681,207 @@ var render = function() {
           ])
         : _vm._e(),
       _vm._v(" "),
-      _c("div", { staticClass: "card card-body mt-3 mb-3" }, [
-        _c("h4", [_vm._v("Course Thumbnail")]),
+      _c("div", { staticClass: "card-deck" }, [
+        _c("div", { staticClass: "card mt-3 mb-3" }, [
+          _c("div", { staticClass: "card-body" }, [
+            _c("h5", [_vm._v("Course Thumbnail")]),
+            _vm._v(" "),
+            _vm.course_thumbnail
+              ? _c("div", [
+                  _c("img", {
+                    staticClass: "img-fluid img-thumbnail",
+                    attrs: {
+                      src: "/storage/" + _vm.course_thumbnail,
+                      width: "300"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "from-group" }, [
+                    _c("button", { staticClass: "btn btn-link text-primary" }, [
+                      _vm._v("Edit")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-link text-danger",
+                        on: { click: _vm.delete_course_thumbnail }
+                      },
+                      [_vm._v("Delete")]
+                    )
+                  ])
+                ])
+              : _c(
+                  "form",
+                  {
+                    staticClass: "mt-3",
+                    attrs: { method: "POST", enctype: "multipart/form-data" },
+                    on: {
+                      submit: function($event) {
+                        $event.preventDefault()
+                        return _vm.upload_course_thumbnail($event)
+                      }
+                    }
+                  },
+                  [
+                    _c("input", {
+                      ref: "file",
+                      attrs: { type: "file", name: "file" },
+                      on: { change: _vm.course_thumbnail_selected }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-success btn-block mt-2",
+                        attrs: { type: "submit" }
+                      },
+                      [_vm._v("Upload Thumbnail")]
+                    )
+                  ]
+                )
+          ])
+        ]),
         _vm._v(" "),
-        _vm.course_thumbnail
-          ? _c("div", [
-              _vm._v(
-                "\n                " +
-                  _vm._s(_vm.course_thumbnail) +
-                  "\n                "
-              ),
-              _c("img", {
-                staticClass: "img-thumbnail",
-                attrs: { src: _vm.course_thumbnail }
-              }),
-              _vm._v(" "),
-              _c("div", { staticClass: "from-group" }, [
-                _c("button", { staticClass: "btn btn-link text-primary" }, [
-                  _vm._v("Edit")
-                ]),
-                _vm._v(" "),
-                _c(
-                  "button",
+        _c("div", { staticClass: "card mt-3 mb-3" }, [
+          _c("div", { staticClass: "card-body" }, [
+            _c("h5", [_vm._v("Course Image")]),
+            _vm._v(" "),
+            _vm.course_image
+              ? _c("div", [
+                  _c("img", {
+                    staticClass: "img-fluid img-thumbnail",
+                    attrs: { src: "/storage/" + _vm.course_image, width: "300" }
+                  }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "from-group" }, [
+                    _c("button", { staticClass: "btn btn-link text-primary" }, [
+                      _vm._v("Edit")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-link text-danger",
+                        on: { click: _vm.delete_course_image }
+                      },
+                      [_vm._v("Delete")]
+                    )
+                  ])
+                ])
+              : _c(
+                  "form",
                   {
-                    staticClass: "btn btn-link text-danger",
-                    on: { click: _vm.delete_course_thumbnail }
+                    staticClass: "mt-3",
+                    attrs: { method: "POST", enctype: "multipart/form-data" },
+                    on: {
+                      submit: function($event) {
+                        $event.preventDefault()
+                        return _vm.upload_course_image($event)
+                      }
+                    }
                   },
-                  [_vm._v("Delete")]
+                  [
+                    _c("input", {
+                      ref: "file",
+                      attrs: { type: "file", name: "file" },
+                      on: { change: _vm.course_image_selected }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-success btn-block mt-2",
+                        attrs: { type: "submit" }
+                      },
+                      [_vm._v("Upload Course Image")]
+                    )
+                  ]
                 )
-              ])
-            ])
-          : _c(
-              "form",
-              {
-                attrs: { method: "POST", enctype: "multipart/form-data" },
-                on: {
-                  submit: function($event) {
-                    $event.preventDefault()
-                    return _vm.upload_course_thumbnail($event)
-                  }
-                }
-              },
-              [
-                _c("input", {
-                  ref: "file",
-                  attrs: { type: "file", name: "file" },
-                  on: { change: _vm.course_thumbnail_selected }
-                }),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-success btn-lg",
-                    attrs: { type: "submit" }
-                  },
-                  [_vm._v("Upload Thumbnail")]
-                )
-              ]
-            )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "card card-body mt-3 mb-3" }, [
-        _c("h4", [_vm._v("Course Image")]),
+          ])
+        ]),
         _vm._v(" "),
-        _vm.course_image
-          ? _c("div", [
-              _vm._v(
-                "\n                " +
-                  _vm._s(_vm.course_image) +
-                  "\n                "
-              ),
-              _c("img", {
-                staticClass: "img-thumbnail",
-                attrs: { src: _vm.course_image }
-              }),
-              _vm._v(" "),
-              _c("div", { staticClass: "from-group" }, [
-                _c("button", { staticClass: "btn btn-link text-primary" }, [
-                  _vm._v("Edit")
-                ]),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-link text-danger",
-                    on: { click: _vm.delete_course_image }
-                  },
-                  [_vm._v("Delete")]
+        _c("div", { staticClass: "card mt-3 mb-3" }, [
+          _c("div", { staticClass: "card-body" }, [
+            _c("h5", [_vm._v("Course Promo Video")]),
+            _vm._v(" "),
+            _vm.course_promo_video
+              ? _c(
+                  "div",
+                  [
+                    _c("vue-plyr", [
+                      _c(
+                        "video",
+                        {
+                          attrs: { width: "320", height: "240", controls: "" }
+                        },
+                        [
+                          _c("source", {
+                            attrs: { src: "/storage/" + _vm.course_promo_video }
+                          }),
+                          _vm._v(
+                            "\n                            Your browser does not support the video tag.\n                        "
+                          )
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "from-group" }, [
+                      _c(
+                        "button",
+                        { staticClass: "btn btn-link text-primary" },
+                        [_vm._v("Replace")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-link text-danger",
+                          on: { click: _vm.delete_course_promo }
+                        },
+                        [_vm._v("Delete")]
+                      )
+                    ])
+                  ],
+                  1
                 )
-              ])
-            ])
-          : _c(
-              "form",
-              {
-                attrs: { method: "POST", enctype: "multipart/form-data" },
-                on: {
-                  submit: function($event) {
-                    $event.preventDefault()
-                    return _vm.upload_course_image($event)
-                  }
-                }
-              },
-              [
-                _c("input", {
-                  ref: "file",
-                  attrs: { type: "file", name: "file" },
-                  on: { change: _vm.course_image_selected }
-                }),
-                _vm._v(" "),
-                _c(
-                  "button",
+              : _c(
+                  "form",
                   {
-                    staticClass: "btn btn-success btn-lg",
-                    attrs: { type: "submit" }
+                    staticClass: "mt-3",
+                    attrs: { method: "POST", enctype: "multipart/form-data" },
+                    on: {
+                      submit: function($event) {
+                        $event.preventDefault()
+                        return _vm.upload_course_promo($event)
+                      }
+                    }
                   },
-                  [_vm._v("Upload Image")]
+                  [
+                    _c("input", {
+                      ref: "file",
+                      attrs: { type: "file", name: "file" },
+                      on: { change: _vm.course_promo_selected }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-success btn-block mt-2",
+                        attrs: { type: "submit" }
+                      },
+                      [_vm._v("Upload Promo Video")]
+                    )
+                  ]
                 )
-              ]
-            )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "card card-body mt-3 mb-3" }, [
-        _c("h4", [_vm._v("Course Promo Video")]),
-        _vm._v(" "),
-        _vm.course_promo_video
-          ? _c("div", [
-              _vm._v(
-                "\n                " +
-                  _vm._s(_vm.course_promo_video) +
-                  "\n                "
-              ),
-              _c("img", {
-                staticClass: "img-thumbnail",
-                attrs: { src: _vm.course_promo_video }
-              }),
-              _vm._v(" "),
-              _vm._m(0)
-            ])
-          : _c(
-              "form",
-              {
-                attrs: { method: "POST", enctype: "multipart/form-data" },
-                on: {
-                  submit: function($event) {
-                    $event.preventDefault()
-                    return _vm.upload_course_promo($event)
-                  }
-                }
-              },
-              [
-                _c("input", {
-                  ref: "file",
-                  attrs: { type: "file", name: "file" },
-                  on: { change: _vm.course_promo_selected }
-                }),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-success btn-lg",
-                    attrs: { type: "submit" }
-                  },
-                  [_vm._v("Upload Promo Video")]
-                )
-              ]
-            )
+          ])
+        ])
       ])
     ],
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "from-group" }, [
-      _c("button", { staticClass: "btn btn-link text-primary" }, [
-        _vm._v("Edit")
-      ]),
-      _vm._v(" "),
-      _c("button", { staticClass: "btn btn-link text-danger" }, [
-        _vm._v("Delete")
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
