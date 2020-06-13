@@ -157,10 +157,66 @@ export default {
         },
 
         //Delete Course Thumbnail
+        delete_course_thumbnail(){
+            const course_id = this.$route.params.course_id;
+            if(course_id){
+                axios.delete(`/api/instructor/delete-course-thumbnail/${course_id}`)
+                .then(response=>{
+                    //Success Message
+                    Vue.toasted.success(response.data,{
+                        icon: {
+                            name: 'fa-check',
+                        }
+                    });
+                    this.load_course_media(this.$route.params.course_id);
+                })
+                .catch(error=>{
+                    //Error Message
+                    Vue.toasted.error(error.response.data.message,{
+                        icon: {
+                            name: 'fa-check',
+                        }
+                    });
+                })
+            }
+            else{
+                alert('Course ID not exist');
+            }    
+        },
+
+        //Delete Course Image
         delete_course_image(){
             const course_id = this.$route.params.course_id;
             if(course_id){
                 axios.delete(`/api/instructor/delete-course-image/${course_id}`)
+                .then(response=>{
+                    //Success Message
+                    Vue.toasted.success(response.data,{
+                        icon: {
+                            name: 'fa-check',
+                        }
+                    });
+                    this.load_course_media(this.$route.params.course_id);
+                })
+                .catch(error=>{
+                    //Error Message
+                    Vue.toasted.error(error.response.data.message,{
+                        icon: {
+                            name: 'fa-check',
+                        }
+                    });
+                })
+            }
+            else{
+                alert('Course ID not exist');
+            }    
+        },
+
+        //Delete Course Promo
+        delete_course_promo(){
+            const course_id = this.$route.params.course_id;
+            if(course_id){
+                axios.delete(`/api/instructor/delete-course-promo/${course_id}`)
                 .then(response=>{
                     //Success Message
                     Vue.toasted.success(response.data,{

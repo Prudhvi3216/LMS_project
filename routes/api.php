@@ -47,7 +47,9 @@ Route::group(['prefix'=>'instructor', 'middleware'=>'auth:api'], function() {
   Route::post('/upload-course-thumbnail', 'fileUploadController@upload_course_thumbnail');
   Route::post('/upload-course-image', 'fileUploadController@upload_course_image');
   Route::post('/upload-course-promo', 'fileUploadController@upload_course_promo');
+  Route::delete('/delete-course-thumbnail/{course_id}', 'fileUploadController@delete_course_thumbnail');
   Route::delete('/delete-course-image/{course_id}', 'fileUploadController@delete_course_image');
+  Route::delete('/delete-course-promo/{course_id}', 'fileUploadController@delete_course_promo');
   Route::get('/get-course-media/{id}', 'InstructorController@get_course_media');
 
   //Curriculum Routes

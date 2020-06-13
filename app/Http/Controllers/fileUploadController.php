@@ -177,7 +177,7 @@ class fileUploadController extends Controller
                 return response()->json([$file_validation->errors()->all()],422);
             }
             else{                
-                $file_path = Storage::disk('gcs')->put('/course_images', $request->image_file);
+                $file_path = Storage::disk('public')->put('/course_images', $request->image_file);
                 if($file_path){
                     $course_id = $request->course_id;
                     $course = Course::find($course_id);
@@ -192,7 +192,6 @@ class fileUploadController extends Controller
             }
         }
 
-    
         //Course Thumbnail upload
         public function upload_course_thumbnail(Request $request){
 
@@ -205,7 +204,7 @@ class fileUploadController extends Controller
                 return response()->json([$file_validation->errors()->all()],422);
             }
             else{                
-                $file_path = Storage::disk('gcs')->put('/course_thumbnails', $request->thumbnail_file);
+                $file_path = Storage::disk('public')->put('/course_thumbnails', $request->thumbnail_file);
                 if($file_path){
                     $course_id = $request->course_id;
                     $course = Course::find($course_id);
@@ -220,8 +219,34 @@ class fileUploadController extends Controller
             }
         }
 
+
+        //Upload Course Promo Video
+        public function upload_course_promo(Request $request){
+            $file_validation = Validator::make($request->all(), [
+                'course_id' => 'numeric',
+                'promo_file' => 'mimetypes:video/avi,video/mpeg,video/quicktime,video/mp4',
+            ]);
+
+            if($file_validation->fails()){
+                return response()->json([$file_validation->errors()->all()],422);
+            }
+            else{
+                $file_path = Storage::disk('public')->put('/course_promo_videos', $request->promo_file);
+                if($file_path){
+                    $course_id = $request->course_id;
+                    $course = Course::find($course_id);
+                    $course->course_video = $file_path;
+                    $course->save();
+                    return response()->json('File Uploaded and Data Inserted Successfully',200);
+                }
+                else{
+                    return response()->json('File Not Uploaded',422);
+                }   
+            }
+        }
+
         //Delete Course Thumbnail
-        public function delete_course_image($course_id){
+        public function delete_course_thumbnail($course_id){
             $storage_path = '';
             $course = Course::find($course_id);
             if($course){
@@ -229,7 +254,7 @@ class fileUploadController extends Controller
                 if($file_name){
                     $course->course_image = '';
                     $course->save();
-                    $file_deleted = Storage::disk('gcs')->delete($file_name);
+                    $file_deleted = Storage::disk('public')->delete($file_name);
                     if($file_deleted){
                         return response()->json('File Deleted Successfully',200);
                     }
@@ -248,29 +273,61 @@ class fileUploadController extends Controller
             }
         }
 
-        //Upload Course Promo Video
-        public function upload_course_promo(Request $request){
-            $file_validation = Validator::make($request->all(), [
-                'course_id' => 'numeric',
-                'promo_file' => 'mimetypes:video/avi,video/mpeg,video/quicktime,video/mp4',
-            ]);
 
-            if($file_validation->fails()){
-                return response()->json([$file_validation->errors()->all()],422);
-            }
-            else{
-                $file_path = Storage::disk('gcs')->put('/course_promo_videos', $request->promo_file);
-                if($file_path){
-                    $course_id = $request->course_id;
-                    $course = Course::find($course_id);
-                    $course->course_video = $file_path;
+        //Delete Course Thumbnail
+        public function delete_course_image($course_id){
+            $storage_path = '';
+            $course = Course::find($course_id);
+            if($course){
+                $file_name = $course->course_image;
+                if($file_name){
+                    $course->course_image = '';
                     $course->save();
-                    return response()->json('File Uploaded and Data Inserted Successfully',200);
+                    $file_deleted = Storage::disk('public')->delete($file_name);
+                    if($file_deleted){
+                        return response()->json('File Deleted Successfully',200);
+                    }
+                    else{
+                        return response()->json('Unable to delete file from GCS, please check!',422);
+                    }
+                    
                 }
                 else{
-                    return response()->json('File Not Uploaded',422);
-                }   
+                    return response()->json('Thumbnail Image Path Not Found',422);
+                }
+
+            }
+            else{
+                return response()->json('Course not exits',422);
             }
         }
 
+
+        //Delete Course Thumbnail
+        public function delete_course_promo($course_id){
+            $storage_path = '';
+            $course = Course::find($course_id);
+            if($course){
+                $file_name = $course->course_image;
+                if($file_name){
+                    $course->course_image = '';
+                    $course->save();
+                    $file_deleted = Storage::disk('public')->delete($file_name);
+                    if($file_deleted){
+                        return response()->json('File Deleted Successfully',200);
+                    }
+                    else{
+                        return response()->json('Unable to delete file from GCS, please check!',422);
+                    }
+                    
+                }
+                else{
+                    return response()->json('Thumbnail Image Path Not Found',422);
+                }
+
+            }
+            else{
+                return response()->json('Course not exits',422);
+            }
+        }
 }
