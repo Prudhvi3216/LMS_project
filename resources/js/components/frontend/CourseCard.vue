@@ -17,7 +17,6 @@
                 v-model="rating"
             ></star-rating>
             <slot name="price"></slot>
-           
         </div>
          <slot name="access"></slot>
     </div>

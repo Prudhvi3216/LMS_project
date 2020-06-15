@@ -26,8 +26,6 @@ class CreateCurriculumLecturesQuizTable extends Migration {
 			$table->integer('publish')->default(0);
 			$table->text('resources')->nullable();
 			$table->timestamps();
-			//$table->dateTime('createdOn');
-			//$table->dateTime('updatedOn');
 		});
 	}
 
